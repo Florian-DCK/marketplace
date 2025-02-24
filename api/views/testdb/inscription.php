@@ -10,6 +10,17 @@
 </head>
 
 <body class="">
+
+<?php
+if (isset($_GET['success'])) {
+    if ($_GET['success'] === '0') {
+        echo '<div class="alert alert-danger" role="alert">Email déjà utilisé</div>';
+    } elseif ($_GET['success'] === '1') {
+        echo '<div class="alert alert-success" role="alert">L\'email n\'existe pas, enregistrement réussi</div>';
+    }
+}
+?>
+
     <div class="d-flex justify-content-center">
         <form class="d-flex flex-column align-items-center" method="POST" action="../../../api/models/connection_et_inscription/traitement.php">
             <h1 class="mb-3">Inscription</h1>

@@ -55,7 +55,9 @@ if (isset($_POST['ok'])) {
 
    // Si l'email existe déjà, afficher un message d'erreur
    if ($count > 0) {
-      return "0"; 
+      // Redirection vers la page d'inscription avec un message d'erreur
+      header("Location: /../../../api/views/testdb/inscription.php?success=0");
+      exit;
    } else {
       // Si l'email n'existe pas, on procède à l'insertion
       $requete = $db->prepare("INSERT INTO User 
@@ -78,7 +80,8 @@ if (isset($_POST['ok'])) {
          ":operator_level" => $operator_level,
       ));
 
-      echo "Inscription réussie"."<br>";
+      header("Location: /../../../api/views/testdb/inscription.php?success=1");
+      exit;
      
    }
 }
