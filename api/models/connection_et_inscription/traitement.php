@@ -1,14 +1,31 @@
 <?php
+
 // db_connection.php
 
-$db = "marketPlaceWorkshop";
+// Charger l'autoloader de Composer
+require_once __DIR__ . '/../../../vendor/autoload.php';
+
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../../');
+$dotenv->load();
+
+
+// Récupérer les variables d'environnement
+$host    = $_ENV['DB_HOST'];
+$port    = $_ENV['DB_PORT'];
+$dbname  = $_ENV['DB_NAME'];
+$charset = $_ENV['DB_CHARSET'];
+$user    = $_ENV['DB_USER'];
+$pass    = $_ENV['DB_PASS'];
 
 try {
-   $db = new PDO('mysql:host=51.91.12.160;port=9109;dbname=marketPlaceWorkshop;charset=utf8', 'malacort_antoine', 'lWqUip20QangrHzH');
-   $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $dsn = "mysql:host=$host;port=$port;dbname=$dbname;charset=$charset";
+    $db = new PDO($dsn, $user, $pass);
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    echo "Connexion réussie à la base de données.\n";
 } catch (PDOException $e) {
-   echo 'Erreur de connexion : ' . $e->getMessage() . "\n";
-   exit;
+    echo 'Erreur de connexion : ' . $e->getMessage() . "\n";
+    exit;
 }
 
 if (isset($_POST['ok'])) {

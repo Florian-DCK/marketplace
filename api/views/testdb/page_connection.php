@@ -10,7 +10,7 @@
 </head>
 <body class="">
     <div class="d-flex justify-content-center">
-        <form class="d-flex flex-column align-items-center" method="POST" action="connection.php">
+        <form class="d-flex flex-column align-items-center" method="POST" action="../../../api/models/connection_et_inscription/connection.php">
             <h1 class="mb-3">Connection</h1>
 
             <!-- Champ Email -->
