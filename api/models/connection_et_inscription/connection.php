@@ -32,7 +32,7 @@ try {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Récupération des données du formulaire
         $email = isset($_POST['email']) ? $_POST['email'] : '';
-        $password = isset($_POST['pass']) ? $_POST['pass'] : '';
+        $password = isset($_POST['password']) ? $_POST['password'] : '';
     
         // Vérification que les champs sont non vides
         if ($email != "" && $password != "") {
