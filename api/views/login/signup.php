@@ -2,7 +2,7 @@
 
 <form action="" method="" class="h-screen flex flex-col justify-center items-center w-full">
     <div class="mb-8">
-        <p class="font-semibold tracking-tight text-5xl text-[#FFD1A9]">Create your account</p>
+        <p class="font-semibold tracking-tight text-6xl text-[#FFD1A9]">Create your account</p>
     </div>
     <div class="flex relative mb-8">
         <input type="text" 
