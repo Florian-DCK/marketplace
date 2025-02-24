@@ -19,13 +19,13 @@ $user    = $_ENV['DB_USER'];
 $pass    = $_ENV['DB_PASS'];
 
 try {
-    $dsn = "mysql:host=$host;port=$port;dbname=$dbname;charset=$charset";
-    $db = new PDO($dsn, $user, $pass);
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Connexion réussie à la base de données.\n";
+   $dsn = "mysql:host=$host;port=$port;dbname=$dbname;charset=$charset";
+   $db = new PDO($dsn, $user, $pass);
+   $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+   echo "Connexion réussie à la base de données.\n";
 } catch (PDOException $e) {
-    echo 'Erreur de connexion : ' . $e->getMessage() . "\n";
-    exit;
+   echo 'Erreur de connexion : ' . $e->getMessage() . "\n";
+   exit;
 }
 
 if (isset($_POST['ok'])) {
