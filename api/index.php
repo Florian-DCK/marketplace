@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h1 class=" text-3xl font-bold underline">OUI</h1>
+    <?php include __DIR__ . '/views/navbar/navbar.php'; ?>
 </body>
 </html>
