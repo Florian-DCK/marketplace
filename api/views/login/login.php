@@ -18,7 +18,7 @@
     <div class="flex relative mb-8">
         <input type="password" 
                 name="password"
-                placeholder="Email" 
+                placeholder="Password" 
                 required
                 class="peer p-2 ps-10 rounded-sm bg-[#EAEBED] w-md border border-transparent text-[#9F9F9F] w-full focus:outline-none invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 invalid:[&:not(:placeholder-shown):not(:focus)]:text-red-500">
             <svg  width="800" height="800" fill="#9F9F9F" viewBox="0 0 128 128"
