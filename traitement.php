@@ -1,5 +1,4 @@
 <?php
-
 // db_connection.php
 
 $db = "marketPlaceWorkshop";
@@ -7,7 +6,6 @@ $db = "marketPlaceWorkshop";
 try {
    $db = new PDO('mysql:host=51.91.12.160;port=9109;dbname=marketPlaceWorkshop;charset=utf8', 'malacort_antoine', 'lWqUip20QangrHzH');
    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-   echo "Connexion réussie à la base de données.\n";
 } catch (PDOException $e) {
    echo 'Erreur de connexion : ' . $e->getMessage() . "\n";
    exit;
@@ -29,43 +27,40 @@ if (isset($_POST['ok'])) {
    // Hachage du mot de passe pour plus de sécurité
    $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
 
-   // Requête préparée
-   $requete = $db->prepare("INSERT INTO User 
-      (id, name, surname, email, phone, avatar, birthDate, creation_date, last_modified, isActive, pass, operator_level) 
-      VALUES 
-      (0, :nom, :prenom, :email, :telephone, :avatar, :birthDate, :creation_date, :last_modified, :isActive, :pass, :operator_level)");
+   // Vérification si l'email existe déjà
+   $stmt = $db->prepare("SELECT COUNT(*) FROM User WHERE email = :email");
+   $stmt->execute(['email' => $email]);
 
-   // Exécution de la requête avec les paramètres
-   $requete->execute(array(
-      ":nom" => $nom,
-      ":prenom" => $prenom,
-      ":email" => $email,
-      ":telephone" => $telephone,
-      ":avatar" => $avatar,
-      ":birthDate" => $birthDate,
-      ":creation_date" => $creation_date,
-      ":last_modified" => $last_modified,
-      ":isActive" => $isActive,
-      ":pass" => $mdp_hash,
-      ":operator_level" => $operator_level,
-   ));
+   // Récupération du nombre d'enregistrements correspondant à l'email
+   $count = $stmt->fetchColumn();
 
-   echo "Inscription réussie";
+   // Si l'email existe déjà, afficher un message d'erreur
+   if ($count > 0) {
+      echo "L'adresse email existe déjà.";
+   } else {
+      // Si l'email n'existe pas, on procède à l'insertion
+      $requete = $db->prepare("INSERT INTO User 
+         (id, name, surname, email, phone, avatar, birthDate, creation_date, last_modified, isActive, pass, operator_level) 
+         VALUES 
+         (0, :name, :surname, :email, :phone, :avatar, :birthDate, :creation_date, :last_modified, :isActive, :pass, :operator_level)");
+
+      // Exécution de la requête avec les paramètres
+      $requete->execute(array(
+         ":name" => $nom,
+         ":surname" => $prenom,
+         ":email" => $email,
+         ":phone" => $telephone,
+         ":avatar" => $avatar,
+         ":birthDate" => $birthDate,
+         ":creation_date" => $creation_date,
+         ":last_modified" => $last_modified,
+         ":isActive" => $isActive,
+         ":pass" => $mdp_hash,
+         ":operator_level" => $operator_level,
+      ));
+
+      echo "Inscription réussie";
+   }
 }
 
-// L'adresse email à vérifier
-$email = 'azerazer@fqefq';
-
-// Préparation de la requête pour éviter les injections SQL
-$stmt = $db->prepare("SELECT COUNT(*) FROM utilisateurs WHERE email = :email");
-$stmt->execute(['email' => $email]);
-
-// Récupération du nombre d'enregistrements correspondant à l'email
-$count = $stmt->fetchColumn();
-
-if ($count > 0) {
-    echo "L'adresse email existe déjà.";
-} else {
-    echo "L'adresse email n'existe pas.";
-}
 ?>
