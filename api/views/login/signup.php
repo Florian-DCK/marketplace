@@ -1,6 +1,6 @@
 <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 
-<form action="" method="" class="h-screen flex flex-col justify-center items-center">
+<form action="" method="" class="h-screen flex flex-col justify-center items-center w-full">
     <div class="mb-8">
         <p class="font-semibold tracking-tight text-5xl text-[#FFD1A9]">Create your account</p>
     </div>
