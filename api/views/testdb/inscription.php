@@ -8,6 +8,7 @@
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
+
 <body class="">
     <div class="d-flex justify-content-center">
         <form class="d-flex flex-column align-items-center" method="POST" action="../../../api/models/connection_et_inscription/traitement.php">

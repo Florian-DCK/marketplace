@@ -1,4 +1,7 @@
+
 <?php
+// 0 == L'adresse email existe déja
+
 
 // db_connection.php
 
@@ -22,7 +25,6 @@ try {
    $dsn = "mysql:host=$host;port=$port;dbname=$dbname;charset=$charset";
    $db = new PDO($dsn, $user, $pass);
    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-   echo "Connexion réussie à la base de données.\n";
 } catch (PDOException $e) {
    echo 'Erreur de connexion : ' . $e->getMessage() . "\n";
    exit;
@@ -53,7 +55,7 @@ if (isset($_POST['ok'])) {
 
    // Si l'email existe déjà, afficher un message d'erreur
    if ($count > 0) {
-      echo "L'adresse email existe déjà.";
+      return "0"; 
    } else {
       // Si l'email n'existe pas, on procède à l'insertion
       $requete = $db->prepare("INSERT INTO User 
@@ -76,7 +78,8 @@ if (isset($_POST['ok'])) {
          ":operator_level" => $operator_level,
       ));
 
-      echo "Inscription réussie";
+      echo "Inscription réussie"."<br>";
+     
    }
 }
 
