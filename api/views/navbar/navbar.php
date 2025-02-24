@@ -9,12 +9,8 @@
 						id="avatar"></div>
 					<h1 class=" text-5xl">Marketplace</h1>
 				</span>
-				<!-- <SearchBar /> -->
                 <?php include 'searchBar.php'; ?>
-				<div>
-					<?php include 'profiles.php'; ?>
-				</div>
+				<?php include 'profiles.php'; ?>
 			</div>
-			<!-- <CategoryNavbar /> -->
             <?php include 'categoryNavbar.php'; ?>
 		</div>
