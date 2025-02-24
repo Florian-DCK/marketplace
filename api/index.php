@@ -7,6 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-    <?php include 'components/navbar.php'; ?>
+    <?php include './views/navbar/navbar.php'; ?>
 </body>
 </html>
