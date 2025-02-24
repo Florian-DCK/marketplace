@@ -12,12 +12,7 @@
 				<!-- <SearchBar /> -->
                 <?php include 'searchBar.php'; ?>
 				<div>
-					<button class="bg-[#5242AE] text-white rounded-lg p-2 m-2">
-						Connexion
-					</button>
-					<button class="bg-[#5242AE] text-white rounded-lg p-2 m-2">
-						Inscription
-					</button>
+					<?php include 'profiles.php'; ?>
 				</div>
 			</div>
 			<!-- <CategoryNavbar /> -->
