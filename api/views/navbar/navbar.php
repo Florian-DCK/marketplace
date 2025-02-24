@@ -10,7 +10,11 @@
 					<h1 class=" text-5xl">Marketplace</h1>
 				</span>
                 <?php include 'searchBar.php'; ?>
-				<?php include 'profiles.php'; ?>
+				<div class="flex items-center mr-2 space-x-3">
+					<?php include 'profiles.php'; ?>
+					<a href=""><img src="/api/public/svgs/message.svg" alt="" class="size-6 cursor-pointer hover:bg-gray-300 rounded-md"></a>
+					<?php include 'dropdown.php'; ?>
+				</div>
 			</div>
             <?php include 'categoryNavbar.php'; ?>
 		</div>

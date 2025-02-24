@@ -1,6 +1,6 @@
 <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 
-<div class="relative mr-5">
+<div class="relative">
     <div class="flex items-center space-x-3 cursor-pointer" id="profile-trigger">
         <p class="select-none" id="user-menu-button-text">John Doe</p>
         <button type="button" class="relative flex rounded-full bg-gray-800 text-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden cursor-pointer" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
