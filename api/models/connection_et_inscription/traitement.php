@@ -1,4 +1,3 @@
-
 <?php
 // 0 == L'adresse email existe déja
 
@@ -82,7 +81,6 @@ if (isset($_POST['ok'])) {
 
       header("Location: /../../../api/views/testdb/inscription.php?success=1");
       exit;
-     
    }
 }
 
