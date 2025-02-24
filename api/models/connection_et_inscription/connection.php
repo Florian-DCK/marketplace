@@ -1,4 +1,3 @@
-
 <?php
 
 // Charger l'autoloader de Composer
@@ -21,7 +20,6 @@ try {
     $dsn = "mysql:host=$host;port=$port;dbname=$dbname;charset=$charset";
     $db = new PDO($dsn, $user, $pass);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Connexion réussie à la base de données.\n";
 } catch (PDOException $e) {
     echo 'Erreur de connexion : ' . $e->getMessage() . "\n";
     exit;
@@ -32,7 +30,7 @@ try {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Récupération des données du formulaire
         $email = isset($_POST['email']) ? $_POST['email'] : '';
-        $password = isset($_POST['pass']) ? $_POST['pass'] : '';
+        $password = isset($_POST['password']) ? $_POST['password'] : '';
     
         // Vérification que les champs sont non vides
         if ($email != "" && $password != "") {
