@@ -49,7 +49,7 @@ try {
                 // Vérification du mot de passe
                 if (password_verify($password, $user['pass'])) {
                     // Redirection vers la page après connexion réussie
-                    header("Location: ../../../api/views/testdb/page.html"); // Page d'accueil après connexion
+                    header("Location: ../../../api/index.php"); // Page d'accueil après connexion
                     exit();
                 } 
             } 
