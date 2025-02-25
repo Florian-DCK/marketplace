@@ -25,7 +25,7 @@ $categories = [
     <ul class="flex space-x-2 items-center w-5/6 justify-center">
         <?php
             foreach ($categories as $category) {
-                echo "<li class='p-2 hover:bg-gray-200 cursor-pointer'>". $category ."</li>";
+                echo "<a href='"."/search?category=".$category."'><li class='p-2 hover:bg-gray-200 cursor-pointer'>". $category ."</li> </a>";
             }
         ?>
     </ul>

@@ -6,7 +6,7 @@
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <title>Document</title>
 </head>
-<body>
+<body class="bg-[#EAEBED]">
     <?php include __DIR__ . '/views/navbar/navbar.php'; ?>
 </body>
 </html>

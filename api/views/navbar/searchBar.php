@@ -7,6 +7,6 @@
             class="bg-white rounded-l-lg px-2"
             placeholder="Search..."
         />
-        <button type="submit" class="bg-white rounded-r-lg border-l px-2">Submit</button>
+        <button type="submit" class="bg-white rounded-r-lg border-l border-gray-200 px-2">Submit</button>
     </form>
 </div>
