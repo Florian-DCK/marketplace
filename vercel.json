@@ -6,6 +6,11 @@
 	},
 	"routes": [
 		{ "src": "/", "dest": "/api/index.php" },
+		{
+			"src": "/api/views/login/signIn-signUp.php",
+			"status": 308,
+			"headers": { "Location": "/login" }
+		},
 		{ "src": "/login", "dest": "/api/views/login/signIn-signUp.php" }
 	]
 }
