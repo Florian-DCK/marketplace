@@ -34,14 +34,14 @@ if (isset($_POST['ok'])) {
    $nom = $_POST['nom'];
    $prenom = $_POST['prenom'];
    $mdp = $_POST['pass'];
-   $email = $_POST['email'];  // Assurez-vous d'ajouter ces champs dans votre formulaire HTML
+   $email = $_POST['email']; 
    $telephone = $_POST['telephone'];
-   $avatar = $_POST['avatar'];  // Ajoutez un champ avatar si nécessaire
+   $avatar = $_POST['avatar']; 
    $birthDate = $_POST['birthDate'];
    $creation_date = date('Y-m-d H:i:s');  // Date actuelle pour la création
    $last_modified = $creation_date;  // Date actuelle pour la modification
-   $isActive = 1;  // Par défaut l'utilisateur est actif
-   $operator_level = 1;  // Vous pouvez définir ce niveau selon votre logique
+   $isActive = 1;  
+   $operator_level = 1;  
    // Hachage du mot de passe pour plus de sécurité
    $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
 
