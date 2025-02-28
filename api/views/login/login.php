@@ -2,7 +2,7 @@
 
 <form action="" method="" class="h-screen flex flex-col justify-center items-center bg-[#FFD1A9] w-full">
     <div class="mb-10">
-        <p class="font-semibold tracking-tight text-7xl text-white">Sign in to your account</p>
+        <p class="font-semibold tracking-tight text-7xl text-white whitespace-nowrap">Sign in to your account</p>
     </div>
     <div class="flex relative mb-10">
         <input type="email" 
