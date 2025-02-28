@@ -1,8 +1,9 @@
 <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 
-<form action="" method="" class="h-screen flex flex-col justify-center items-center bg-[#FFD1A9] w-full">
-    <div class="mb-10">
-        <p class="font-semibold tracking-tight text-7xl text-white whitespace-nowrap">Sign in to your account</p>
+<form action="" method="" class="h-screen flex flex-col p-1 justify-center items-center bg-[#FFD1A9] w-full">
+    <div class="mb-10 flex flex-col lg:flex-row items-center">
+        <p class="font-semibold tracking-tight text-7xl text-white whitespace-nowrap">Sign in</p>
+        <p class="font-semibold tracking-tight text-7xl text-white whitespace-nowrap">to your account</p>
     </div>
     <div class="flex relative mb-10">
         <input type="email" 
