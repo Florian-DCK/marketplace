@@ -2,10 +2,10 @@
 
 <form action="" method="" class="h-screen flex flex-col p-1 justify-center items-center bg-[#FFD1A9] w-full">
     <div class="mb-10 flex flex-col lg:flex-row items-center">
-        <p class="font-semibold tracking-tight text-7xl text-white whitespace-nowrap">Sign in</p>
-        <p class="font-semibold tracking-tight text-7xl text-white whitespace-nowrap">to your account</p>
+        <p class="font-semibold tracking-tight text-5xl lg:text-7xl text-white whitespace-nowrap">Sign in</p>
+        <p class="font-semibold tracking-tight text-5xl lg:text-7xl text-white whitespace-nowrap">to your account</p>
     </div>
-    <div class="flex relative mb-10">
+    <div class="flex relative mb-10 mx-5 lg:mx-0">
         <input type="email" 
                 name="email"
                 placeholder="Email" 
