@@ -37,14 +37,17 @@ function connection($email=null,$password=null){
             $stmt = $GLOBALS['db']->prepare("SELECT * FROM User WHERE email = :email");
             $stmt->bindParam(':email', $email);
             $stmt->execute();
+            echo    'Jesuis toujours aussi beau';
     
             // Récupération de l'utilisateur correspondant à l'email
             $user = $stmt->fetch();
     
             // Si l'utilisateur existe
             if ($user) {
+                echo"Maintenant aussi";
                 // Vérification du mot de passe
                 if (password_verify($password, $user['pass'])) {
+                    echo 'et la aussi';
                     // Redirection vers la page après connexion réussie
                     return true;
                 } 
