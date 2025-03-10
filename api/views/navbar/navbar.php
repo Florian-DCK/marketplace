@@ -1,6 +1,8 @@
 
 <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-
+<?php 
+	$url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
+?>
 		<div class="relative h-max w-screen bg-[#EAEBED]">
 			<div class="flex items-center justify-between">
 				<span class="flex items-center">
@@ -18,5 +20,9 @@
 					<?php include 'dropdown.php'; ?>
 				</div>
 			</div>
-            <?php include 'categoryNavbar.php'; ?>
+            <?php
+				if(!str_contains($url, 'dashboard')){
+					include 'categoryNavbar.php';
+				}
+			?>
 		</div>
