@@ -1,6 +1,6 @@
 <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 
-<form action="../../../api/models/connection_et_inscription/traitement.php" method="POST" class="h-screen flex flex-col justify-center items-center w-full">
+<form action="../../../api/models/connection_et_inscription/inscription.php" method="POST" class="h-screen flex flex-col justify-center items-center w-full">
     <div class="mb-8">
         <p class="font-semibold tracking-tight text-6xl text-[#FFD1A9]">Create your account</p>
     </div>

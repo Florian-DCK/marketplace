@@ -55,7 +55,7 @@ if (isset($_POST['ok'])) {
    // Si l'email existe déjà, afficher un message d'erreur
    if ($count > 0) {
       // Redirection vers la page d'inscription avec un message d'erreur
-      header("Location: /../../../api/views/testdb/inscription.php?success=0");
+      header("Location: /../../../api/views/login/signup.php?success=0");
       exit;
    } else {
       // Si l'email n'existe pas, on procède à l'insertion
@@ -79,7 +79,6 @@ if (isset($_POST['ok'])) {
          ":operator_level" => $operator_level,
       ));
 
-      
       exit;
    }
 }
