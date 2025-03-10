@@ -274,19 +274,10 @@ try {
 
 
 
-$id = 29; // L'ID de l'utilisateur à mettre à jour
-$name = "John Dao"; // Le nouveau nom que tu souhaites attribuer à l'utilisateur
-$phone = 111222116;
-$email = "lb@lb";
-$mdp = "fureurs";
+$id = 43; // L'ID de l'utilisateur à mettre à jour
+$mdp = "bobo";
 // Appeler la fonction pour mettre à jour le nom
-updateName ($db, $id, $name);
-
-updatePhone ($db, $phone, $id );
-
-updateEmail( $db, $email, $id );
-
-updatePass($db, $mdp, $id );
+updatePass($db, $id, $mdp );
 ?>
 
 
