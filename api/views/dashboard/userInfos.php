@@ -7,16 +7,16 @@
     // La fonction getUserInfo devrait retourner un tableau associatif
     if ($userInfos) {
         // Attribution des valeurs aux variables individuelles
-        $last_name = $userInfos['last_name'] ?? '';
-        $first_name = $userInfos['first_name'] ?? '';
-        $password = $userInfos['password'] ?? '';
+        $last_name = $userInfos['surname'] ?? '';
+        $first_name = $userInfos['name'] ?? '';
+        $password = $userInfos['pass'] ?? '';
         $email = $userInfos['email'] ?? '';
-        $phone_number = $userInfos['phone_number'] ?? '';
+        $phone_number = $userInfos['phone'] ?? '';
         $avatar = $userInfos['avatar'] ?? '';
         $birthDate = $userInfos['birthDate'] ?? '';
-        $creationDate = $userInfos['creationDate'] ?? '';
-        $lastModified = $userInfos['lastModified'] ?? '';
-        $operatorLevel = $userInfos['operatorLevel'] ?? '';
+        $creationDate = $userInfos['creation_date'] ?? '';
+        $lastModified = $userInfos['last_modified'] ?? '';
+        $operatorLevel = $userInfos['operator_level'] ?? '';
     } else {
         // Valeurs par défaut si aucune donnée n'est trouvée
         $last_name = $first_name = $password = $email = $phone_number = '';
