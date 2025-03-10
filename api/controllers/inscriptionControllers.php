@@ -1,5 +1,5 @@
 <?php
-   include __DIR__ . "/../models/connection_et_inscription/connexionInscription.php";
+   include __DIR__ . "/../models/users/signInUpModel.php";
    // Récupération des données envoyées via POST
    $nom = $_POST['lastName'];
    $prenom = $_POST['firstName'];
@@ -17,5 +17,5 @@
    $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
 
    $result = inscription($nom=null,$prenom=null,$mdp=null,$email=null,$telephone=null,$avatar=null,$birthDate=null);
-    if($result == true) {header("Location: ../../api/views/login/signIn-signUp.php");}; // Page d'accueil après connexion
+    if($result == true) {header("Location: ../../api/views/login/signInUp.php");}; // Page d'accueil après connexion
 ?>

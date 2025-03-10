@@ -1,6 +1,6 @@
 <?php
     // Variables mockup pour les informations utilisateur
-    include __DIR__ . '/../../models/fonctions/recuperation_infos.php';
+    include __DIR__ . '/../../models/users/getInfosModel.php';
     $userInfos = getUserInfo("lb@la");
     
     // Extraction des données utilisateur
