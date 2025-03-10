@@ -9,17 +9,12 @@
 						id="avatar"></div>
 					<h1 class=" text-5xl">Marketplace</h1>
 				</span>
-				<!-- <SearchBar /> -->
                 <?php include 'searchBar.php'; ?>
-				<div>
-					<button class="bg-[#5242AE] text-white rounded-lg p-2 m-2">
-						Connexion
-					</button>
-					<button class="bg-[#5242AE] text-white rounded-lg p-2 m-2">
-						Inscription
-					</button>
+				<div class="flex items-center mr-2 space-x-3">
+					<?php include 'profiles.php'; ?>
+					<a href=""><img src="/api/public/svgs/message.svg" alt="" class="size-6 cursor-pointer hover:bg-gray-300 rounded-md"></a>
+					<?php include 'dropdown.php'; ?>
 				</div>
 			</div>
-			<!-- <CategoryNavbar /> -->
             <?php include 'categoryNavbar.php'; ?>
 		</div>
