@@ -1,27 +1,38 @@
 <?php
     // Variables mockup pour les informations utilisateur
-    $last_name = "Dupont";
-    $first_name = "Jean";
-    $password = "••••••••";
-    $email = "jean.dupont@exemple.com";
-    $phone_number = "06 12 34 56 78";
-    $avatar = "https://via.placeholder.com/150";
-    $birthDate = "15/05/1985";
-    $creationDate = "01/03/2023";
-    $lastModified = "10/03/2025";
-    $pass = "Premium";
-    $operatorLevel = "Utilisateur";
+    include __DIR__ . '/../../models/fonctions/recuperation_infos.php';
+    $userInfos = getUserInfo("a@a");
+    
+    // Extraction des données utilisateur
+    // La fonction getUserInfo devrait retourner un tableau associatif
+    if ($userInfos) {
+        // Attribution des valeurs aux variables individuelles
+        $last_name = $userInfos['last_name'] ?? '';
+        $first_name = $userInfos['first_name'] ?? '';
+        $password = $userInfos['password'] ?? '';
+        $email = $userInfos['email'] ?? '';
+        $phone_number = $userInfos['phone_number'] ?? '';
+        $avatar = $userInfos['avatar'] ?? '';
+        $birthDate = $userInfos['birthDate'] ?? '';
+        $creationDate = $userInfos['creationDate'] ?? '';
+        $lastModified = $userInfos['lastModified'] ?? '';
+        $operatorLevel = $userInfos['operatorLevel'] ?? '';
+    } else {
+        // Valeurs par défaut si aucune donnée n'est trouvée
+        $last_name = $first_name = $password = $email = $phone_number = '';
+        $avatar = $birthDate = $creationDate = $lastModified = $operatorLevel = '';
+    }
 ?>
 <main class="bg-white w-full h-full rounded-tl-xl p-5">
 
-    <form action="POST" aria-disabled="true" class="grid grid-cols-2 gap-4 [&_input:disabled]:bg-gray-200 [&_input:disabled]:text-opacity-20">
+    <form action="POST" aria-disabled="true" class="grid grid-cols-2 gap-4 [&_input:disabled]:bg-gray-200 [&_input:disabled]:text-gray-400">
         <div class="form-group">
-            <label for="last_name">Nom</label>
+            <label for="lastName">Nom</label>
             <input disabled type="text" id="last_name" value="<?= $last_name ?>" class="border p-2 w-full rounded">
         </div>
         
         <div class="form-group">
-            <label for="first_name">Prénom</label>
+            <label for="firstName">Prénom</label>
             <input disabled type="text" id="first_name" value="<?= $first_name ?>" class="border p-2 w-full rounded">
         </div>
         
@@ -58,11 +69,6 @@
         <div class="form-group">
             <label for="lastModified">Dernière modification</label>
             <input disabled type="text" id="lastModified" value="<?= $lastModified ?>" class="border p-2 w-full rounded" disabled>
-        </div>
-        
-        <div class="form-group">
-            <label for="pass">Pass</label>
-            <input disabled type="text" id="pass" value="<?= $pass ?>" class="border p-2 w-full rounded">
         </div>
         
         <div class="form-group">
