@@ -27,7 +27,7 @@
                     </svg>
     </div>
     <div class="flex relative sm:w-md lg:w-lg mb-8">
-        <input type="date   " 
+        <input type="date" 
                 name="birthDate"
                 placeholder="Date de naissance" 
                 required
