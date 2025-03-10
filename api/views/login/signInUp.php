@@ -7,7 +7,7 @@
 </head>
 
 <?php 
-	$url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
+    $url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
 ?>
 
 <body>
@@ -20,24 +20,45 @@
                 <h1 class="hidden sm:flex sm:text-3xl lg:text-5xl">Marketplace</h1>
             </span>
         </div>
-        <div class="w-screen h-screen flex flex-col lg:flex-row flex"> <!-- Log in dominant -->
+        <div id="login-section" class="w-screen h-screen flex flex-col lg:flex-row"> <!-- Log in dominant -->
             <?php include_once 'signIn.php'; ?>
             <div name="switch-to-signup" class="w-1/2 p-5 flex flex-col lg:text-xl xl:text-2xl mx-auto items-center my-auto whitespace-nowrap font-semibold tracking-tight text-3xl text-[#FFD1A9]">
                 <p class="mb-5 hidden lg:flex">Welcome !</p>
                 <p class="mb-5 hidden lg:flex">Pour créer votre compte,</p>
                 <p class="mb-5 hidden lg:flex">c'est par ici !</p>
-                <button type="submit" class="cursor-pointer flex my-5 justify-center font-semibold text-xl text-white bg-[#FFD1A9] border rounded-full w-60 lg:w-50 py-3 hover:bg-white hover:text-[#FFD1A9] hover:duration-500 ease-in-out hover:scale-115">Create account</button> 
+                <button id="show-signup" type="button" class="cursor-pointer flex my-5 justify-center font-semibold text-xl text-white bg-[#FFD1A9] border rounded-full w-60 lg:w-50 py-3 hover:bg-white hover:text-[#FFD1A9] hover:duration-500 ease-in-out hover:scale-115">Create account</button> 
             </div>
         </div>
-        <div class="w-full h-screen flex flex-col lg:flex-row hidden"> <!-- Sign up dominant --> <!-- pt-70 à check -->
+        <div id="signup-section" class="w-full h-screen flex flex-col lg:flex-row hidden transition-all"> <!-- Sign up dominant -->
             <div name="switch-to-login" class="pt-20 lg:h-full flex flex-col text-center items-center justify-center px-5 font-semibold tracking-tight text-3xl bg-[#FFD1A9] text-white">
                 <p class="mb-5 hidden lg:flex">Welcome back !</p>
                 <p class="mb-5 hidden lg:flex">Pour continuer,</p>
                 <p class="mb-5 hidden lg:flex">veuillez vous connecter !</p>
-                <button type="submit" class="mb-5 cursor-pointer flex justify-center font-semibold text-xl bg-white text-[#FFD1A9] rounded-full w-60 py-3 hover:bg-[#FFD1A9] hover:text-white hover:duration-500 ease-in-out hover:scale-115 border">Log in</button>
+                <button id="show-login" type="button" class="mb-5 cursor-pointer flex justify-center font-semibold text-xl bg-white text-[#FFD1A9] rounded-full w-60 py-3 hover:bg-[#FFD1A9] hover:text-white hover:duration-500 ease-in-out hover:scale-115 border">Log in</button>
             </div>
             <?php include_once 'signUp.php'; ?>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginSection = document.getElementById('login-section');
+            const signupSection = document.getElementById('signup-section');
+            const showSignupBtn = document.getElementById('show-signup');
+            const showLoginBtn = document.getElementById('show-login');
+
+            // Afficher le formulaire d'inscription et masquer le formulaire de connexion
+            showSignupBtn.addEventListener('click', function() {
+                loginSection.classList.add('hidden');
+                signupSection.classList.remove('hidden');
+            });
+
+            // Afficher le formulaire de connexion et masquer le formulaire d'inscription
+            showLoginBtn.addEventListener('click', function() {
+                signupSection.classList.add('hidden');
+                loginSection.classList.remove('hidden');
+            });
+        });
+    </script>
 </body>
 </html>
