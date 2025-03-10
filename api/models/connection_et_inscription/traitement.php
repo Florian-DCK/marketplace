@@ -1,7 +1,6 @@
 <?php
 // 0 == L'adresse email existe déja
 
-
 // db_connection.php
 
 // Charger l'autoloader de Composer
@@ -31,11 +30,12 @@ try {
 
 if (isset($_POST['ok'])) {
    // Récupération des données envoyées via POST
-   $nom = $_POST['nom'];
-   $prenom = $_POST['prenom'];
-   $mdp = $_POST['pass'];
+   $nom = $_POST['last_name'];
+   $prenom = $_POST['first_name'];
+   $mdp = $_POST['password'];
+   $mdpConfirm = $_POST['confirm_password'];
    $email = $_POST['email']; 
-   $telephone = $_POST['telephone'];
+   $telephone = $_POST['phone_number'];
    $avatar = $_POST['avatar']; 
    $birthDate = $_POST['birthDate'];
    $creation_date = date('Y-m-d H:i:s');  // Date actuelle pour la création
@@ -79,9 +79,8 @@ if (isset($_POST['ok'])) {
          ":operator_level" => $operator_level,
       ));
 
-      header("Location: /../../../api/views/testdb/inscription.php?success=1");
+      
       exit;
    }
 }
-
 ?>
