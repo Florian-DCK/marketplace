@@ -1,6 +1,6 @@
 <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 
-<form action="../../../api/models/connection_et_inscription/inscription.php" method="POST" class="h-full flex flex-col justify-center items-center w-full">
+<form action="../../../api/controllers/inscriptionControllers.php" class="h-full flex flex-col justify-center items-center w-full" method="POST">
     <div class="mb-8">
         <p class="font-semibold tracking-tight text-4xl sm:text-5xl lg:text-6xl text-[#FFD1A9] whitespace-nowrap">Create your account</p>
     </div>
@@ -27,7 +27,7 @@
                     </svg>
     </div>
     <div class="flex relative sm:w-md lg:w-lg mb-8">
-        <input type="date   " 
+        <input type="date" 
                 name="birthDate"
                 placeholder="Date de naissance" 
                 required
