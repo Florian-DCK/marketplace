@@ -1,7 +1,11 @@
 <?php
     // Variables mockup pour les informations utilisateur
     include __DIR__ . '/../../models/users/getInfosModel.php';
-    $userInfos = getUserInfo("lb@la");
+
+    // Récupérer userEmail depuis GET au lieu de POST
+    $userEmail = isset($_GET['userEmail']) ? $_GET['userEmail'] : null;
+
+    $userInfos = getUserInfo($userEmail);
     
     // Extraction des données utilisateur
     // La fonction getUserInfo devrait retourner un tableau associatif
@@ -24,7 +28,16 @@
     }
 ?>
 <main class="bg-white w-full h-full rounded-tl-xl p-5">
-
+    <form action="dashboard.php" method="GET" class="grid grid-cols-2 gap-4 [&_input:disabled]:bg-gray-200 [&_input:disabled]:text-gray-400">
+        <div class="form-group">
+            <label for="userEmail">Email de l'utilisateur :</label>
+            <input type="text" name="userEmail" id="userEmail" value="<?= $userEmail ?>" class="border p-2 w-full rounded">
+        </div>
+        <div class="form-group flex items-end">
+            <input type="hidden" name="page" value="userInfos">
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Rechercher</button>
+        </div>
+    </form> 
     <form action="POST" aria-disabled="true" class="grid grid-cols-2 gap-4 [&_input:disabled]:bg-gray-200 [&_input:disabled]:text-gray-400">
         <div class="form-group">
             <label for="lastName">Nom</label>
