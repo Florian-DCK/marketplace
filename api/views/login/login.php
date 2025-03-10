@@ -1,6 +1,6 @@
 <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 
-<form action="" method="post" class="h-full flex flex-col pt-30 items-center lg:justify-center lg:pt-0 bg-[#FFD1A9] w-full">
+<form action="../../../api/controllers/connectionControllers.php" method="POST" class="h-full flex flex-col p-1 items-center bg-[#FFD1A9] w-full pt-30 lg:justify-center lg:pt-0">
     <div class="mb-10 mx-10 flex flex-col lg:flex-row items-center">
         <p class="font-semibold tracking-tight text-5xl lg:text-7xl text-white whitespace-nowrap">Sign in</p>
         <p class="font-semibold tracking-tight text-5xl lg:text-7xl text-white whitespace-nowrap">to your account</p>

@@ -27,7 +27,7 @@ try {
    echo 'Erreur de connexion : ' . $e->getMessage() . "\n";
    exit;
 }
-
+function inscription($nom=null,$prenom=null,$mdp=null,$email=null,$telephone=null,$avatar=null,$birthDate=null){
 if (isset($_POST['ok'])) {
    // Récupération des données envoyées via POST
    $nom = $_POST['last_name'];
@@ -46,7 +46,7 @@ if (isset($_POST['ok'])) {
    $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
 
    // Vérification si l'email existe déjà
-   $stmt = $db->prepare("SELECT COUNT(*) FROM User WHERE email = :email");
+   $stmt = $GLOBALS['db']->prepare("SELECT COUNT(*) FROM User WHERE email = :email");
    $stmt->execute(['email' => $email]);
 
    // Récupération du nombre d'enregistrements correspondant à l'email
@@ -59,7 +59,7 @@ if (isset($_POST['ok'])) {
       exit;
    } else {
       // Si l'email n'existe pas, on procède à l'insertion
-      $requete = $db->prepare("INSERT INTO User 
+      $requete = $GLOBALS['db']->prepare("INSERT INTO User 
          (id, name, surname, email, phone, avatar, birthDate, creation_date, last_modified, isActive, pass, operator_level) 
          VALUES 
          (0, :name, :surname, :email, :phone, :avatar, :birthDate, :creation_date, :last_modified, :isActive, :pass, :operator_level)");
@@ -81,5 +81,6 @@ if (isset($_POST['ok'])) {
 
       exit;
    }
+}
 }
 ?>

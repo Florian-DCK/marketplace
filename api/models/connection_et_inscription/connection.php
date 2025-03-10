@@ -16,26 +16,25 @@ $charset = $_ENV['DB_CHARSET'];
 $user    = $_ENV['DB_USER'];
 $pass    = $_ENV['DB_PASS'];
 
+
 try {
     $dsn = "mysql:host=$host;port=$port;dbname=$dbname;charset=$charset";
-    $db = new PDO($dsn, $user, $pass);
+    $db = new PDO($dsn, $user, $pass); 
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     echo 'Erreur de connexion : ' . $e->getMessage() . "\n";
     exit;
 }
-
+function connection($email=null,$password=null){
     $error_msg = '';
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Récupération des données du formulaire
-        $email = isset($_POST['email']) ? $_POST['email'] : '';
-        $password = isset($_POST['password']) ? $_POST['password'] : '';
     
         // Vérification que les champs sont non vides
         if ($email != "" && $password != "") {
             // Préparation de la requête pour vérifier l'email et le mot de passe
-            $stmt = $db->prepare("SELECT * FROM User WHERE email = :email");
+            $stmt = $GLOBALS['db']->prepare("SELECT * FROM User WHERE email = :email");
             $stmt->bindParam(':email', $email);
             $stmt->execute();
     
@@ -47,13 +46,16 @@ try {
                 // Vérification du mot de passe
                 if (password_verify($password, $user['pass'])) {
                     // Redirection vers la page après connexion réussie
-                    header("Location: ../../../api/index.php"); // Page d'accueil après connexion
-                    exit();
+                    return true;
                 } 
-            } 
+            } else {
+                // erreur l'utilisateur n'existe pas 
+                echo "Error user not found";
+                return false;
+            }
         } 
     }
-
+}
 ?>
 
 
