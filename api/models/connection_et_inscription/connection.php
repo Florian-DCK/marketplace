@@ -33,6 +33,7 @@ try {
         // Récupération des données du formulaire
         $email = isset($_POST['email']) ? $_POST['email'] : '';
         $password = isset($_POST['password']) ? $_POST['password'] : '';
+        echo "Je suis de toute beauté";
     
         // Vérification que les champs sont non vides
         if ($email != "" && $password != "") {
@@ -40,16 +41,20 @@ try {
             $stmt = $db->prepare("SELECT * FROM User WHERE email = :email");
             $stmt->bindParam(':email', $email);
             $stmt->execute();
+            echo    'Jesuis toujours aussi beau';
     
             // Récupération de l'utilisateur correspondant à l'email
             $user = $stmt->fetch();
     
             // Si l'utilisateur existe
             if ($user) {
+                echo"Maintenant aussi";
                 // Vérification du mot de passe
                 if (password_verify($password, $user['pass'])) {
+                    echo 'et la aussi';
                     // Redirection vers la page après connexion réussie
                     header("Location: ../../../api/index.php"); // Page d'accueil après connexion
+                    echo"Maintenant aussi";
                     exit();
                 } 
             } 
