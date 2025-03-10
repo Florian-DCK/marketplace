@@ -1,7 +1,7 @@
 <?php
     // Variables mockup pour les informations utilisateur
     include __DIR__ . '/../../models/fonctions/recuperation_infos.php';
-    $userInfos = getUserInfo("a@a");
+    $userInfos = getUserInfo("lb@la");
     
     // Extraction des données utilisateur
     // La fonction getUserInfo devrait retourner un tableau associatif
