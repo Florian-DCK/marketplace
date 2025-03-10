@@ -21,7 +21,7 @@
                 name="password"
                 placeholder="Password" 
                 required
-                class="peer p-2 ps-10 rounded-sm bg-[#EAEBED] w-full border border-transparent text-[#9F9F9F] w-full focus:outline-none invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 invalid:[&:not(:placeholder-shown):not(:focus)]:text-red-500">
+                class="peer p-2 ps-10 rounded-sm bg-[#EAEBED] border border-transparent text-[#9F9F9F] w-full focus:outline-none invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 invalid:[&:not(:placeholder-shown):not(:focus)]:text-red-500">
             <svg  width="800" height="800" fill="#9F9F9F" viewBox="0 0 128 128"
                 class="w-8 h-8 flex text-red-500 items-center absolute top-1/2  transform -translate-y-1/2 m-0 pl-2 ">
                 <path d="M64 1C47.5 1 34 14.5 34 31v26H15v70h99V57H94V31C94 14.5 80.5 1 64 1zM42 31c0-12.1 9.9-22 22-22s22 9.9 22 22v26H42V31zm64 34v54H23V65h83z"/><path d="M60 81h8v22h-8z"/></svg>
