@@ -7,6 +7,7 @@
         <ul class="h-full w-full flex flex-col space-y-4 text-right px-5 pt-5">
             <?php if(!str_contains($url, "admin")){?>
                 <li><a href="">Mon profil</a></li>
+                <li><a href="">Mes produits</a></li>
                 <li><a href="">Se déconnecter</a></li>
 
             <?php } elseif (str_contains($url, "admin")){ ?>
