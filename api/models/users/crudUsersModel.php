@@ -21,8 +21,8 @@ $stmt = $db->prepare("UPDATE User SET lastModified = NOW() WHERE id = ");
 $stmt = $db->prepare("UPDATE User SET isActive = '' WHERE id = ");
 */
 
-
-
+// Inclure le fichier de connexion à la base de données
+require_once __DIR__ . '/db/connect.php';
 
 
 function updateName($db, $id, $name) {
@@ -54,9 +54,6 @@ function updateName($db, $id, $name) {
 }
 
 
-
-
-
 function updateSurname($db, $id, $surname) {
     try {
         // Démarrer la transaction
@@ -84,8 +81,6 @@ function updateSurname($db, $id, $surname) {
         echo "Erreur : " . $e->getMessage();
     }
 }
-
-
 
 
 function updateEmail($db, $email, $id) {
@@ -131,9 +126,6 @@ function updateEmail($db, $email, $id) {
 }
 
 
-
-
-
 function updatePhone($db, $phone, $id) {
     try {
         // Démarrer la transaction
@@ -177,9 +169,6 @@ function updatePhone($db, $phone, $id) {
 }
 
 
-
-
-
 function updateAvatar($db, $id, $avatar) {
     try {
         // Démarrer la transaction
@@ -207,8 +196,6 @@ function updateAvatar($db, $id, $avatar) {
         echo "Erreur : " . $e->getMessage();
     }
 }
-
-
 
 
 function updatePass($db, $id, $mdp) {
@@ -242,42 +229,6 @@ function updatePass($db, $id, $mdp) {
     }
 }
 
-
-
-
-
-require_once __DIR__ . '/../../../vendor/autoload.php';
-
-
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../../');
-$dotenv->load();
-
-
-// Récupérer les variables d'environnement
-$host    = $_ENV['DB_HOST'];
-$port    = $_ENV['DB_PORT'];
-$dbname  = $_ENV['DB_NAME'];
-$charset = $_ENV['DB_CHARSET'];
-$user    = $_ENV['DB_USER'];
-$pass    = $_ENV['DB_PASS'];
-
-try {
-   $dsn = "mysql:host=$host;port=$port;dbname=$dbname;charset=$charset";
-   $db = new PDO($dsn, $user, $pass);
-   $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-   echo 'Erreur de connexion : ' . $e->getMessage() . "\n";
-   exit;
-}
-
-
-
-
-
-$id = 43; // L'ID de l'utilisateur à mettre à jour
-$mdp = "bobo";
-// Appeler la fonction pour mettre à jour le nom
-updatePass($db, $id, $mdp );
 ?>
 
 
