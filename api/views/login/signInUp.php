@@ -22,19 +22,29 @@
         </div>
         <div id="login-section" class="w-screen h-screen flex flex-col lg:flex-row"> <!-- Log in dominant -->
             <?php include_once 'signIn.php'; ?>
-            <div name="switch-to-signup" class="w-1/2 p-5 flex flex-col lg:text-xl xl:text-2xl mx-auto items-center my-auto whitespace-nowrap font-semibold tracking-tight text-3xl text-[#FFD1A9]">
+            <div 
+                name="switch-to-signup" 
+                class="w-1/2 p-5 flex flex-col lg:text-xl xl:text-2xl mx-auto items-center my-auto whitespace-nowrap font-semibold tracking-tight text-3xl text-[#FFD1A9]">
                 <p class="mb-5 hidden lg:flex">Welcome !</p>
-                <p class="mb-5 hidden lg:flex">Pour créer votre compte,</p>
-                <p class="mb-5 hidden lg:flex">c'est par ici !</p>
-                <button id="show-signup" type="button" class="cursor-pointer flex my-5 justify-center font-semibold text-xl text-white bg-[#FFD1A9] border rounded-full w-60 lg:w-50 py-3 hover:bg-white hover:text-[#FFD1A9] hover:duration-500 ease-in-out hover:scale-115">Create account</button> 
+                <p class="mb-5 hidden lg:flex">To create your account,</p>
+                <p class="mb-5 hidden lg:flex">Click below !</p>
+                <button 
+                    id="show-signup" 
+                    type="button" 
+                    class="cursor-pointer flex my-5 justify-center font-semibold text-xl text-white bg-[#FFD1A9] border rounded-full w-60 lg:w-40 py-3 hover:bg-white hover:text-[#FFD1A9] hover:duration-500 ease-in-out hover:scale-115">Create
+                </button> 
             </div>
         </div>
-        <div id="signup-section" class="w-full h-screen flex flex-col lg:flex-row hidden transition-all"> <!-- Sign up dominant -->
-            <div name="switch-to-login" class="pt-20 lg:h-full flex flex-col text-center items-center justify-center px-5 font-semibold tracking-tight text-3xl bg-[#FFD1A9] text-white">
+        <div id="signup-section" class="w-full h-screen hidden flex-col lg:flex-row transition-all"> <!-- Sign up dominant -->
+            <div name="switch-to-login" class="lg:w-1/2 pt-20 lg:h-full flex flex-col text-center items-center justify-center px-5 font-semibold tracking-tight text-3xl bg-[#FFD1A9] text-white">
                 <p class="mb-5 hidden lg:flex">Welcome back !</p>
-                <p class="mb-5 hidden lg:flex">Pour continuer,</p>
-                <p class="mb-5 hidden lg:flex">veuillez vous connecter !</p>
-                <button id="show-login" type="button" class="mb-5 cursor-pointer flex justify-center font-semibold text-xl bg-white text-[#FFD1A9] rounded-full w-60 py-3 hover:bg-[#FFD1A9] hover:text-white hover:duration-500 ease-in-out hover:scale-115 border">Log in</button>
+                <p class="mb-5 hidden lg:flex">To proceed,</p>
+                <p class="mb-5 hidden lg:flex">Please log in !</p>
+                <button 
+                    id="show-login" 
+                    type="button" 
+                    class="mb-5 cursor-pointer flex justify-center font-semibold text-xl bg-white text-[#FFD1A9] rounded-full w-60 lg:w-40 py-3 hover:bg-[#FFD1A9] hover:text-white hover:duration-500 ease-in-out hover:scale-115 border">Log in
+                </button>
             </div>
             <?php include_once 'signUp.php'; ?>
         </div>
@@ -51,6 +61,7 @@
             showSignupBtn.addEventListener('click', function() {
                 loginSection.classList.add('hidden');
                 signupSection.classList.remove('hidden');
+                signupSection.classList.add('flex');
             });
 
             // Afficher le formulaire de connexion et masquer le formulaire d'inscription
