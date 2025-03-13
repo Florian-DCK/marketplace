@@ -17,5 +17,5 @@
    $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
 
    $result = inscription($nom=null,$prenom=null,$mdp=null,$email=null,$telephone=null,$avatar=null,$birthDate=null);
-    if($result == true) {header("Location: ../../api/views/login/signInUp.php");}; // Page d'accueil après connexion
+    if($result == true) {header("Location: /login");}; // Page d'accueil après connexion
 ?>

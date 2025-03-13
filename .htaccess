@@ -1,0 +1,13 @@
+RewriteEngine On
+# Pour localhost, ajustez le RewriteBase au dossier de votre projet
+RewriteBase /
+
+# Rediriger la racine vers index.php
+RewriteRule ^$ api/index.php [L]
+
+# Rediriger /login vers la page de login
+RewriteRule ^login$ api/views/login/signInUp.php [L]
+
+# Rediriger /dashboard et /dashboard/admin
+RewriteRule ^dashboard$ api/views/dashboard/dashboard.php [L]
+RewriteRule ^dashboard/admin$ api/views/dashboard/adminDashboard.php [L]

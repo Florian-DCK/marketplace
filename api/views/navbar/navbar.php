@@ -16,11 +16,11 @@
 			</a>
                 <?php include 'searchBar.php'; ?>
 				<div class="flex items-center mr-2 space-x-3">
-					<a href="/api/views/login/signInUp.php"><button class=" bg-[#5242AE] text-white px-2 py-1 rounded-lg cursor-pointer">Connexion</button></a>
+					<a href="/login"><button class=" bg-[#5242AE] text-white px-2 py-1 rounded-lg cursor-pointer">Connexion</button></a>
 
-					<a href="/api/views/dashboard/dashboard.php"><button class=" bg-[#5242AE] text-white px-2 py-1 rounded-lg cursor-pointer">Dashboard</button></a>
+					<a href="/dashboard"><button class=" bg-[#5242AE] text-white px-2 py-1 rounded-lg cursor-pointer">Dashboard</button></a>
 					
-					<a href="/api/views/dashboard/adminDashboard.php"><button class=" bg-[#5242AE] text-white px-2 py-1 rounded-lg cursor-pointer">Admin</button></a>
+					<a href="/dashboard/admin"><button class=" bg-[#5242AE] text-white px-2 py-1 rounded-lg cursor-pointer">Admin</button></a>
 				</div>
 			</div>
             <?php

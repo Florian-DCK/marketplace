@@ -4,7 +4,7 @@
     $password = isset($_POST['password']) ? $_POST['password'] : '';
 
     $result = connection($email, $password);
-    if($result == true) {header("Location: ../../api/index.php");}; // Page d'accueil après connexion
+    if($result == true) {header("Location: /");}; // Page d'accueil après connexion
     echo "Erreur lors de la connexion"
 
     
