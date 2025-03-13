@@ -28,7 +28,7 @@
     }
 ?>
 <main class="bg-white w-full h-full rounded-tl-xl p-5">
-    <form action="dashboard.php" method="GET" class="grid grid-cols-2 gap-4 [&_input:disabled]:bg-gray-200 [&_input:disabled]:text-gray-400">
+    <form action="/dashboard" method="GET" class="grid grid-cols-2 gap-4 [&_input:disabled]:bg-gray-200 [&_input:disabled]:text-gray-400">
         <div class="form-group">
             <label for="userEmail">Email de l'utilisateur :</label>
             <input type="text" name="userEmail" id="userEmail" value="<?= $userEmail ?>" class="border p-2 w-full rounded">
