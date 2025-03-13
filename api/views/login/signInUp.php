@@ -21,7 +21,7 @@
             </span>
         </div>
         <div id="login-section" class="w-screen h-screen flex flex-col lg:flex-row"> <!-- Log in dominant -->
-            <?php include_once 'signIn.php'; ?>
+            <?php include_once __DIR__ . '/signIn.php'; ?>
             <div name="switch-to-signup" class="w-1/2 p-5 flex flex-col lg:text-xl xl:text-2xl mx-auto items-center my-auto whitespace-nowrap font-semibold tracking-tight text-3xl text-[#FFD1A9]">
                 <p class="mb-5 hidden lg:flex">Welcome !</p>
                 <p class="mb-5 hidden lg:flex">Pour créer votre compte,</p>
@@ -36,7 +36,7 @@
                 <p class="mb-5 hidden lg:flex">veuillez vous connecter !</p>
                 <button id="show-login" type="button" class="mb-5 cursor-pointer flex justify-center font-semibold text-xl bg-white text-[#FFD1A9] rounded-full w-60 py-3 hover:bg-[#FFD1A9] hover:text-white hover:duration-500 ease-in-out hover:scale-115 border">Log in</button>
             </div>
-            <?php include_once 'signUp.php'; ?>
+            <?php include_once __DIR__ . '/signUp.php'; ?>
         </div>
     </div>
 
