@@ -5,7 +5,7 @@
 ?>
 		<div class="relative h-max w-screen bg-[#EAEBED]">
 			<div class="flex items-center justify-between">
-				<a href="/api/index.php">
+				<a href="/">
 				<span class="flex items-center">
 
 					<div
