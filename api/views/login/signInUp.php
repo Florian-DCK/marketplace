@@ -13,12 +13,14 @@
 <body>
     <div class="flex justify-center items-center h-screen w-screen static">
         <div class="absolute top-0 left-0">
-            <span class="flex items-center">
-                <div class="h-12 w-12 bg-[#5242AE] rounded-full m-3"
-                    id="avatar">
-                </div>
-                <h1 class="hidden sm:flex sm:text-3xl lg:text-5xl">Marketplace</h1>
-            </span>
+            <a href="../../index.php">
+                <span class="flex items-center">
+                    <div class="h-12 w-12 bg-[#5242AE] rounded-full m-3"
+                        id="avatar">
+                    </div>
+                    <h1 class="hidden sm:flex sm:text-3xl lg:text-5xl">Marketplace</h1>
+                </span>
+            </a>
         </div>
         <div id="login-section" class="w-screen h-screen flex flex-col lg:flex-row"> <!-- Log in dominant -->
             <?php include_once 'signIn.php'; ?>
