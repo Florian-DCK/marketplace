@@ -1,5 +1,5 @@
 <?php 
-	$url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
+	$url = $_SERVER['REQUEST_URI'];
 ?>
 
 <body>
@@ -11,7 +11,8 @@
                 <li><a href="">Se déconnecter</a></li>
 
             <?php } elseif (str_contains($url, "admin")){ ?>
-                <li><a href="">Ajouter Utilisateur</a></li>
+                <li><a href="/dashboard/admin/addUser">Ajouter Utilisateur</a></li>
+                <li><a href="/dashboard/admin/users">Afficher les utilisateurs</a></li>
                 <li><a href="">Afficher les infos d'un user</a></li>
                 <li><a href="">Modifier Utilisateur</a></li>
                 <li><a href="">Supprimer Utilisateur</a></li>

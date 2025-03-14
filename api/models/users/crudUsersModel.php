@@ -227,6 +227,20 @@ function updatePass($db, $id, $mdp) {
     }
 }
 
+function getUsers($db, $number) {
+    try {
+        $db->beginTransaction();
+    $stmt = $db->prepare("SELECT * FROM User LIMIT :number");
+        $stmt->bindParam(':number', $number);
+        $stmt->execute();
+
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        echo 'Erreur de requête : ' . $e->getMessage();
+        return null;
+    }
+}
+
 ?>
 
 
