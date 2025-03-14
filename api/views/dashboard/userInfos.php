@@ -159,7 +159,7 @@
             }
             
             // Envoi des données modifiées au serveur via fetch
-            fetch('../../controllers/UpdateUserData.php', {
+            fetch('/api/controllers/UpdateUserData.php', {
                 method: 'POST',
                 body: formData
             })
@@ -174,6 +174,7 @@
                     });
                     toggleEdit();
                 } else {
+                    console.log(date.message)
                     alert('Erreur lors de la mise à jour: ' + data.message);
                 }
             })

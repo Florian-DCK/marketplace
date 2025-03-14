@@ -98,7 +98,6 @@ function updateEmail($db, $email, $id) {
         // Si l'email existe déjà, afficher un message d'erreur
         if ($count > 0) {
             // Redirection vers la page d'inscription avec un message d'erreur
-            header("Location: /../../../api/views/testdb/inscription.php?success=0");
             exit;
         }
 
@@ -141,7 +140,6 @@ function updatePhone($db, $phone, $id) {
         // Si le téléphone existe déjà, afficher un message d'erreur
         if ($count > 0) {
             // Redirection vers la page d'inscription avec un message d'erreur
-            header("Location: /../../../api/views/testdb/inscription.php?success=0");
             exit;
         }
 
