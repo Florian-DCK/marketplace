@@ -1,4 +1,3 @@
-<script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 
 <form action="../../../api/controllers/inscriptionControllers.php" class="h-full flex flex-col justify-center items-center w-full" method="POST">
     <div class="mb-8">

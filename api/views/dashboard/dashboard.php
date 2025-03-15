@@ -1,5 +1,4 @@
-<script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-
+<link rel="stylesheet" href="/global.css">
 <main class="h-screen w-screen flex flex-col">
     <?php include __DIR__ . '/../navbar/navbar.php'; ?>
     <div class="bg-[#EAEBED] h-full flex flex-1">

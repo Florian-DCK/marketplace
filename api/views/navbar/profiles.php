@@ -1,4 +1,3 @@
-<script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 
 <div class="relative">
     <div class="flex items-center space-x-3 cursor-pointer" id="profile-trigger">
