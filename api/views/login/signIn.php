@@ -1,4 +1,3 @@
-<script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 
 <form action="../../../api/controllers/connectionControllers.php" method="POST" class="h-full flex flex-col p-1 items-center bg-[#FFD1A9] w-full pt-30 lg:justify-center lg:pt-0">
     <div class="mb-10 mx-10 flex flex-col lg:flex-row items-center">

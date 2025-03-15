@@ -1,5 +1,4 @@
 
-<script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 <?php 
 	$url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
 ?>
