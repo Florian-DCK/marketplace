@@ -7,6 +7,6 @@
     <link rel="stylesheet" href="/global.css">
 </head>
 <body class="bg-[#EAEBED]">
-    <?php include __DIR__ . '/views/navbar/navbar.php'; ?>
+    <?php include __DIR__ . '/views/navbar.php'; ?>
 </body>
 </html>

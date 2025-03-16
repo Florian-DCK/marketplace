@@ -1,11 +1,11 @@
 
 <?php 
 
-require __DIR__ . '/../../../vendor/autoload.php';
+require __DIR__ . '/../../vendor/autoload.php';
 
 $mustache = new Mustache_Engine([
-	'loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../../templates'),
-	'partials_loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../../templates/partials')
+	'loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates'),
+	'partials_loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates/partials')
 ]);
 
 $categories = [
@@ -22,7 +22,7 @@ $categories = [
     "Beauty, healthcare and wellness",
     "Kitchen and houses",
 ];
-$url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
+$url = $_SERVER['REQUEST_URI'];
 
 $data = [
     'isConnected' => false,
@@ -41,3 +41,8 @@ $data = [
 ];
 
 echo $mustache->render('navbar', $data);
+
+unset($mustache);
+unset($categories);
+unset($url);
+unset($data);

@@ -9,5 +9,5 @@ RewriteRule ^$ api/index.php [L]
 RewriteRule ^login$ api/views/login/signInUp.php [L]
 
 # Rediriger /dashboard et /dashboard/admin
-RewriteRule ^dashboard$ api/views/dashboard/dashboard.php [L]
-RewriteRule ^dashboard/admin$ api/views/dashboard/adminDashboard.php [L]
+RewriteRule ^dashboard$ api/views/dashboard.php [L]
+RewriteRule ^dashboard/admin$ api/views/dashboard.php [L]
