@@ -8,19 +8,18 @@
 		</a>
 		{{> searchBar}}
 		{{#showMenu}}
-		<div class="p-2 flex items-center space-x-3">
-			{{#isConnected}}
-				{{> profiles}}
-			{{/isConnected}}
-			{{^isConnected}}
-				<a href="/login"><button class="bg-[#5242AE] text-white px-2 py-1 rounded-lg cursor-pointer">Connexion</button></a>
-			{{/isConnected}}
-			{{> menu}}
-		</div>
+			<div class="p-2 flex items-center space-x-3">
+				{{#isConnected}}
+					{{> profiles}}
+				{{/isConnected}}
+				{{^isConnected}}
+					<a href="/login"><button class="bg-[#5242AE] text-white px-2 py-1 rounded-lg cursor-pointer">Connexion</button></a>
+				{{/isConnected}}
+				{{> menu}}
+			</div>
 		{{/showMenu}}
 	</div>
 	{{#showCategoryNavbar}}
-	{{> categoryNavbar}}
-	<!-- Inclusion partielle pour categoryNavbar.php -->
+		{{> categoryNavbar}}
 	{{/showCategoryNavbar}}
 </div>
