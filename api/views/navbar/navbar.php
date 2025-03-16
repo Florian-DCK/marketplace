@@ -25,8 +25,8 @@ $categories = [
 $url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
 
 $data = [
-	'showCategoryNavbar' => !str_contains($url, 'dashboard'),
     'isConnected' => false,
+	'showCategoryNavbar' => !str_contains($url, 'dashboard'),
 	'showMenu' => true,
 	'categories' => array_map(function($category) {
 		return ['name' => $category];
