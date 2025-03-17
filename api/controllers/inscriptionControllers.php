@@ -18,5 +18,8 @@
    
 
    $result = inscription($nom=null,$prenom=null,$mdp=null,$email=null,$telephone=null,$avatar=null,$birthDate=null);
-    if($result == true) {header("Location: /login");}; // Page d'accueil après connexion
+    if($result == true) {header("Location: /login");} // Page d'accueil après connexion
+    else{
+        echo "Email déja utilisé !";
+    }
 ?>
