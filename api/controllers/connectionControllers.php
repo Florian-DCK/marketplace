@@ -24,7 +24,7 @@ ob_start();
         $_SESSION['avatar'] = $user['avatar'];
         
         // Rediriger vers la page d'accueil ou autre
-        header("Location: ../../api/index.php"); 
+        //header("Location: ../../api/index.php"); 
         exit;
     } else {
         echo "Erreur lors de la connexion";
