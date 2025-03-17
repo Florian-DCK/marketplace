@@ -7,7 +7,7 @@
    $mdpConfirm = $_POST['confirmPassword'];
    $email = $_POST['email']; 
    $telephone = $_POST['phoneNumber'];
-   $avatar = $_POST['image'] ? $_POST['image'] : null; 
+   $avatar = $_FILES['image'] ? $_FILES['image'] : null; 
    $birthDate = $_POST['birthDate'];
    $creation_date = date('Y-m-d H:i:s');  // Date actuelle pour la création
    $last_modified = $creation_date;  // Date actuelle pour la modification
@@ -19,7 +19,7 @@
 
    $result = inscription($nom=null,$prenom=null,$mdp=null,$email=null,$telephone=null,$avatar=null,$birthDate=null);
     if($result == true) {header("Location: /login");} // Page d'accueil après connexion
-    else{
-        echo "Email déja utilisé !";
+    else{ 
+        return header("Location: /login?error=EmailAlreadyUsed");
     }
 ?>

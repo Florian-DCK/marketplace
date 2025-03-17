@@ -19,6 +19,7 @@
     <div class="mb-8">
         <p class="font-semibold tracking-tight text-4xl sm:text-5xl lg:text-6xl text-[#FFD1A9] whitespace-nowrap">Create your account</p>
     </div>
+    
     <div class="flex relative sm:w-md lg:w-lg mb-8">
         <input type="text" 
                 name="firstName"

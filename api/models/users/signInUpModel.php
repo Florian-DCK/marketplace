@@ -47,7 +47,7 @@ function inscription($nom=null, $prenom=null, $mdp=null, $email=null, $telephone
         $mdpConfirm = $_POST['confirmPassword'];
         $email = $_POST['email']; 
         $telephone = $_POST['phoneNumber'];
-        $avatar = $_POST['image']; 
+        $avatar = $_FILES['image']; 
         $birthDate = $_POST['birthDate'];
         $creation_date = date('Y-m-d H:i:s');  // Date actuelle pour la création
         $last_modified = $creation_date;  // Date actuelle pour la modification
