@@ -27,7 +27,7 @@
     $data = [
         'isAdmin' => str_contains($url, 'admin') ? false : true,
         'user' => [
-            'lastName' => $userInfos['lastName'] ?? '', // clé ajustée depuis 'surname'
+            'lastName' => $userInfos['surname'] ?? '', // clé ajustée depuis 'surname'
             'firstName' => $userInfos['name'] ?? '',
             'password' => $userInfos['pass'] ?? '',
             'email' => $userInfos['email'] ?? '',
