@@ -6,6 +6,9 @@
 	},
 	"routes": [
 		{ "src": "/", "dest": "/api/index.php" },
-		{ "src": "/login", "dest": "/api/views/login/signIn-signUp.php" }
+		{ "src": "/login", "dest": "/api/views/login/signInUp.php" },
+		{ "src": "/dashboard", "dest": "/api/views/dashboard.php" },
+		{ "src": "/dashboard/admin", "dest": "/api/views/dashboard.php"},
+		{ "src": "/public/(.*)", "dest": "/api/public/$1" }
 	]
 }
