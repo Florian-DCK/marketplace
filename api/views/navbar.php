@@ -1,5 +1,10 @@
 <?php 
+
+if (getenv('VERCEL')) {
+    session_save_path('/tmp');
+}
 session_start();
+
 require __DIR__ . '/../../vendor/autoload.php';
 
 $mustache = new Mustache_Engine([
