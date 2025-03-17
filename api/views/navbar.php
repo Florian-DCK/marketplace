@@ -40,7 +40,7 @@ $data = [
 ];
 
 // Supprimer le var_dump pour la production
-//var_dump($_SESSION['id']);
+var_dump($_SESSION['id']);
 
 echo $mustache->render('navbar', $data);
 
