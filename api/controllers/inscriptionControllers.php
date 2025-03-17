@@ -7,7 +7,7 @@
    $mdpConfirm = $_POST['confirmPassword'];
    $email = $_POST['email']; 
    $telephone = $_POST['phoneNumber'];
-   $avatar = $_POST['avatar'] ? $_POST['avatar'] : null; 
+   $avatar = $_POST['image'] ? $_POST['image'] : null; 
    $birthDate = $_POST['birthDate'];
    $creation_date = date('Y-m-d H:i:s');  // Date actuelle pour la création
    $last_modified = $creation_date;  // Date actuelle pour la modification

@@ -24,7 +24,7 @@ $categories = [
 ];
 $url = $_SERVER['REQUEST_URI'];
 $data = [
-    'isConnected' =>isset($_SESSION['id']) ,
+    'isConnected' =>$_SESSION ? isset($_SESSION['id']) : false ,
 	'showCategoryNavbar' => !str_contains($url, 'dashboard'),
 	'showMenu' => true,
 	'categories' => array_map(function($category) {
@@ -33,9 +33,9 @@ $data = [
 	'menuItems' => [
 		['url' => '/dashboard', 'label' => 'Your Profile', 'id' => 'user-menu-item-0'],
 		['url' => '/dashboard/admin', 'label' => 'Admin', 'id' => 'user-menu-item-1'],
-		['url' => '#', 'label' => 'Sign Out', 'id' => 'user-menu-item-2'],
+		['url' => '/signOut', 'label' => 'Sign Out', 'id' => 'user-menu-item-2'],
 	],
-    'userName' => $_SESSION['name'],
+    'userName' =>$_SESSION ? $_SESSION['name'] : null ,
     'userProfileImage' => '/api/public/defaultAvatar.jpg'
 ];
 
