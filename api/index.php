@@ -1,3 +1,7 @@
+<?php
+require_once __DIR__ . '/config/session.php';
+init_session();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +12,7 @@
 </head>
 <body class="bg-[#EAEBED] flex flex-col">
     <?php 
-    session_start();
+    //session_start();
     include __DIR__ . '/views/navbar.php'; 
 
     $mustache = new Mustache_Engine([
