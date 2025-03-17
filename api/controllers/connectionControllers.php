@@ -1,4 +1,7 @@
 <?php
+if (getenv('VERCEL')) {
+    session_save_path('/tmp');
+}
 session_start();
 ob_start();
     // Démarrer la session
