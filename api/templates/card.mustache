@@ -1,0 +1,13 @@
+{{# products}}
+<div class='w-48 h-64 flex flex-col items-center rounded-2xl relative drop-shadow-lg hover:scale-105 transition-all cursor-pointer'>
+    <div class="self-start w-full h-12 flex relative">
+        <h3 class="bg-[#303F9F] text-[#FFC107] w-[calc(100%-40px)] text-sm text-left px-2 py-2 mt-1 rounded-t-2xl text-nowrap overflow-hidden">{{name}}</h3>
+        {{> badge}}
+    </div>
+    <div class="bg-[#303F9F] border border-[#FFC107] border-dashed w-[calc(100%-40px)] self-start"></div>
+    <div class="bg-[#303F9F] flex items-center justify-center w-full h-full rounded-b-2xl rounded-tr-lg ">
+        <img src="{{image}}" alt="{{name}}" class="w-36 max-h-5/6 object-cover rounded-lg drop-shadow-lg">
+        <p class="text-white bg-[#FFC107] ps-4 pe-2 absolute bottom-6 right-0 rounded-s-md">{{price}}$</p>
+    </div>
+</div>
+{{/ products}}

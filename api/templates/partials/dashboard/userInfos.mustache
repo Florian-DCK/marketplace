@@ -1,87 +1,64 @@
-<?php
-    include __DIR__ . '/../../models/users/getInfosModel.php';
-
-    $userEmail = isset($_GET['userEmail']) ? $_GET['userEmail'] : null;
-    $userEmail != null ? $userInfos = getUserInfo($userEmail): $userInfos = null;
-    
-    if ($userInfos) {
-        // Attribution des valeurs aux variables individuelles
-        $last_name = $userInfos['surname'] ?? '';
-        $first_name = $userInfos['name'] ?? '';
-        $password = $userInfos['pass'] ?? '';
-        $email = $userInfos['email'] ?? '';
-        $phone_number = $userInfos['phone'] ?? '';
-        $avatar = $userInfos['avatar'] ?? '';
-        $birthDate = $userInfos['birthDate'] ?? '';
-        $creationDate = $userInfos['creation_date'] ?? '';
-        $lastModified = $userInfos['last_modified'] ?? '';
-        $operatorLevel = $userInfos['operator_level'] ?? '';
-    } else {
-        // Valeurs par défaut si aucune donnée n'est trouvée
-        $last_name = $first_name = $password = $email = $phone_number = 'Not Found';
-        $avatar = $birthDate = $creationDate = $lastModified = $operatorLevel = 'Not Found';
-    }
-?>
 <main class="bg-white w-full h-full rounded-tl-xl p-5">
     <form action="/dashboard" method="GET" class="grid grid-cols-2 gap-4 [&_input:disabled]:bg-gray-200 [&_input:disabled]:text-gray-400">
         <div class="form-group">
             <label for="userEmail">Email de l'utilisateur :</label>
-            <input type="text" name="userEmail" id="userEmail" value="<?= $userEmail ?>" class="border p-2 w-full rounded">
+            <input type="text" name="userEmail" id="userEmail" value="{{user.email}}" class="border p-2 w-full rounded">
         </div>
         <div class="form-group flex items-end">
             <input type="hidden" name="page" value="userInfos">
             <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Rechercher</button>
         </div>
     </form> 
-    <form action="../../controllers/UpdateUserData.php" method="POST" aria-disabled="true" class="grid grid-cols-2 gap-4 [&_input:disabled]:bg-gray-200 [&_input:disabled]:text-gray-400">
+
+    <form action="POST" aria-disabled="true" class="grid grid-cols-2 gap-4 [&_input:disabled]:bg-gray-200 [&_input:disabled]:text-gray-400">
         <div class="form-group">
             <label for="lastName">Nom</label>
-            <input disabled type="text" id="lastName" value="<?= $last_name ?>" name="lastName" class="border p-2 w-full rounded editable" data-original="<?= $last_name ?>">
+            <input disabled type="text" id="last_name" value="{{user.lastName}}" class="border p-2 w-full rounded">
         </div>
         
         <div class="form-group">
             <label for="firstName">Prénom</label>
-            <input disabled type="text" id="firstName" value="<?= $first_name ?>" name="firstName" class="border p-2 w-full rounded editable" data-original="<?= $first_name ?>">
+            <input disabled type="text" id="first_name" value="{{user.firstName}}" class="border p-2 w-full rounded">
         </div>
         
         <div class="form-group">
             <label for="password">Mot de passe</label>
-            <input disabled type="password" id="password" value="<?= $password ?>" name="password" class="border p-2 w-full rounded" data-original="<?= $password ?>">
+            <input disabled type="password" id="password" value="{{user.password}}" class="border p-2 w-full rounded">
         </div>
         
         <div class="form-group">
             <label for="email">Email</label>
-            <input disabled type="email" id="email" value="<?= $email ?>" name="email" class="border p-2 w-full rounded editable" data-original="<?= $email ?>">
+            <input disabled type="email" id="email" value="{{user.email}}" class="border p-2 w-full rounded">
         </div>
         
         <div class="form-group">
             <label for="phone_number">Téléphone</label>
-            <input disabled type="tel" id="phoneNumber" value="<?= $phone_number ?>" name="phoneNumber" class="border p-2 w-full rounded editable" data-original="<?= $phone_number ?>">
+            <input disabled type="tel" id="phone_number" value="{{user.phoneNumber}}" class="border p-2 w-full rounded">
         </div>
         
         <div class="form-group">
             <label for="avatar">Avatar</label>
-            <input disabled type="text" id="avatar" value="<?= $avatar ?>" name="avatar" class="border p-2 w-full rounded editable" data-original="<?= $avatar ?>">
+            <input disabled type="text" id="avatar" value="{{user.avatar}}" class="border p-2 w-full rounded">
         </div>
         
         <div class="form-group">
             <label for="birthDate">Date de naissance</label>
-            <input disabled type="text" id="birthDate" value="<?= $birthDate ?>" name="birthDate" class="border p-2 w-full rounded editable" data-original="<?= $birthDate ?>">
+            <input disabled type="text" id="birthDate" value="{{user.birthDate}}" class="border p-2 w-full rounded">
         </div>
         
         <div class="form-group">
             <label for="creationDate">Date de création</label>
-            <input disabled type="text" id="creationDate" value="<?= $creationDate ?>" name="creationDate" class="border p-2 w-full rounded" data-original="<?= $creationDate ?>">
+            <input disabled type="text" id="creationDate" value="{{user.creationDate}}" class="border p-2 w-full rounded" disabled>
         </div>
         
         <div class="form-group">
             <label for="lastModified">Dernière modification</label>
-            <input disabled type="text" id="lastModified" value="<?= $lastModified ?>" name="lastModified" class="border p-2 w-full rounded" data-original="<?= $lastModified ?>">
+            <input disabled type="text" id="lastModified" value="{{user.lastModified}}" class="border p-2 w-full rounded" disabled>
         </div>
         
         <div class="form-group">
             <label for="operatorLevel">Niveau d'opérateur</label>
-            <input disabled type="text" id="operatorLevel" value="<?= $operatorLevel ?>" name="operatorLevel" class="border p-2 w-full rounded " data-original="<?= $operatorLevel ?>">
+            <input disabled type="text" id="operatorLevel" value="{{user.operatorLevel}}" class="border p-2 w-full rounded">
         </div>
         <button type="button" id="editButton" class="bg-red-400 text-white px-4 py-2 rounded" onclick="toggleEdit()">modifier</button>
         <button type="submit" id="confirmButton" class="bg-green-400 text-white px-4 py-2 rounded hidden" >Confirmer</button>

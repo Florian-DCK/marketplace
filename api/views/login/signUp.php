@@ -1,12 +1,28 @@
 
-<form action="../../../api/controllers/inscriptionControllers.php" class="h-full flex flex-col justify-center items-center w-full" method="POST">
+<?php
+
+    if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
+        if ($_FILES['image']['size'] <= 1000000) {
+            $informationsImage = pathinfo($_FILES['image']['name']);
+            $extensionImage = $informationsImage['extension'];
+            $extensionsAllowed = array('jpg', 'jpeg', 'png', 'gif');
+            if (in_array($extensionImage, $extensionsAllowed)) {
+                move_uploaded_file($_FILES['image']['tmp_name'], 'uploads/' . time() . rand() . basename($_FILES['image']['name']));
+                //echo "L'envoi a bien été effectué !";
+            }
+        }
+    }
+
+?>
+
+<form action="../../../api/controllers/inscriptionControllers.php" class="h-full flex flex-col justify-center items-center w-full" method="POST" enctype="multipart/form-data">
     <div class="mb-8">
         <p class="font-semibold tracking-tight text-4xl sm:text-5xl lg:text-6xl text-[#FFD1A9] whitespace-nowrap">Create your account</p>
     </div>
     <div class="flex relative sm:w-md lg:w-lg mb-8">
         <input type="text" 
                 name="firstName"
-                placeholder="Prénom" 
+                placeholder="First name" 
                 required
                 class="peer p-2 ps-10 rounded-sm bg-[#EAEBED] border border-transparent text-[#9F9F9F] w-full focus:outline-none invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 invalid:[&:not(:placeholder-shown):not(:focus)]:text-red-500">
                     <svg fill="none" stroke="#9F9F9F" stroke-linecap="square" aria-labelledby="userIconTitle" viewBox="0 0 24 24"
@@ -17,7 +33,7 @@
     <div class="flex relative sm:w-md lg:w-lg mb-8">
         <input type="text" 
                 name="lastName"
-                placeholder="Nom" 
+                placeholder="Last name" 
                 required
                 class="peer p-2 ps-10 rounded-sm bg-[#EAEBED] border border-transparent text-[#9F9F9F] w-full focus:outline-none invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 invalid:[&:not(:placeholder-shown):not(:focus)]:text-red-500">
                     <svg fill="none" stroke="#9F9F9F" stroke-linecap="square" aria-labelledby="userIconTitle" viewBox="0 0 24 24"
@@ -28,28 +44,34 @@
     <div class="flex relative sm:w-md lg:w-lg mb-8">
         <input type="date" 
                 name="birthDate"
-                placeholder="Date de naissance" 
+                placeholder="" 
                 required
-                class="peer p-2 ps-10 rounded-sm bg-[#EAEBED] border border-transparent text-[#9F9F9F] w-full focus:outline-none invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 invalid:[&:not(:placeholder-shown):not(:focus)]:text-red-500">
+                class="cursor-pointer p-2 ps-10 rounded-sm bg-[#EAEBED] border border-transparent text-[#9F9F9F]/50 w-60 sm:w-full focus:outline-none">
                     <svg fill="none" stroke="#9F9F9F" stroke-linecap="square" aria-labelledby="userIconTitle" viewBox="0 0 24 24"
-                    class="w-8 h-8 flex text-red-500 items-center absolute top-1/2  transform -translate-y-1/2 m-0 pl-2  peer-[&:not(:placeholder-shown):not(:focus):invalid]:[&_*]:fill-red-500">
+                    class="w-8 h-8 flex items-center absolute top-1/2  transform -translate-y-1/2 m-0 pl-2">
                     <path stroke-linecap="round" d="M5.5 19.5c2.333-1 3.833-1.833 4.5-2.5 1-1-2-1-2-6 0-3.333 1.333-5 4-5s4 1.667 4 5c0 5-3 5-2 6 .667.667 2.167 1.5 4.5 2.5"/><circle cx="12" cy="12" r="10"/>
                     </svg>
     </div>
-    <div class="flex relative sm:w-md lg:w-lg mb-8"> <!-- Avatar à modifier -->
-        <input type="text" 
-                name="avatar"
-                placeholder="Avatar" 
-                class="peer p-2 ps-10 rounded-sm bg-[#EAEBED] border border-transparent text-[#9F9F9F] w-full focus:outline-none invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 invalid:[&:not(:placeholder-shown):not(:focus)]:text-red-500">
-                <svg width="800" height="800" fill="#9F9F9F" viewBox="0 0 32.951 32.951" class="w-8 h-8 flex text-red-500 items-center absolute top-1/2  transform -translate-y-1/2 m-0 pl-2  peer-[&:not(:placeholder-shown):not(:focus):invalid]:[&_*]:fill-red-500"><path d="M16.476 32.95a16.475 16.475 0 1 1 16.475-16.475A16.494 16.494 0 0 1 16.476 32.95Zm0-30.95a14.475 14.475 0 1 0 14.475 14.475A14.492 14.492 0 0 0 16.476 1.999Z"/><path d="M16.476 27.834a8.766 8.766 0 0 1-8.756-8.755 1 1 0 0 1 2 0 6.756 6.756 0 0 0 13.511 0 1 1 0 0 1 2 0 8.766 8.766 0 0 1-8.755 8.755ZM8.799 16.017a1 1 0 0 1-1-1v-4.862a1 1 0 0 1 2 0v4.862a1 1 0 0 1-1 1ZM24.415 16.017a1 1 0 0 1-1-1v-4.862a1 1 0 0 1 2 0v4.862a1 1 0 0 1-1 1Z"/></svg>
+    <div class="flex relative sm:w-md lg:w-lg mb-8">
+        <input type="file" 
+                name="image"
+                id="fileInput"
+                class="hidden">
+        <label for="fileInput" class="cursor-pointer p-2 ps-10 rounded-sm bg-[#EAEBED] border border-transparent text-[#9F9F9F] w-full focus:outline-none flex items-center">
+            <svg width="800" height="800" fill="#9F9F9F" viewBox="0 0 32.951 32.951" class="w-5 h-5 flex items-center">
+                <path d="M16.476 32.95a16.475 16.475 0 1 1 16.475-16.475A16.494 16.494 0 0 1 16.476 32.95Zm0-30.95a14.475 14.475 0 1 0 14.475 14.475A14.492 14.492 0 0 0 16.476 1.999Z"/>
+                <path d="M16.476 27.834a8.766 8.766 0 0 1-8.756-8.755 1 1 0 0 1 2 0 6.756 6.756 0 0 0 13.511 0 1 1 0 0 1 2 0 8.766 8.766 0 0 1-8.755 8.755ZM8.799 16.017a1 1 0 0 1-1-1v-4.862a1 1 0 0 1 2 0v4.862a1 1 0 0 1-1 1ZM24.415 16.017a1 1 0 0 1-1-1v-4.862a1 1 0 0 1 2 0v4.862a1 1 0 0 1-1 1Z"/>
+            </svg>
+            <span class="flex-grow ml-2 text-[#9F9F9F] opacity-50">Click here to upload avatar</span>
+        </label>
     </div>
     <div class="flex relative sm:w-md lg:w-lg mb-8">
         <input type="text" 
                 name="phoneNumber"
-                placeholder="Téléphone" 
+                placeholder="Phone number" 
                 class="peer p-2 ps-10 rounded-sm bg-[#EAEBED] border border-transparent text-[#9F9F9F] w-full focus:outline-none invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 invalid:[&:not(:placeholder-shown):not(:focus)]:text-red-500">
                     <svg width="800" height="800" viewBox="0 0 32 32" stroke="#9F9F9F"
-                    class="w-8 h-8 flex text-red-500 items-center absolute top-1/2  transform -translate-y-1/2 m-0 pl-2  peer-[&:not(:placeholder-shown):not(:focus):invalid]:[&_*]:fill-red-500"><defs><clipPath id="a"><path d="M0 0h32v32H0z"/></clipPath></defs><g clip-path="url(#a)" data-name="phone2 – 1"><g fill="#344952" data-name="Group 3167" ><path d="M24.834 20.665a5.833 5.833 0 0 0-3.457-1.6 4.037 4.037 0 0 0-2.867 1.6l-.177.181c-.232-.016-1.277-.265-4.092-3.057-2.851-2.83-3.076-3.86-3.088-4.069l.18-.18c1.6-1.583 2.605-3.054-.046-6.321A4.066 4.066 0 0 0 8.193 5.38c-1.465 0-2.514 1.112-3.357 2.006-.131.138-.259.274-.384.4-1.1 1.1-1.138 3.267-.117 5.942a24.691 24.691 0 0 0 5.711 8.288c4.73 4.694 9.28 6.359 11.739 6.359a3.477 3.477 0 0 0 2.531-.871c.126-.127.262-.257.4-.39.911-.873 2.044-1.96 1.976-3.477a4.151 4.151 0 0 0-1.858-2.972Zm-1.5 5.008c-.151.145-.3.287-.435.425a1.559 1.559 0 0 1-1.112.28c-2.243 0-6.308-1.787-10.33-5.779a22.687 22.687 0 0 1-5.252-7.58c-.84-2.2-.659-3.492-.332-3.821.137-.137.277-.286.42-.437.609-.646 1.3-1.378 1.9-1.378.539 0 1.135.6 1.54 1.1 1.722 2.124 1.336 2.506.191 3.643l-.236.236a1.848 1.848 0 0 0-.535 1.343c0 .867.422 2.277 3.679 5.51s4.661 3.637 5.526 3.638a1.852 1.852 0 0 0 1.346-.544l.236-.24c.626-.639 1-1 1.437-1a4.136 4.136 0 0 1 2.21 1.164c.491.392 1.082.971 1.107 1.5.027.609-.71 1.316-1.362 1.94Z" data-name="Path 3997"/><path d="M19.027 13a5.074 5.074 0 0 1 1.5 2.919 1.857 1.857 0 0 0 .484.962 1.728 1.728 0 0 0 2.423.006 1.834 1.834 0 0 0 .486-1.505 8.807 8.807 0 0 0-7.274-7.273 1.785 1.785 0 0 0-1.5.485 1.739 1.739 0 0 0 .008 2.425 1.868 1.868 0 0 0 .943.479A5.1 5.1 0 0 1 19.027 13Zm-3.179-3.7a.828.828 0 0 1 .609-.2h.032a7.8 7.8 0 0 1 6.44 6.432.86.86 0 0 1-.2.65.728.728 0 0 1-1.009-.006.873.873 0 0 1-.205-.421 6.358 6.358 0 0 0-5.247-5.239.9.9 0 0 1-.411-.2.735.735 0 0 1-.009-1.016Z" data-name="Path 3998"/><path d="M24.556 7.469a11.858 11.858 0 0 0-8.37-3.847 7.782 7.782 0 0 0-1.086.073 2 2 0 0 0-1.06.5 1.727 1.727 0 0 0-.5 1.213 1.707 1.707 0 0 0 .5 1.219 1.908 1.908 0 0 0 1.529.464c2.039-.306 4.507.754 6.558 2.8 2.063 2.065 3.111 4.516 2.8 6.551a1.852 1.852 0 0 0 .464 1.534 1.7 1.7 0 0 0 1.214.506 1.726 1.726 0 0 0 1.216-.5 2.011 2.011 0 0 0 .5-1.055c.179-1.163.399-5.292-3.765-9.458Zm2.783 9.323a1.036 1.036 0 0 1-.218.487.739.739 0 0 1-1.016 0 .876.876 0 0 1-.184-.671c.355-2.355-.8-5.127-3.085-7.415a9.7 9.7 0 0 0-6.547-3.149 5.939 5.939 0 0 0-.87.064.855.855 0 0 1-.671-.183.722.722 0 0 1 0-1.017 1.014 1.014 0 0 1 .49-.217 6.633 6.633 0 0 1 .949-.065A10.872 10.872 0 0 1 23.85 8.18c3.835 3.833 3.64 7.558 3.489 8.612Z" data-name="Path 3999"/></g></g></svg>
+                    class="w-8 h-8 opacity-50 flex text-red-500 items-center absolute top-1/2  transform -translate-y-1/2 m-0 pl-2  peer-[&:not(:placeholder-shown):not(:focus):invalid]:[&_*]:fill-red-500"><defs><clipPath id="a"><path d="M0 0h32v32H0z"/></clipPath></defs><g clip-path="url(#a)" data-name="phone2 – 1"><g fill="#344952" data-name="Group 3167" ><path d="M24.834 20.665a5.833 5.833 0 0 0-3.457-1.6 4.037 4.037 0 0 0-2.867 1.6l-.177.181c-.232-.016-1.277-.265-4.092-3.057-2.851-2.83-3.076-3.86-3.088-4.069l.18-.18c1.6-1.583 2.605-3.054-.046-6.321A4.066 4.066 0 0 0 8.193 5.38c-1.465 0-2.514 1.112-3.357 2.006-.131.138-.259.274-.384.4-1.1 1.1-1.138 3.267-.117 5.942a24.691 24.691 0 0 0 5.711 8.288c4.73 4.694 9.28 6.359 11.739 6.359a3.477 3.477 0 0 0 2.531-.871c.126-.127.262-.257.4-.39.911-.873 2.044-1.96 1.976-3.477a4.151 4.151 0 0 0-1.858-2.972Zm-1.5 5.008c-.151.145-.3.287-.435.425a1.559 1.559 0 0 1-1.112.28c-2.243 0-6.308-1.787-10.33-5.779a22.687 22.687 0 0 1-5.252-7.58c-.84-2.2-.659-3.492-.332-3.821.137-.137.277-.286.42-.437.609-.646 1.3-1.378 1.9-1.378.539 0 1.135.6 1.54 1.1 1.722 2.124 1.336 2.506.191 3.643l-.236.236a1.848 1.848 0 0 0-.535 1.343c0 .867.422 2.277 3.679 5.51s4.661 3.637 5.526 3.638a1.852 1.852 0 0 0 1.346-.544l.236-.24c.626-.639 1-1 1.437-1a4.136 4.136 0 0 1 2.21 1.164c.491.392 1.082.971 1.107 1.5.027.609-.71 1.316-1.362 1.94Z" data-name="Path 3997"/><path d="M19.027 13a5.074 5.074 0 0 1 1.5 2.919 1.857 1.857 0 0 0 .484.962 1.728 1.728 0 0 0 2.423.006 1.834 1.834 0 0 0 .486-1.505 8.807 8.807 0 0 0-7.274-7.273 1.785 1.785 0 0 0-1.5.485 1.739 1.739 0 0 0 .008 2.425 1.868 1.868 0 0 0 .943.479A5.1 5.1 0 0 1 19.027 13Zm-3.179-3.7a.828.828 0 0 1 .609-.2h.032a7.8 7.8 0 0 1 6.44 6.432.86.86 0 0 1-.2.65.728.728 0 0 1-1.009-.006.873.873 0 0 1-.205-.421 6.358 6.358 0 0 0-5.247-5.239.9.9 0 0 1-.411-.2.735.735 0 0 1-.009-1.016Z" data-name="Path 3998"/><path d="M24.556 7.469a11.858 11.858 0 0 0-8.37-3.847 7.782 7.782 0 0 0-1.086.073 2 2 0 0 0-1.06.5 1.727 1.727 0 0 0-.5 1.213 1.707 1.707 0 0 0 .5 1.219 1.908 1.908 0 0 0 1.529.464c2.039-.306 4.507.754 6.558 2.8 2.063 2.065 3.111 4.516 2.8 6.551a1.852 1.852 0 0 0 .464 1.534 1.7 1.7 0 0 0 1.214.506 1.726 1.726 0 0 0 1.216-.5 2.011 2.011 0 0 0 .5-1.055c.179-1.163.399-5.292-3.765-9.458Zm2.783 9.323a1.036 1.036 0 0 1-.218.487.739.739 0 0 1-1.016 0 .876.876 0 0 1-.184-.671c.355-2.355-.8-5.127-3.085-7.415a9.7 9.7 0 0 0-6.547-3.149 5.939 5.939 0 0 0-.87.064.855.855 0 0 1-.671-.183.722.722 0 0 1 0-1.017 1.014 1.014 0 0 1 .49-.217 6.633 6.633 0 0 1 .949-.065A10.872 10.872 0 0 1 23.85 8.18c3.835 3.833 3.64 7.558 3.489 8.612Z" data-name="Path 3999"/></g></g></svg>
     </div>
     <div class="flex relative sm:w-md lg:w-lg mb-8">
         <input type="email" 
@@ -85,3 +107,24 @@
     </div>
     <button type="submit" name="ok" class="cursor-pointer flex justify-center font-semibold text-xl text-white bg-[#FFD1A9] border rounded-full w-60 py-3 hover:bg-white hover:text-[#FFD1A9] duration-500 ease-in-out hover:scale-115">Sign in</button>   
 </form>
+
+<style>
+    #fileInput {
+        display: none;
+    }
+
+    label {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        padding: 0.5rem;
+        font-size: 1rem;
+        border-radius: 0.25rem;
+        background-color: #EAEBED;
+        border: 1px solid transparent;
+        color: #9F9F9F;
+        width: 100%;
+        box-sizing: border-box;
+    }
+</style>

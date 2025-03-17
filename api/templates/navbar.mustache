@@ -1,0 +1,25 @@
+<div class="relative h-max w-screen bg-[#EAEBED]">
+	<div class="flex items-center justify-between">
+		<a href="/">
+			<span class="flex items-center">
+				<div class="h-12 w-12 bg-[#5242AE] rounded-full m-3" id="avatar"></div>
+				<h1 class="text-5xl">Marketplace</h1>
+			</span>
+		</a>
+		{{> navbar/searchBar}}
+		{{#showMenu}}
+			<div class="p-2 flex items-center space-x-3">
+				{{#isConnected}}
+					{{> navbar/profiles}}
+				{{/isConnected}}
+				{{^isConnected}}
+					<a href="/login"><button class="bg-[#5242AE] text-white px-2 py-1 rounded-lg cursor-pointer">Connexion</button></a>
+				{{/isConnected}}
+				{{> menu}}
+			</div>
+		{{/showMenu}}
+	</div>
+	{{#showCategoryNavbar}}
+		{{> navbar/categoryNavbar}}
+	{{/showCategoryNavbar}}
+</div>
