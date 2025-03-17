@@ -63,7 +63,7 @@
                 <path d="M16.476 32.95a16.475 16.475 0 1 1 16.475-16.475A16.494 16.494 0 0 1 16.476 32.95Zm0-30.95a14.475 14.475 0 1 0 14.475 14.475A14.492 14.492 0 0 0 16.476 1.999Z"/>
                 <path d="M16.476 27.834a8.766 8.766 0 0 1-8.756-8.755 1 1 0 0 1 2 0 6.756 6.756 0 0 0 13.511 0 1 1 0 0 1 2 0 8.766 8.766 0 0 1-8.755 8.755ZM8.799 16.017a1 1 0 0 1-1-1v-4.862a1 1 0 0 1 2 0v4.862a1 1 0 0 1-1 1ZM24.415 16.017a1 1 0 0 1-1-1v-4.862a1 1 0 0 1 2 0v4.862a1 1 0 0 1-1 1Z"/>
             </svg>
-            <span class="flex-grow ml-2 text-[#9F9F9F] opacity-50">Click here to upload avatar</span>
+            <span id="avatarPlaceholder" class="flex-grow ml-2 text-[#9F9F9F] opacity-50">Click here to upload avatar</span>
         </label>
     </div>
     <div class="flex relative sm:w-md lg:w-lg mb-8">
@@ -126,6 +126,7 @@
         border: 1px solid transparent;
         color: #9F9F9F;
         width: 100%;
+        height: 43px;
         box-sizing: border-box;
     }
 </style>

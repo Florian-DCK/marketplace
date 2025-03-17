@@ -14,7 +14,7 @@
 <body>
     <div class="flex justify-center items-center h-screen w-screen static">
         <div class="absolute top-0 left-0">
-            <a href="../../index.php">
+            <a href="/">
                 <span class="flex items-center">
                     <div class="h-12 w-12 bg-[#5242AE] rounded-full m-3"
                         id="avatar">
@@ -38,7 +38,7 @@
                 </button> 
             </div>
         </div>
-        <div id="signup-section" class="w-full h-screen hidden flex-col lg:flex-row transition-all"> <!-- Sign up dominant -->
+        <div id="signup-section" class="w-full h-screen hidden flex-col lg:flex-row"> <!-- Sign up dominant -->
             <div name="switch-to-login" class="lg:w-1/2 pt-20 lg:h-full flex flex-col text-center items-center justify-center px-5 font-semibold tracking-tight text-3xl bg-[#FFD1A9] text-white">
                 <p class="mb-5 hidden lg:flex">Welcome back !</p>
                 <p class="mb-5 hidden lg:flex">To proceed,</p>
@@ -53,12 +53,38 @@
         </div>
     </div>
 
+    
+
     <script>
+
+        // Afficher le nom du fichier selectionné
+        let file = document.getElementById('fileInput');
+                let message = document.getElementById('avatarPlaceholder');
+
+                file.addEventListener("input", () => {
+                //si on selectionne une image
+                    if (file.files.length) {
+                        let fileName = file.files[0].name;
+                        message.innerHTML = `${fileName}`;
+                    }
+                //si on annule la selection
+                    else {
+                        message.innerHTML = "Click to upload avatar";
+                    }
+                });
+
         document.addEventListener('DOMContentLoaded', function() {
             const loginSection = document.getElementById('login-section');
             const signupSection = document.getElementById('signup-section');
             const showSignupBtn = document.getElementById('show-signup');
             const showLoginBtn = document.getElementById('show-login');
+            const avatarBtn = document.getElementById('fileInput');
+            const avatarPlaceholder = document.getElementById('avatarPlaceholder');
+
+            //Masquer le text Click to upload avatar et remplacer par le fichier up
+            //avatarBtn.addEventListener('click', function() {
+                //avatarPlaceholder.classList.add('hidden');
+                //document.getElementById('avatarPlaceholder').innerText = '';});
 
             // Afficher le formulaire d'inscription et masquer le formulaire de connexion
             showSignupBtn.addEventListener('click', function() {
@@ -72,6 +98,8 @@
                 signupSection.classList.add('hidden');
                 loginSection.classList.remove('hidden');
             });
+
+            
         });
     </script>
 </body>
