@@ -1,5 +1,5 @@
 <?php 
-
+session_start();
 require __DIR__ . '/../../vendor/autoload.php';
 
 $mustache = new Mustache_Engine([
