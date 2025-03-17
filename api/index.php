@@ -42,7 +42,7 @@
                 'image' => 'https://citygsm.be/wp-content/uploads/2023/02/Samsung-Galaxy-s23-Lavender-pdf.jpg',
                 'price' => 899.99,
                 'fast' => true,
-                'useOriginal' => true
+                'antoine' => true
             ]
         ]
     ];

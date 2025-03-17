@@ -25,7 +25,7 @@ $categories = [
 $url = $_SERVER['REQUEST_URI'];
 
 $data = [
-    'isConnected' => false,
+    'isConnected' => true,
 	'showCategoryNavbar' => !str_contains($url, 'dashboard'),
 	'showMenu' => true,
 	'categories' => array_map(function($category) {
