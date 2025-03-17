@@ -1,4 +1,6 @@
 <?php
+    // Démarrer la session
+    session_start();
     include __DIR__ . "/../models/users/signInUpModel.php";
     include __DIR__ . '/../models/users/getInfosModel.php';
 
@@ -12,7 +14,7 @@
     // Vérifier si l'utilisateur existe et si le mot de passe est correct
     if ($user && password_verify($password, $user['pass'])) {
         // Démarrer la session
-        session_start();
+        //session_start();
         
         // Stocker les informations de l'utilisateur dans la session
         $_SESSION['id'] = $user['id'];
