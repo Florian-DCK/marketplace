@@ -1,7 +1,8 @@
 <?php
+session_start();
 ob_start();
     // Démarrer la session
-    session_start();
+    
     include __DIR__ . "/../models/users/signInUpModel.php";
     include __DIR__ . '/../models/users/getInfosModel.php';
 
