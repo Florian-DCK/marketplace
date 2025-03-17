@@ -39,6 +39,8 @@ $data = [
     'userProfileImage' => '/api/public/defaultAvatar.jpg'
 ];
 
+var_dump($_SESSION['id']);
+
 echo $mustache->render('navbar', $data);
 
 unset($mustache);
