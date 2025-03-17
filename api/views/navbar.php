@@ -23,9 +23,9 @@ $categories = [
     "Kitchen and houses",
 ];
 $url = $_SERVER['REQUEST_URI'];
-
+var_dump ($_SESSION);
 $data = [
-    'isConnected' => true,
+    'isConnected' =>isset($_SESSION['id']) ,
 	'showCategoryNavbar' => !str_contains($url, 'dashboard'),
 	'showMenu' => true,
 	'categories' => array_map(function($category) {
