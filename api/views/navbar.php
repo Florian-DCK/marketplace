@@ -23,7 +23,6 @@ $categories = [
     "Kitchen and houses",
 ];
 $url = $_SERVER['REQUEST_URI'];
-var_dump ($_SESSION);
 $data = [
     'isConnected' =>isset($_SESSION['id']) ,
 	'showCategoryNavbar' => !str_contains($url, 'dashboard'),
@@ -36,7 +35,7 @@ $data = [
 		['url' => '/dashboard/admin', 'label' => 'Admin', 'id' => 'user-menu-item-1'],
 		['url' => '#', 'label' => 'Sign Out', 'id' => 'user-menu-item-2'],
 	],
-    'userName' => 'John Doe',
+    'userName' => $_SESSION['name'],
     'userProfileImage' => '/api/public/defaultAvatar.jpg'
 ];
 

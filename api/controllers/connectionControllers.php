@@ -26,5 +26,4 @@
     } else {
         echo "Erreur lors de la connexion";
     }
-
 ?>
