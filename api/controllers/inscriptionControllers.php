@@ -15,6 +15,7 @@
    $operator_level = 1;  
    // Hachage du mot de passe pour plus de sécurité
    $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
+   $last_modified->modify('+1 hour');
 
    $result = inscription($nom=null,$prenom=null,$mdp=null,$email=null,$telephone=null,$avatar=null,$birthDate=null);
     if($result == true) {header("Location: ../../api/views/login/signInUp.php");}; // Page d'accueil après connexion
