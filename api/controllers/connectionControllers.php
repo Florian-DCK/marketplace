@@ -1,4 +1,5 @@
 <?php
+ob_start();
     // Démarrer la session
     session_start();
     include __DIR__ . "/../models/users/signInUpModel.php";
@@ -24,8 +25,9 @@
         
         // Rediriger vers la page d'accueil ou autre
         header("Location: ../../api/index.php"); 
-        echo "Connexion réussie";
+        exit;
     } else {
         echo "Erreur lors de la connexion";
     }
+ob_end_flush();
 ?>
