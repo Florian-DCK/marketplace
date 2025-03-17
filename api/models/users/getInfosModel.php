@@ -3,8 +3,8 @@
     // Fonction pour récupérer les informations d'une personne à partir de son email
     function getUserInfo($email) {
         // Inclure le fichier de connexion à la base de données
-        require_once __DIR__ . '/db/connect.php';
- 
+        include __DIR__ . '/db/connect.php';
+        
         try {
             // Préparer la requête SQL pour récupérer les informations de l'utilisateur
             $stmt = $db->prepare("SELECT * FROM User WHERE email = :email");
