@@ -1,5 +1,6 @@
 <?php 
-
+require_once __DIR__ . '/../config/session.php';
+init_session();
 require __DIR__ . '/../../vendor/autoload.php';
 
 $mustache = new Mustache_Engine([
@@ -38,7 +39,8 @@ $data = [
     'userProfileImage' => '/api/public/defaultAvatar.jpg'
 ];
 
-var_dump($_SESSION['id']);
+// Supprimer le var_dump pour la production
+//var_dump($_SESSION['id']);
 
 echo $mustache->render('navbar', $data);
 
