@@ -60,7 +60,7 @@ require_once __DIR__ . '/../../vendor/autoload.php'; //Chemin pour accéder au f
 				return $stmt->fetchAll(PDO::FETCH_ASSOC); //Pour retourner les valeurs
 			}
             public function close () {
-
+				$this->db = null; //Pour fermer la connection à la DB
             }
 		}
 

@@ -22,209 +22,120 @@ $stmt = $db->prepare("UPDATE User SET isActive = '' WHERE id = ");
 */
 
 // Inclure le fichier de connexion à la base de données
-require_once __DIR__ . '/db/connect.php';
+require_once __DIR__ . '/../database.php';
 
 
-function updateName($db, $id, $name) {
+function updateName($conn, $id, $name) {
     try {
-        // Démarrer la transaction
-        $db->beginTransaction();
-
-        // Mise à jour du nom de l'utilisateur
-        $requete = $db->prepare("UPDATE User SET name = :name WHERE id = :id");
-        $requete->execute([
+        $conn->db->beginTransaction();
+        $conn->query("UPDATE User SET name = :name WHERE id = :id", [
             ":name" => $name,
             ":id" => $id
         ]);
-
-        // Mise à jour de la date et de l'heure de modification
-        $stmt = $db->prepare("UPDATE User SET last_modified = NOW() WHERE id = :id");
-        $stmt->execute([
+        $conn->query("UPDATE User SET last_modified = NOW() WHERE id = :id", [
             ":id" => $id
         ]);
-
-        // Commit de la transaction
-        $db->commit();
-
+        $conn->db->commit();
     } catch (Exception $e) {
-        // Si une erreur se produit, on annule la transaction
-        $db->rollBack();
+        $conn->db->rollBack();
         echo "Erreur : " . $e->getMessage();
     }
 }
 
-
-function updateSurname($db, $id, $surname) {
+function updateSurname($conn, $id, $surname) {
     try {
-        // Démarrer la transaction
-        $db->beginTransaction();
-
-        // Mise à jour du nom de l'utilisateur
-        $requete = $db->prepare("UPDATE User SET surname = :surname WHERE id = :id");
-        $requete->execute([
+        $conn->db->beginTransaction();
+        $conn->query("UPDATE User SET surname = :surname WHERE id = :id", [
             ":surname" => $surname,
             ":id" => $id
         ]);
-
-        // Mise à jour de la date et de l'heure de modification
-        $stmt = $db->prepare("UPDATE User SET last_modified = NOW() WHERE id = :id");
-        $stmt->execute([
+        $conn->query("UPDATE User SET last_modified = NOW() WHERE id = :id", [
             ":id" => $id
         ]);
-
-        // Commit de la transaction
-        $db->commit();
-
+        $conn->db->commit();
     } catch (Exception $e) {
-        // Si une erreur se produit, on annule la transaction
-        $db->rollBack();
+        $conn->db->rollBack();
         echo "Erreur : " . $e->getMessage();
     }
 }
 
-
-function updateEmail($db, $email, $id) {
+function updateEmail($conn, $email, $id) {
     try {
-        // Démarrer la transaction
-        $db->beginTransaction();
-
-        // Vérifier si l'email existe déjà dans la base de données
-        $stmt = $db->prepare("SELECT COUNT(*) FROM User WHERE email = :email");
-        $stmt->execute(['email' => $email]);
-
-        // Récupérer le nombre d'enregistrements correspondant à l'email
-        $count = $stmt->fetchColumn();
-
-        // Si l'email existe déjà, afficher un message d'erreur
+        $conn->db->beginTransaction();
+        $result = $conn->query("SELECT COUNT(*) as cnt FROM User WHERE email = :email", [':email' => $email]);
+        $count = $result[0]['cnt'];
         if ($count > 0) {
-            // Redirection vers la page d'inscription avec un message d'erreur
             header("Location: /../../../api/views/testdb/inscription.php?success=0");
             exit;
         }
-
-        // Si l'email n'existe pas, on procède à la mise à jour
-        $requete = $db->prepare("UPDATE User SET email = :email WHERE id = :id");
-        $requete->execute([
+        $conn->query("UPDATE User SET email = :email WHERE id = :id", [
             ":email" => $email,
             ":id" => $id
         ]);
-
-        // Mise à jour de lastModified après l'email
-        $stmt = $db->prepare("UPDATE User SET last_modified = NOW() WHERE id = :id");
-        $stmt->execute([
+        $conn->query("UPDATE User SET last_modified = NOW() WHERE id = :id", [
             ":id" => $id
         ]);
-
-        // Commit de la transaction
-        $db->commit();
-
+        $conn->db->commit();
     } catch (Exception $e) {
-        // Si une erreur se produit, on annule la transaction
-        $db->rollBack();
+        $conn->db->rollBack();
         echo "Erreur : " . $e->getMessage();
     }
 }
 
-
-function updatePhone($db, $phone, $id) {
+function updatePhone($conn, $phone, $id) {
     try {
-        // Démarrer la transaction
-        $db->beginTransaction();
-
-        // Vérifier si le téléphone existe déjà dans la base de données
-        $stmt = $db->prepare("SELECT COUNT(*) FROM User WHERE phone = :phone");
-        $stmt->execute(['phone' => $phone]);
-
-        // Récupérer le nombre d'enregistrements correspondant au téléphone
-        $count = $stmt->fetchColumn();
-
-        // Si le téléphone existe déjà, afficher un message d'erreur
+        $conn->db->beginTransaction();
+        $result = $conn->query("SELECT COUNT(*) as cnt FROM User WHERE phone = :phone", ['phone' => $phone]);
+        $count = $result[0]['cnt'];
         if ($count > 0) {
-            // Redirection vers la page d'inscription avec un message d'erreur
             header("Location: /../../../api/views/testdb/inscription.php?success=0");
             exit;
         }
-
-        // Si le téléphone n'existe pas, on procède à la mise à jour
-        $requete = $db->prepare("UPDATE User SET phone = :phone WHERE id = :id");
-        $requete->execute([
+        $conn->query("UPDATE User SET phone = :phone WHERE id = :id", [
             ":phone" => $phone,
             ":id" => $id
         ]);
-
-        // Mise à jour de la date et heure de modification
-        $stmt = $db->prepare("UPDATE User SET last_modified = NOW() WHERE id = :id");
-        $stmt->execute([
+        $conn->query("UPDATE User SET last_modified = NOW() WHERE id = :id", [
             ":id" => $id
         ]);
-
-        // Commit de la transaction
-        $db->commit();
-
+        $conn->db->commit();
     } catch (Exception $e) {
-        // Si une erreur se produit, on annule la transaction
-        $db->rollBack();
+        $conn->db->rollBack();
         echo "Erreur : " . $e->getMessage();
     }
 }
 
-
-function updateAvatar($db, $id, $avatar) {
+function updateAvatar($conn, $id, $avatar) {
     try {
-        // Démarrer la transaction
-        $db->beginTransaction();
-
-        // Mise à jour du nom de l'utilisateur
-        $requete = $db->prepare("UPDATE User SET avatar = :avatar WHERE id = :id");
-        $requete->execute([
+        $conn->db->beginTransaction();
+        $conn->query("UPDATE User SET avatar = :avatar WHERE id = :id", [
             ":avatar" => $avatar,
             ":id" => $id
         ]);
-
-        // Mise à jour de la date et de l'heure de modification
-        $stmt = $db->prepare("UPDATE User SET last_modified = NOW() WHERE id = :id");
-        $stmt->execute([
+        $conn->query("UPDATE User SET last_modified = NOW() WHERE id = :id", [
             ":id" => $id
         ]);
-
-        // Commit de la transaction
-        $db->commit();
-
+        $conn->db->commit();
     } catch (Exception $e) {
-        // Si une erreur se produit, on annule la transaction
-        $db->rollBack();
+        $conn->db->rollBack();
         echo "Erreur : " . $e->getMessage();
     }
 }
 
-
-function updatePass($db, $id, $mdp) {
+function updatePass($conn, $id, $mdp) {
     try {
-        // Démarrer la transaction
-        $db->beginTransaction();
-
-        // Hacher le mot de passe avant de l'enregistrer
+        $conn->db->beginTransaction();
         $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
-
-        // Mise à jour du mot de passe de l'utilisateur
-        $requete = $db->prepare("UPDATE User SET pass = :pass WHERE id = :id");
-        $requete->execute([
+        $conn->query("UPDATE User SET pass = :pass WHERE id = :id", [
             ":pass" => $mdp_hash,
             ":id" => $id
         ]);
-
-        // Mise à jour de la date et de l'heure de modification
-        $stmt = $db->prepare("UPDATE User SET last_modified = NOW() WHERE id = :id");
-        $stmt->execute([
+        $conn->query("UPDATE User SET last_modified = NOW() WHERE id = :id", [
             ":id" => $id
         ]);
-
-        // Commit de la transaction
-        $db->commit();
-
+        $conn->db->commit();
     } catch (Exception $e) {
-        // Si une erreur se produit, on annule la transaction
-        $db->rollBack();
+        $conn->db->rollBack();
         echo "Erreur : " . $e->getMessage();
     }
 }
