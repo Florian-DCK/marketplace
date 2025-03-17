@@ -5,10 +5,14 @@
         <p class="font-semibold tracking-tight text-5xl lg:text-7xl text-white whitespace-nowrap">to your account</p>
     </div>
     <div>
-    <?php 
-         echo  '<p class="font-semibold tracking-tight text-5xl lg:text-7xl text-white whitespace-nowrap">'. $_GET["error"] . '</p>';
-         ;
+    <div>
+        <?php 
+            if (isset($_GET["error"])) {
+                echo '<p class="font-semibold tracking-tight text-5xl lg:text-7xl text-white whitespace-nowrap">'. $_GET["error"] . '</p>';
+            }
         ?>
+    </div>
+
     </div>
     <div class="flex relative sm:w-sm md:w-md lg:w-lg mb-10">
         <input type="email" 
