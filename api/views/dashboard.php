@@ -13,6 +13,7 @@ init_session();
 <body class="h-screen w-screen flex flex-col bg-[#EAEBED]">
     <?php 
     include __DIR__ . '/navbar.php'; 
+    include __DIR__ . '/../models/database.php';
 
     $url = $_SERVER['REQUEST_URI'];
     
@@ -27,7 +28,12 @@ init_session();
     // Récupérer userEmail depuis GET au lieu de POST
     $userEmail = isset($_GET['userEmail']) ? $_GET['userEmail'] : '';
 
-    $userInfos = getUserInfo($userEmail);
+    $db = new connectionDB();
+
+    $userInfos = getUserInfo($userEmail, $db);
+
+    $db->close();
+    
     $data = [
         'isAdmin' => str_contains($url, 'admin') ? false : true,
         'user' => [
