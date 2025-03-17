@@ -10,7 +10,7 @@
     $user = getUserInfo($email);
 
     // Vérifier si l'utilisateur existe et si le mot de passe est correct
-    if ($user && password_verify($password, $user['password'])) {
+    if ($user && password_verify($password, $user['pass'])) {
         // Démarrer la session
         session_start();
         
@@ -18,10 +18,10 @@
         $_SESSION['id'] = $user['id'];
         $_SESSION['name'] = $user['name'];
         $_SESSION['surname'] = $user['surname'];
-        $_SESSION['image'] = $user['image'];
+        $_SESSION['avatar'] = $user['avatar'];
         
         // Rediriger vers la page d'accueil ou autre
-        // header("Location: ../../api/index.php"); 
+        header("Location: ../../api/index.php"); 
         echo "Connexion réussie";
     } else {
         echo "Erreur lors de la connexion";
