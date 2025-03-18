@@ -39,9 +39,6 @@ $data = [
     'userProfileImage' => '/api/public/defaultAvatar.jpg'
 ];
 
-// Supprimer le var_dump pour la production
-var_dump($_SESSION['id']);
-
 echo $mustache->render('navbar', $data);
 
 unset($mustache);

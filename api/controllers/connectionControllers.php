@@ -19,9 +19,6 @@ ob_start();
 
     // Vérifier si l'utilisateur existe et si le mot de passe est correct
     if ($user && password_verify($password, $user['pass'])) {
-        // Démarrer la session
-        //session_start();
-        
         // Stocker les informations de l'utilisateur dans la session
         $_SESSION['id'] = $user['id'];
         $_SESSION['name'] = $user['name'];
@@ -29,10 +26,14 @@ ob_start();
         $_SESSION['avatar'] = $user['avatar'];
         
         // Rediriger vers la page d'accueil ou autre
-        header("Location: ../../api/index.php"); 
+        session_write_close();
+        ob_end_flush();
+        header("Location: /"); 
         exit;
     } else {
-        echo "Erreur lors de la connexion";
+        session_write_close();
+        ob_end_flush();
+        header("Location: /login?error=InvalidCredentials");
+        exit;
     }
-ob_end_flush();
 ?>
