@@ -37,7 +37,7 @@ $data = [
 		['url' => '/signOut', 'label' => 'Sign Out', 'id' => 'user-menu-item-2'],
 	],
     'userName' =>$_SESSION ? $_SESSION['name'] : null ,
-    'userProfileImage' => image_get($_SESSION['avatar'])['link'] ?: null
+    'userProfileImage' => isset($_SESSION['avatar']) && $_SESSION['avatar'] ? (function_exists('curl_init') ? image_get($_SESSION['avatar'])['link'] : null) : null
 ];
 
 echo $mustache->render('navbar', $data);
