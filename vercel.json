@@ -2,10 +2,7 @@
     "functions": {
         "api/**/*.php": {
             "runtime": "vercel-php@0.7.3",
-            "excludeFiles": "{.git/**,node_modules/**}",
-            "config": {
-                "extensions": ["curl"]
-            }
+            "excludeFiles": "{.git/**,node_modules/**}"
         }
     },
     "routes": [
@@ -16,5 +13,10 @@
         { "src": "/public/(.*)", "dest": "/api/public/$1" },
         { "src": "/api/public/(.*)", "dest": "/api/public/$1" },
         { "src": "/signOut", "dest": "api/controllers/signOutControllers.php"}
-    ]
+    ],
+    "build": {
+        "env": {
+            "NODE_VERSION": "18.x"
+        }
+    }
 }
