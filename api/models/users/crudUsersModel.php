@@ -1,26 +1,4 @@
 <?php
-
-//Sélectionner une catégotie de la table utilisateur
-/*$stmt = $db->prepare("SELECT  FROM User WHERE name = :name");
-$stmt = $db->prepare("SELECT  FROM User WHERE surname = :surname");
-$stmt = $db->prepare("SELECT  FROM User WHERE email = :email");
-$stmt = $db->prepare("SELECT  FROM User WHERE phone = :phone");
-$stmt = $db->prepare("SELECT  FROM User WHERE avatar = :avatar");
-$stmt = $db->prepare("SELECT  FROM User WHERE pass = :pass");
-
-//Modifier une valeur de la table utilisateur
-$stmt = $db->prepare("UPDATE User SET name = '' WHERE id = ");
-$stmt = $db->prepare("UPDATE User SET surname = '' WHERE id = ");
-$stmt = $db->prepare("UPDATE User SET email = '' WHERE id = ");
-$stmt = $db->prepare("UPDATE User SET phone =  WHERE id = ");
-$stmt = $db->prepare("UPDATE User SET avatar = '' WHERE id = ");
-$stmt = $db->prepare("UPDATE User SET pass = '' WHERE id = ");
-$stmt = $db->prepare("UPDATE User SET lastModified = NOW() WHERE id = ");
-
-//Changer le statut d'actif pour non-actif (supprimer l'utilisateur)
-$stmt = $db->prepare("UPDATE User SET isActive = '' WHERE id = ");
-*/
-
 // Inclure le fichier de connexion à la base de données
 require_once __DIR__ . '/../database.php';
 

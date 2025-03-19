@@ -24,20 +24,10 @@ function connection($email = null, $password = null){
 function inscription($nom = null, $prenom = null, $mdp = null, $email = null, $telephone = null, $avatar = null, $birthDate = null){
     $conn = new connectionDB();
 
-    if (isset($_POST['ok'])) {
-        $nom = $_POST['lastName'];
-        $prenom = $_POST['firstName'];
-        $mdp = $_POST['password'];
-        $mdpConfirm = $_POST['confirmPassword'];
-        $email = $_POST['email']; 
-        $telephone = $_POST['phoneNumber'];
-        $avatar = $_FILES['image']; 
-        $birthDate = $_POST['birthDate'];
         $creation_date = date('Y-m-d H:i:s');
         $last_modified = $creation_date;
         $isActive = 1;  
         $operator_level = 1;  
-        $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
 
         // Vérification avec query() et COUNT(*)
         $countResult = $conn->query("SELECT COUNT(*) as cnt FROM User WHERE email = :email", [':email' => $email]);
@@ -48,7 +38,7 @@ function inscription($nom = null, $prenom = null, $mdp = null, $email = null, $t
         } else {
             $conn->query(
                 "INSERT INTO User (id, name, surname, email, phone, avatar, birthDate, creation_date, last_modified, isActive, pass, operator_level) 
-                 VALUES (0, :name, :surname, :email, :phone, :avatar, :birthDate, :creation_date, :last_modified, :isActive, :pass, :operator_level)",
+                VALUES (0, :name, :surname, :email, :phone, :avatar, :birthDate, :creation_date, :last_modified, :isActive, :pass, :operator_level)",
                 [
                     ":name" => $nom,
                     ":surname" => $prenom,
@@ -59,7 +49,7 @@ function inscription($nom = null, $prenom = null, $mdp = null, $email = null, $t
                     ":creation_date" => $creation_date,
                     ":last_modified" => $last_modified,
                     ":isActive" => $isActive,
-                    ":pass" => $mdp_hash,
+                    ":pass" => $mdp,
                     ":operator_level" => $operator_level,
                 ]
             );
@@ -67,7 +57,6 @@ function inscription($nom = null, $prenom = null, $mdp = null, $email = null, $t
             return true;
         }
     }
-}
 ?>
 
 

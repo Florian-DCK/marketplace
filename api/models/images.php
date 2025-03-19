@@ -35,11 +35,22 @@ function image_upload($file){
     curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     
-    $response = curl_exec($ch);
+    $response = curl_exec($ch);    
+    if ($response === false) {
+        $error = curl_error($ch);
+        curl_close($ch);
+        echo "curl raté: " . $error;
+        return $error;
+    }
     curl_close($ch);
     
-    $result = json_decode($response, true);
+    $result = json_decode($response, true);    // Vérifier si le décodage JSON a réussi
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        echo "json decode raté";
+        return false;
+    }
     
     if (isset($result['data']['link'])) {
         $result = $result['data'];
@@ -47,9 +58,10 @@ function image_upload($file){
             'id' => $result['id'], 
             'deletehash' => $result['deletehash'], 
             'link' => $result['link']];
+    } else {
+        return false;
     }
     
-    return false;
 }
 
 /** 
