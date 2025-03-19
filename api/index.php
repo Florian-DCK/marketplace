@@ -12,7 +12,6 @@ init_session();
 </head>
 <body class="bg-[#EAEBED] flex flex-col">
     <?php 
-    //session_start();
     include __DIR__ . '/views/navbar.php'; 
 
     $mustache = new Mustache_Engine([
