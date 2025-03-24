@@ -19,7 +19,7 @@
                     <div class="h-12 w-12 bg-[#5242AE] rounded-full m-3"
                         id="avatar">
                     </div>
-                    <h1 class="hidden sm:flex sm:text-3xl lg:text-5xl">Marketplace</h1>
+                    <h1 class="hidden font-bold sm:flex sm:text-3xl lg:text-5xl text-white">Hello World !</h1>
                 </span>
             </a>
         </div>
@@ -27,26 +27,26 @@
             <?php include_once __DIR__ . '/signIn.php'; ?>
             <div 
                 name="switch-to-signup" 
-                class="w-1/2 p-5 flex flex-col lg:text-xl xl:text-2xl mx-auto items-center my-auto whitespace-nowrap font-semibold tracking-tight text-3xl text-[#FFD1A9]">
+                class="w-1/2 p-5 flex flex-col lg:text-xl xl:text-2xl mx-auto items-center my-auto whitespace-nowrap font-semibold tracking-tight text-3xl text-[#5242AE]">
                 <p class="mb-5 hidden lg:flex">Welcome !</p>
                 <p class="mb-5 hidden lg:flex">To create your account,</p>
                 <p class="mb-5 hidden lg:flex">Click below !</p>
                 <button 
                     id="show-signup" 
                     type="button" 
-                    class="cursor-pointer flex my-5 justify-center font-semibold text-xl text-white bg-[#FFD1A9] border rounded-full w-60 lg:w-40 py-3 hover:bg-white hover:text-[#FFD1A9] hover:duration-500 ease-in-out hover:scale-115">Create
+                    class="cursor-pointer flex my-5 justify-center font-semibold text-xl text-white bg-[#5242AE] border rounded-full w-60 lg:w-40 py-3 hover:bg-white hover:text-[#5242AE] hover:duration-500 ease-in-out hover:scale-115">Create
                 </button> 
             </div>
         </div>
         <div id="signup-section" class="w-full h-screen hidden flex-col lg:flex-row"> <!-- Sign up dominant -->
-            <div name="switch-to-login" class="lg:w-1/2 pt-20 lg:h-full flex flex-col text-center items-center justify-center px-5 font-semibold tracking-tight text-3xl bg-[#FFD1A9] text-white">
+            <div name="switch-to-login" class="lg:w-1/2 pt-20 lg:h-full flex flex-col text-center items-center justify-center px-5 font-semibold tracking-tight text-3xl bg-gradient-to-br from-[#5242AE] to-[#8d54b1] text-white">
                 <p class="mb-5 hidden lg:flex">Welcome back !</p>
                 <p class="mb-5 hidden lg:flex">To proceed,</p>
                 <p class="mb-5 hidden lg:flex">Please log in !</p>
                 <button 
                     id="show-login" 
                     type="button" 
-                    class="mb-5 cursor-pointer flex justify-center font-semibold text-xl bg-white text-[#FFD1A9] rounded-full w-60 lg:w-40 py-3 hover:bg-[#FFD1A9] hover:text-white hover:duration-500 ease-in-out hover:scale-115 border">Log in
+                    class="mb-5 cursor-pointer flex justify-center font-semibold text-xl bg-white text-[#5242AE] rounded-full w-60 lg:w-40 py-3 hover:bg-[#5242AE] hover:text-white hover:duration-500 ease-in-out hover:scale-115 border">Log in
                 </button>
             </div>
             <?php include_once __DIR__ . '/signUp.php'; ?>

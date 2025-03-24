@@ -1,4 +1,3 @@
-
 <?php
 
     if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
@@ -17,7 +16,7 @@
 
 <form action="../../../api/controllers/inscriptionControllers.php" class="h-full flex flex-col justify-center items-center w-full" method="POST" enctype="multipart/form-data">
     <div class="mb-8">
-        <p class="font-semibold tracking-tight text-4xl sm:text-5xl lg:text-6xl text-[#FFD1A9] whitespace-nowrap">Create your account</p>
+        <p class="font-semibold tracking-tight text-4xl sm:text-5xl lg:text-6xl text-[#5242AE] whitespace-nowrap">Create your account</p>
     </div>
     <div class=" flex flex-col space-y-3">
         <div class="flex relative sm:w-md lg:w-lg">
@@ -106,7 +105,7 @@
                     class="w-8 h-8 flex text-red-500 items-center absolute top-1/2  transform -translate-y-1/2 m-0 pl-2  peer-[&:not(:placeholder-shown):not(:focus):invalid]:[&_*]:fill-red-500">
                     <path d="M24.014 70.462a9.718 9.718 0 0 1-6.917-2.859L2.175 53.877C.267 51.971-.751 49.513-.751 46.898s1.018-5.072 2.866-6.92a9.723 9.723 0 0 1 6.921-2.866c2.591 0 5.029 1 6.872 2.818l8.102 7.109L55.861 4.618c.057-.075.119-.146.186-.213 1.849-1.85 4.307-2.867 6.921-2.867s5.072 1.018 6.921 2.867c3.784 3.784 3.815 9.923.093 13.747L31.697 67.416a2.242 2.242 0 0 1-.165.188c-1.914 1.912-4.498 2.926-7.214 2.854-.102.002-.202.004-.304.004zM9.037 41.112a5.753 5.753 0 0 0-4.093 1.695C3.851 43.9 3.25 45.353 3.25 46.898s.602 3 1.694 4.093l14.922 13.726c1.148 1.146 2.6 1.914 4.148 1.914l.227.164h.151l.221-.164c1.51 0 2.929-.654 4.008-1.69l38.275-49.294c.051-.065.105-.148.165-.207 2.256-2.258 2.256-5.939 0-8.195a5.754 5.754 0 0 0-4.093-1.701 5.743 5.743 0 0 0-3.999 1.602L25.914 51.169a2 2 0 0 1-2.919.301l-9.771-8.573a1.967 1.967 0 0 1-.095-.089 5.746 5.746 0 0 0-4.092-1.696z"/></svg>
         </div>
-        <button type="submit" name="ok" class="cursor-pointer flex justify-center font-semibold text-xl text-white bg-[#FFD1A9] border rounded-full w-60 py-3 hover:bg-white hover:text-[#FFD1A9] duration-500 ease-in-out hover:scale-115">Sign in</button>   
+        <button type="submit" name="ok" class="cursor-pointer flex justify-center font-semibold text-xl text-white bg-[#5242AE] border rounded-full w-60 py-3 hover:bg-white hover:text-[#5242AE] duration-500 ease-in-out hover:scale-115">Sign in</button>   
     </div>
 </form>
 
