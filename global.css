@@ -797,6 +797,22 @@
     -webkit-user-select: none;
     user-select: none;
   }
+  .peer-focus\:bg-red-500 {
+    &:is(:where(.peer):focus ~ *) {
+      background-color: var(--color-red-500);
+    }
+  }
+  .peer-focus\:outline-2 {
+    &:is(:where(.peer):focus ~ *) {
+      outline-style: var(--tw-outline-style);
+      outline-width: 2px;
+    }
+  }
+  .peer-focus\:outline-\[\#5242AE\] {
+    &:is(:where(.peer):focus ~ *) {
+      outline-color: #5242AE;
+    }
+  }
   .hover\:scale-105 {
     &:hover {
       @media (hover: hover) {
@@ -867,6 +883,14 @@
       }
     }
   }
+  .focus\:scale-95 {
+    &:focus {
+      --tw-scale-x: 95%;
+      --tw-scale-y: 95%;
+      --tw-scale-z: 95%;
+      scale: var(--tw-scale-x) var(--tw-scale-y);
+    }
+  }
   .focus\:ring-2 {
     &:focus {
       --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentColor);
@@ -897,6 +921,17 @@
         outline: 2px solid transparent;
         outline-offset: 2px;
       }
+    }
+  }
+  .focus\:outline-0 {
+    &:focus {
+      outline-style: var(--tw-outline-style);
+      outline-width: 0px;
+    }
+  }
+  .focus\:outline-\[\#5242AE\] {
+    &:focus {
+      outline-color: #5242AE;
     }
   }
   .focus\:outline-none {
