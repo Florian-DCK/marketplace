@@ -21,6 +21,7 @@ if ($user && password_verify($password, $user['pass'])) {
     // Stocker les informations de l'utilisateur dans la session
     $_SESSION['id'] = $user['id'];
     $_SESSION['name'] = $user['name'];
+    $_SESSION['email'] = $user['email'];
     $_SESSION['surname'] = $user['surname'];
     $_SESSION['avatar'] = $user['avatar'];
     
