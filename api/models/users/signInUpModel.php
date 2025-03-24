@@ -31,7 +31,7 @@ function inscription($nom = null, $prenom = null, $mdp = null, $email = null, $t
         $mdpConfirm = $_POST['confirmPassword'];
         $email = $_POST['email']; 
         $telephone = $_POST['phoneNumber'];
-        $avatar = $_POST['avatar']; 
+        $avatar = $_FILES['image']; 
         $birthDate = $_POST['birthDate'];
         $creation_date = date('Y-m-d H:i:s');
         $last_modified = $creation_date;

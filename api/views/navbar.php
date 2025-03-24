@@ -1,6 +1,6 @@
-
 <?php 
-
+require_once __DIR__ . '/../config/session.php';
+init_session();
 require __DIR__ . '/../../vendor/autoload.php';
 
 $mustache = new Mustache_Engine([
@@ -23,9 +23,8 @@ $categories = [
     "Kitchen and houses",
 ];
 $url = $_SERVER['REQUEST_URI'];
-
 $data = [
-    'isConnected' => true,
+    'isConnected' =>$_SESSION ? isset($_SESSION['id']) : false ,
 	'showCategoryNavbar' => !str_contains($url, 'dashboard'),
 	'showMenu' => true,
 	'categories' => array_map(function($category) {
@@ -34,9 +33,9 @@ $data = [
 	'menuItems' => [
 		['url' => '/dashboard', 'label' => 'Your Profile', 'id' => 'user-menu-item-0'],
 		['url' => '/dashboard/admin', 'label' => 'Admin', 'id' => 'user-menu-item-1'],
-		['url' => '#', 'label' => 'Sign Out', 'id' => 'user-menu-item-2'],
+		['url' => '/signOut', 'label' => 'Sign Out', 'id' => 'user-menu-item-2'],
 	],
-    'userName' => 'John Doe',
+    'userName' =>$_SESSION ? $_SESSION['name'] : null ,
     'userProfileImage' => '/api/public/defaultAvatar.jpg'
 ];
 

@@ -1,11 +1,10 @@
 <?php
-    include __DIR__ . '/../database.php';
+
     // Fonction pour récupérer les informations d'une personne à partir de son email
 
    
-    function getUserInfo($email) {
+    function getUserInfo($email, $db) {
         // Inclure le fichier de connexion à la base de données
-        $db = new connectionDB();
 
         
         try {

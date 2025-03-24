@@ -1,3 +1,7 @@
+<?php
+require_once __DIR__ . '/config/session.php';
+init_session();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +11,9 @@
     <link rel="stylesheet" href="/global.css">
 </head>
 <body class="bg-[#EAEBED] flex flex-col">
-    <?php include __DIR__ . '/views/navbar.php'; 
+    <?php 
+    //session_start();
+    include __DIR__ . '/views/navbar.php'; 
 
     $mustache = new Mustache_Engine([
 	'loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/templates'),
