@@ -206,9 +206,6 @@
   .absolute {
     position: absolute;
   }
-  .fixed {
-    position: fixed;
-  }
   .relative {
     position: relative;
   }
@@ -771,11 +768,6 @@
   .filter {
     filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
   }
-  .transition {
-    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter;
-    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
-    transition-duration: var(--tw-duration, var(--default-transition-duration));
-  }
   .transition-all {
     transition-property: all;
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
@@ -796,6 +788,22 @@
   .select-none {
     -webkit-user-select: none;
     user-select: none;
+  }
+  .peer-focus\:bg-red-500 {
+    &:is(:where(.peer):focus ~ *) {
+      background-color: var(--color-red-500);
+    }
+  }
+  .peer-focus\:outline-2 {
+    &:is(:where(.peer):focus ~ *) {
+      outline-style: var(--tw-outline-style);
+      outline-width: 2px;
+    }
+  }
+  .peer-focus\:outline-\[\#5242AE\] {
+    &:is(:where(.peer):focus ~ *) {
+      outline-color: #5242AE;
+    }
   }
   .hover\:scale-105 {
     &:hover {
@@ -867,6 +875,14 @@
       }
     }
   }
+  .focus\:scale-95 {
+    &:focus {
+      --tw-scale-x: 95%;
+      --tw-scale-y: 95%;
+      --tw-scale-z: 95%;
+      scale: var(--tw-scale-x) var(--tw-scale-y);
+    }
+  }
   .focus\:ring-2 {
     &:focus {
       --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentColor);
@@ -897,6 +913,17 @@
         outline: 2px solid transparent;
         outline-offset: 2px;
       }
+    }
+  }
+  .focus\:outline-0 {
+    &:focus {
+      outline-style: var(--tw-outline-style);
+      outline-width: 0px;
+    }
+  }
+  .focus\:outline-\[\#5242AE\] {
+    &:focus {
+      outline-color: #5242AE;
     }
   }
   .focus\:outline-none {
