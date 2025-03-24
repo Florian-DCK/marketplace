@@ -15,5 +15,5 @@ RewriteRule ^dashboard/admin$ api/views/dashboard.php [L]
 # Rediriger /signOut vers signOutControllers
 RewriteRule ^signOut$ api/controllers/signOutControllers.php  [L]
 
-# Rediriger /showErrorControllers vers error.php
-RewriteRule ^showErrorControllers$ api/views/error.php [L]
+# Rediriger /error
+RewriteRule ^error$ api/views/error.php [L]

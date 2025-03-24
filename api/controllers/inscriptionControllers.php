@@ -2,6 +2,7 @@
 ob_start(); // Ajouter un buffer de sortie au début du fichier
 include __DIR__ . "/../models/users/signInUpModel.php";
 include __DIR__ . "/../models/images.php";
+include __DIR__ . "/showErrorControllers.php";
 // Récupération des données envoyées via POST
 $nom = $_POST['lastName'];
 $prenom = $_POST['firstName'];
@@ -20,12 +21,21 @@ $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
 // Upload de l'avatar
 $avatar_id = image_upload($avatar)['id'];
 
-$result = inscription($nom,$prenom,$mdp_hash,$email,$telephone,$avatar_id, $birthDate);
+try {
+    // Tente d'exécuter l'inscription
+    $result = inscription($nom, $prenom, $mdp_hash, $email, $telephone, $avatar_id, $birthDate);
+} catch (Exception $e) {
+    // Si une exception est lancée, appelle showError() avec le message d'erreur de l'exception
+    showError($e->getMessage());
+    exit;
+}
+
+
 ob_end_clean(); // Nettoyer le buffer avant la redirection
 if($result == true) {
     header("Location: /login");
     exit;
-} else { 
+}  elseif ($result == 'EmailAlreadyUsed') { 
     header("Location: /login?error=EmailAlreadyUsed");
     exit;
-}
+} 
