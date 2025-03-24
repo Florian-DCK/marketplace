@@ -30,7 +30,7 @@ init_session();
 
     $db = new connectionDB();
 
-    $userInfos = getUserInfo($userEmail, $db);
+    $userInfos = $_SESSION ? getUserInfo($_SESSION['email'], $db) : null;
 
     $db->close();
     
@@ -39,21 +39,23 @@ init_session();
         'user' => [
             'lastName' => $userInfos['surname'] ?? '', // clé ajustée depuis 'surname'
             'firstName' => $userInfos['name'] ?? '',
-            'password' => $userInfos['pass'] ?? '',
             'email' => $userInfos['email'] ?? '',
             'phoneNumber' => $userInfos['phone'] ?? '',
             'avatar' => $userInfos['avatar'] ?? '',
             'birthDate' => $userInfos['birthDate'] ?? '',
             'creationDate' => $userInfos['creation_date'] ?? '',
             'lastModified' => $userInfos['last_modified'] ?? '',
-            'operatorLevel' => $userInfos['operator_level'] ?? ''
         ]
     ];
     ?>
     <main class="flex h-full">
         <?php 
-            echo $mustache->render('partials/dashboard/sidebar', $data); 
-            echo $mustache->render('partials/dashboard/userInfos', $data);
+            echo $mustache->render('partials/dashboard/sidebar', $data);
+            if (!str_contains($url, 'admin')) {
+                echo $mustache->render('partials/dashboard/userInfos', $data);
+            } else {
+                echo $mustache->render('partials/dashboard/userAdd', $data);
+            } 
         ?>
     </main>
 
