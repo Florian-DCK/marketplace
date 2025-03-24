@@ -64,7 +64,11 @@ if (!isset($_SESSION['operatoLevel']) && $_SESSION['operatorLevel'] !== "adminis
     <main class="flex h-full">
         <?php 
             echo $mustache->render('partials/dashboard/sidebar', $data);
-            echo $mustache->render('partials/dashboard/userInfos', $data);
+            if (str_contains($url, "admin")){
+                echo $mustache->render('partials/dashboard/userAdd', $data);
+            } else {
+                echo $mustache->render('partials/dashboard/userInfos', $data);
+            }
         ?>
     </main>
 </body>
