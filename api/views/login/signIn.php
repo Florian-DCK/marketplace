@@ -1,5 +1,4 @@
-
-<form action="../../../api/controllers/connectionControllers.php" method="POST" class="h-full flex flex-col p-1 items-center bg-[#FFD1A9] w-full pt-30 lg:justify-center lg:pt-0">
+<form action="../../../api/controllers/connectionControllers.php" method="POST" class="h-full flex flex-col p-1 items-center bg-gradient-to-br from-[#5242AE] to-[#8d54b1] w-full pt-30 lg:justify-center lg:pt-0">
     <div class="mb-10 mx-10 flex flex-col lg:flex-row items-center">
         <p class="font-semibold tracking-tight text-5xl lg:text-7xl text-white whitespace-nowrap">Sign in</p>
         <p class="font-semibold tracking-tight text-5xl lg:text-7xl text-white whitespace-nowrap">to your account</p>
@@ -31,5 +30,5 @@
                 class="w-8 h-8 flex text-red-500 items-center absolute top-1/2  transform -translate-y-1/2 m-0 pl-2 ">
                 <path d="M64 1C47.5 1 34 14.5 34 31v26H15v70h99V57H94V31C94 14.5 80.5 1 64 1zM42 31c0-12.1 9.9-22 22-22s22 9.9 22 22v26H42V31zm64 34v54H23V65h83z"/><path d="M60 81h8v22h-8z"/></svg>
     </div>
-    <button type="submit" class="cursor-pointer flex justify-center font-semibold text-xl bg-white text-[#FFD1A9] rounded-full w-60 py-3 hover:bg-[#FFD1A9] hover:text-white duration-500 ease-in-out hover:scale-115 border">Log in</button>   
+    <button type="submit" class="cursor-pointer flex justify-center font-semibold text-xl bg-white text-[#5242AE] rounded-full w-60 py-3 hover:bg-[#5242AE] hover:text-white duration-500 ease-in-out hover:scale-115 border">Log in</button>   
 </form>
