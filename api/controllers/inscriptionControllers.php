@@ -20,7 +20,7 @@ $operator_level = 1;
 $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
 // Upload de l'avatar
 $avatar_id = image_upload($avatar)['id'];
-
+$result;
 try {
     // Tente d'exécuter l'inscription
     $result = inscription($nom, $prenom, $mdp_hash, $email, $telephone, $avatar_id, $birthDate);
@@ -32,10 +32,12 @@ try {
 
 
 ob_end_clean(); // Nettoyer le buffer avant la redirection
-if($result == true) {
+if($result == "success") {
     header("Location: /login");
     exit;
 }  elseif ($result == 'EmailAlreadyUsed') { 
     header("Location: /login?error=EmailAlreadyUsed");
     exit;
-} 
+} else{
+    showError($result);
+}
