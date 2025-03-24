@@ -43,12 +43,17 @@ if (!isset($_SESSION['operatoLevel']) && $_SESSION['operatorLevel'] !== "adminis
 
     $db = new connectionDB();
 
-    $userInfos = $_SESSION ? getUserInfo($_SESSION['email'], $db) : null;
+    if (!$userEmail){
+        $userInfos = $_SESSION ? getUserInfo($_SESSION['email'], $db) : null;
+    } else {
+        $userInfos = getUserInfo($userEmail, $db);
+    }
 
     $db->close();
     
+
     $data = [
-        'isAdmin' => true,
+        'isAdmin' => str_contains($url, "admin"),
         'user' => [
             'lastName' => $userInfos['surname'] ?? '',
             'firstName' => $userInfos['name'] ?? '',
@@ -65,7 +70,7 @@ if (!isset($_SESSION['operatoLevel']) && $_SESSION['operatorLevel'] !== "adminis
         <?php 
             echo $mustache->render('partials/dashboard/sidebar', $data);
             if (str_contains($url, "admin")){
-                echo $mustache->render('partials/dashboard/userAdd', $data);
+                echo $mustache->render('partials/dashboard/userAdminInfo', $data);
             } else {
                 echo $mustache->render('partials/dashboard/userInfos', $data);
             }
