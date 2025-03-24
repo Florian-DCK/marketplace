@@ -25,7 +25,7 @@ function inscription($nom = null, $prenom = null, $mdp = null, $email = null, $t
     $conn = new connectionDB();
 
         $creation_date = date('Y-m-d H:i:s');
-        $last_modified = $creation_date;
+        $last_modified = date('Y-m-d H:i:s', strtotime($creation_date . ' +1 hour'));
         $isActive = 1;  
         $operator_level = 1;  
 

@@ -43,6 +43,7 @@ require_once __DIR__ . '/../../vendor/autoload.php';
                     $dsn = "mysql:host=$this->host;port=$this->port;dbname=$this->dbname;charset=$this->charset";
                     $this->db = new PDO($dsn, $this->user, $this->pass);
                     $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+					$this->db->exec("SET time_zone = 'Europe/Brussels'");
                 } catch (PDOException $e) {
                     echo 'Erreur de connexion : ' . $e->getMessage() . "\n";
                     exit;

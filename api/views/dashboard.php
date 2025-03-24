@@ -1,6 +1,19 @@
 <?php
 require_once __DIR__ . '/../config/session.php';
 init_session();
+
+if (!isset($_SESSION['id'])) {
+    header("Location: /");
+    exit;
+}
+
+$url = $_SERVER['REQUEST_URI'];
+
+// Vérifier si l'utilisateur est admin (ici, operator_level == 0 indique admin)
+if (!isset($_SESSION['operatoLevel']) && $_SESSION['operatorLevel'] !== "administrator" && str_contains($url, 'admin')) {
+    header("Location: /dashboard");
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,11 +31,11 @@ init_session();
     $url = $_SERVER['REQUEST_URI'];
     
     $mustache = new Mustache_Engine([
-	'loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates'),
-	'partials_loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates/partials')
+        'loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates'),
+        'partials_loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates/partials')
     ]);
 
-        // Variables mockup pour les informations utilisateur
+    // Variables mockup pour les informations utilisateur
     include __DIR__ . '/../models/users/getInfosModel.php';
 
     // Récupérer userEmail depuis GET au lieu de POST
@@ -35,9 +48,9 @@ init_session();
     $db->close();
     
     $data = [
-        'isAdmin' => str_contains($url, 'admin') ? false : true,
+        'isAdmin' => true,
         'user' => [
-            'lastName' => $userInfos['surname'] ?? '', // clé ajustée depuis 'surname'
+            'lastName' => $userInfos['surname'] ?? '',
             'firstName' => $userInfos['name'] ?? '',
             'email' => $userInfos['email'] ?? '',
             'phoneNumber' => $userInfos['phone'] ?? '',
@@ -51,15 +64,13 @@ init_session();
     <main class="flex h-full">
         <?php 
             echo $mustache->render('partials/dashboard/sidebar', $data);
-            if (!str_contains($url, 'admin')) {
-                echo $mustache->render('partials/dashboard/userInfos', $data);
-            } else {
+            if (str_contains($url, "admin")){
                 echo $mustache->render('partials/dashboard/userAdd', $data);
-            } 
+            } else {
+                echo $mustache->render('partials/dashboard/userInfos', $data);
+            }
         ?>
     </main>
-
-
 </body>
 </html>
 
@@ -69,3 +80,4 @@ unset($mustache);
 unset($userEmail);
 unset($userInfos);
 unset($data);
+?>

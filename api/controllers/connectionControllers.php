@@ -24,6 +24,7 @@ if ($user && password_verify($password, $user['pass'])) {
     $_SESSION['email'] = $user['email'];
     $_SESSION['surname'] = $user['surname'];
     $_SESSION['avatar'] = $user['avatar'];
+    $_SESSION['operatorLevel'] = $user['operator_level'];
     
     // Rediriger vers la page d'accueil ou autre
     session_write_close();
