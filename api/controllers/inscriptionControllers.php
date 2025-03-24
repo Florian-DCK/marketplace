@@ -38,6 +38,15 @@ if($result == "success") {
 }  elseif ($result == 'EmailAlreadyUsed') { 
     header("Location: /login?error=EmailAlreadyUsed");
     exit;
-} else{
+} elseif ($result == 'PasswordTooLong'){
+    header ("Location: /login?error=PasswordTooLong");  
+} elseif ($result == 'NameTooLong'){
+    header ("Location: /login?error=NameTooLong");  
+} elseif ($result == 'FirstNameTooLong'){
+    header ("Location: /login?error=FirstNameTooLong");  
+} elseif ($result == 'PhoneNumberTooLong'){
+    header ("Location: /login?error=PhoneNumberTooLong");  
+}
+else{
     showError($result);
 }
