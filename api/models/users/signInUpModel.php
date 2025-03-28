@@ -50,7 +50,7 @@ function inscription($nom = null, $prenom = null, $mdp = null, $email = null, $t
         } elseif (strlen($avatar)>191) {
             $conn->close();
             return "UrlImageTooLong";
-        } elseif (strlen($mdp) > 255) {
+        /*} elseif (strlen($mdp) > 255) {
             $conn->close();
             return "PasswordTooLong";
         } elseif (strlen($mdp) < 8) {
@@ -61,7 +61,7 @@ function inscription($nom = null, $prenom = null, $mdp = null, $email = null, $t
             return "PasswordNoSpecialChar";
         } elseif (preg_match('/^[A-Z]/', $mdp)) { // Vérification de la première lettre en majuscule
             $conn->close();
-            return "PasswordNoUppercase";
+            return "PasswordNoUppercase";*/
         } else {
             $conn->query(
                 "INSERT INTO User (id, name, surname, email, phone, avatar, birthDate, creation_date, last_modified, isActive, pass, operator_level) 
