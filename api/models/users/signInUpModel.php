@@ -35,25 +35,33 @@ function inscription($nom = null, $prenom = null, $mdp = null, $email = null, $t
         if ($count > 0) {
             $conn->close();
             return "EmailAlreadyUsed";
+        } elseif (strlen($email)>50) {
+            $conn->close();
+            return "EmailTooLong";
         } elseif (strlen($nom)>50) {
             $conn->close();
             return "NameTooLong";
         } elseif (strlen($prenom)>50) {
             $conn->close();
             return "FirstNameTooLong";
-        } elseif (strlen($mdp)>255 
-                    || strlen($mdp) < 8 // Erreur si mdp inférieur à 8 caractère
-                    || !preg_match('/^[A-Z]/', $mdp) // Erreur si la première lettre n'est pas en majuscule
-                    || !preg_match('/[\W_]/', $mdp)) // Erreur si le mot de passe ne contient pas de caractère spécial
-                    {
-            $conn->close();
-            return "PasswordTooLong";
         } elseif (strlen($telephone)>50) {
             $conn->close();
             return "PhoneNumberTooLong";
         } elseif (strlen($avatar)>191) {
             $conn->close();
             return "UrlImageTooLong";
+        } elseif (strlen($mdp) > 255) {
+            $conn->close();
+            return "PasswordTooLong";
+        } elseif (strlen($mdp) < 8) {
+            $conn->close();
+            return "PasswordTooShort";
+        } elseif (preg_match('/[\W_]/', $mdp)) { // Vérification du caractère spécial 
+            $conn->close();
+            return "PasswordNoSpecialChar";
+        } elseif (preg_match('/^[A-Z]/', $mdp)) { // Vérification de la première lettre en majuscule
+            $conn->close();
+            return "PasswordNoUppercase";
         } else {
             $conn->query(
                 "INSERT INTO User (id, name, surname, email, phone, avatar, birthDate, creation_date, last_modified, isActive, pass, operator_level) 
