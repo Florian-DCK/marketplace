@@ -45,7 +45,7 @@ if ($result == "success") {
 } elseif ($result == 'EmailTooLong') {
     header("Location: /login?error=EmailTooLong");
     exit;
-/*} elseif ($result == 'PasswordTooShort') {
+} elseif ($result == 'PasswordTooShort') {
     header("Location: /login?error=PasswordTooShort");
     exit;
 } elseif ($result == 'PasswordNoUppercase') {
@@ -53,7 +53,7 @@ if ($result == "success") {
     exit;
 } elseif ($result == 'PasswordNoSpecialChar') {
     header("Location: /login?error=PasswordNoSpecialChar");
-    exit;*/
+    exit;
 } elseif ($result == 'NameTooLong') {
     header("Location: /login?error=NameTooLong");
     exit;
