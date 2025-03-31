@@ -18,15 +18,23 @@ $last_modified = $creation_date;  // Date actuelle pour la modification
 $isActive = 1;  
 $operator_level = 1;  
 
+// Vérification que les mots de passe sont identiques
+if ($mdp !== $mdpConfirm) {
+    // Si les mots de passe ne correspondent pas, rediriger avec un message d'erreur
+    header("Location: /login?error=PasswordMismatch");
+    exit;
+}
+
 // Hachage du mot de passe pour plus de sécurité
 $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
 
 // Upload de l'avatar
 $avatar_id = image_upload($avatar)['id'];
+
 $result;
 try {
     // Tente d'exécuter l'inscription
-    $result = inscription($nom, $prenom, $mdp, $email, $telephone, $avatar_id, $birthDate);
+    $result = inscription($nom, $prenom, $mdp_hash, $email, $telephone, $avatar_id, $birthDate);
 } catch (Exception $e) {
     // Si une exception est lancée, appelle showError() avec le message d'erreur de l'exception
     showError($e->getMessage());
@@ -66,23 +74,5 @@ if ($result == "success") {
 } else {
     showError($result);
 }
-
-function connection($email = null, $password = null){
-    $conn = new connectionDB();
-    // Remplacer la préparation/exécution par query()
-    $result = $conn->query("SELECT * FROM User WHERE email = :email", [':email' => $email]);
-
-    if($result && count($result) > 0) {
-        $user = $result[0];
-        if(password_verify($password, $user['pass'])) {
-            $conn->close();
-            return true;
-        }
-    } else {
-        echo "Error user not found";
-        $conn->close();
-        return false;
-    }
-}
-
 ?>
+

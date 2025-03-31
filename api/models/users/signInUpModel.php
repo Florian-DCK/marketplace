@@ -2,8 +2,24 @@
 
 // Inclure le fichier de connexion à la base de données
 require_once __DIR__ . '/../database.php';
-require_once __DIR__ . '/../../controllers/inscriptionControllers.php';
 
+function connection($email = null, $password = null){
+    $conn = new connectionDB();
+    // Remplacer la préparation/exécution par query()
+    $result = $conn->query("SELECT * FROM User WHERE email = :email", [':email' => $email]);
+
+    if($result && count($result) > 0) {
+        $user = $result[0];
+        if(password_verify($password, $user['pass'])) {
+            $conn->close();
+            return true;
+        }
+    } else {
+        echo "Error user not found";
+        $conn->close();
+        return false;
+    }
+}
 function inscription($nom = null, $prenom = null, $mdp = null, $email = null, $telephone = null, $avatar = null, $birthDate = null){
     $conn = new connectionDB();
 
