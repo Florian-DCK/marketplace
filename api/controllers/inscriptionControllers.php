@@ -26,7 +26,7 @@ $avatar_id = image_upload($avatar)['id'];
 $result;
 try {
     // Tente d'exécuter l'inscription
-    $result = inscription($nom, $prenom, $mdp_hash, $email, $telephone, $avatar_id, $birthDate);
+    $result = inscription($nom, $prenom, $mdp, $email, $telephone, $avatar_id, $birthDate);
 } catch (Exception $e) {
     // Si une exception est lancée, appelle showError() avec le message d'erreur de l'exception
     showError($e->getMessage());
@@ -45,7 +45,7 @@ if ($result == "success") {
 } elseif ($result == 'EmailTooLong') {
     header("Location: /login?error=EmailTooLong");
     exit;
-/*} elseif ($result == 'PasswordTooShort') {
+} elseif ($result == 'PasswordTooShort') {
     header("Location: /login?error=PasswordTooShort");
     exit;
 } elseif ($result == 'PasswordNoUppercase') {
@@ -53,7 +53,7 @@ if ($result == "success") {
     exit;
 } elseif ($result == 'PasswordNoSpecialChar') {
     header("Location: /login?error=PasswordNoSpecialChar");
-    exit;*/
+    exit;
 } elseif ($result == 'NameTooLong') {
     header("Location: /login?error=NameTooLong");
     exit;
