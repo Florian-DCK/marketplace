@@ -2,7 +2,8 @@
 
 // Inclure le fichier de connexion à la base de données
 require_once __DIR__ . '/../database.php';
-include __DIR__ .'../controllers/inscriptionControllers.php';
+require_once __DIR__ . '/../../controllers/inscriptionControllers.php';
+
 function connection($email = null, $password = null){
     $conn = new connectionDB();
     // Remplacer la préparation/exécution par query()
@@ -28,6 +29,9 @@ function inscription($nom = null, $prenom = null, $mdp = null, $email = null, $t
         $last_modified = date('Y-m-d H:i:s', strtotime($creation_date . ' +1 hour'));
         $isActive = 1;  
         $operator_level = 1;  
+
+        // Hachage du mot de passe pour plus de sécurité
+        $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
 
         // Vérification avec query() et COUNT(*)
         $countResult = $conn->query("SELECT COUNT(*) as cnt FROM User WHERE email = :email", [':email' => $email]);
@@ -73,7 +77,7 @@ function inscription($nom = null, $prenom = null, $mdp = null, $email = null, $t
                     ":creation_date" => $creation_date,
                     ":last_modified" => $last_modified,
                     ":isActive" => $isActive,
-                    ":pass" => $mdp,
+                    ":pass" => $mdp_hash,
                     ":operator_level" => $operator_level,
                 ]
             );
