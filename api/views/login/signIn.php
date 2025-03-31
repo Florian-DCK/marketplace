@@ -39,7 +39,7 @@
                     echo '<p class="tracking-tight text-3xl lg:text-7xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">Uppercase Missing</p>';
                     break;
                 case 'PasswordMismatch':
-                    echo '<p class="tracking-tight text-3xl lg:text-7xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">Password not identical</p>';
+                    echo '<p class="tracking-tight text-3xl lg:text-7xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">Password Not Identical</p>';
                     break;
                 default:
                     break;
