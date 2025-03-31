@@ -12,6 +12,7 @@
     --color-red-500: oklch(0.637 0.237 25.331);
     --color-red-600: oklch(0.577 0.245 27.325);
     --color-red-700: oklch(0.505 0.213 27.518);
+    --color-amber-100: oklch(0.962 0.059 95.617);
     --color-blue-500: oklch(0.623 0.214 259.815);
     --color-gray-200: oklch(0.928 0.006 264.531);
     --color-gray-300: oklch(0.872 0.01 258.338);
@@ -851,6 +852,9 @@
   }
   .text-\[\#FFD1A9\] {
     color: #FFD1A9;
+  }
+  .text-amber-100 {
+    color: var(--color-amber-100);
   }
   .text-gray-700 {
     color: var(--color-gray-700);
