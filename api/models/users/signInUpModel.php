@@ -81,6 +81,7 @@ function inscription($nom = null, $prenom = null, $mdp = null, $email = null, $t
             );
             $conn->close();
             return "success";
+            var_dump($prenon);
         }
     }
 ?>
