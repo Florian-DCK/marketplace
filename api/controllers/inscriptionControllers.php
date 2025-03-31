@@ -26,7 +26,7 @@ $avatar_id = image_upload($avatar)['id'];
 $result;
 try {
     // Tente d'exécuter l'inscription
-    $result = inscription($nom, $prenom, $mdp_hash, $email, $telephone, $avatar_id, $birthDate);
+    $result = inscription($nom, $prenom, $mdp, $email, $telephone, $avatar_id, $birthDate);
 } catch (Exception $e) {
     // Si une exception est lancée, appelle showError() avec le message d'erreur de l'exception
     showError($e->getMessage());

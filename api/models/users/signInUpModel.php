@@ -2,7 +2,7 @@
 
 // Inclure le fichier de connexion à la base de données
 require_once __DIR__ . '/../database.php';
-
+include __DIR__ .'../controllers/inscriptionControllers.php';
 function connection($email = null, $password = null){
     $conn = new connectionDB();
     // Remplacer la préparation/exécution par query()
