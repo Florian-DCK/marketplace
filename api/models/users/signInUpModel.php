@@ -20,7 +20,6 @@ function connection($email = null, $password = null){
         return false;
     }
 }
-
 function inscription($nom = null, $prenom = null, $mdp = null, $email = null, $telephone = null, $avatar = null, $birthDate = null){
     $conn = new connectionDB();
 
@@ -28,6 +27,9 @@ function inscription($nom = null, $prenom = null, $mdp = null, $email = null, $t
         $last_modified = date('Y-m-d H:i:s', strtotime($creation_date . ' +1 hour'));
         $isActive = 1;  
         $operator_level = 1;  
+
+        // Hachage du mot de passe pour plus de sécurité
+        $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
 
         // Vérification avec query() et COUNT(*)
         $countResult = $conn->query("SELECT COUNT(*) as cnt FROM User WHERE email = :email", [':email' => $email]);
@@ -50,18 +52,15 @@ function inscription($nom = null, $prenom = null, $mdp = null, $email = null, $t
         } elseif (strlen($avatar)>191) {
             $conn->close();
             return "UrlImageTooLong";
-        /*} elseif (strlen($mdp) > 255) {
-            $conn->close();
-            return "PasswordTooLong";
         } elseif (strlen($mdp) < 8) {
             $conn->close();
             return "PasswordTooShort";
-        } elseif (preg_match('/[\W_]/', $mdp)) { // Vérification du caractère spécial 
+        } elseif (!preg_match('/[^\W]/', $mdp)) { // Vérification du caractère spécial 
             $conn->close();
             return "PasswordNoSpecialChar";
-        } elseif (preg_match('/^[A-Z]/', $mdp)) { // Vérification de la première lettre en majuscule
+        } elseif (!preg_match('/[A-Z]/', $mdp)) { // Vérification si une lettre est en majuscule
             $conn->close();
-            return "PasswordNoUppercase";*/
+            return "PasswordNoUppercase";
         } else {
             $conn->query(
                 "INSERT INTO User (id, name, surname, email, phone, avatar, birthDate, creation_date, last_modified, isActive, pass, operator_level) 
@@ -76,7 +75,7 @@ function inscription($nom = null, $prenom = null, $mdp = null, $email = null, $t
                     ":creation_date" => $creation_date,
                     ":last_modified" => $last_modified,
                     ":isActive" => $isActive,
-                    ":pass" => $mdp,
+                    ":pass" => $mdp_hash,
                     ":operator_level" => $operator_level,
                 ]
             );

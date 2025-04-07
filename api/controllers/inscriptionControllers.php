@@ -18,11 +18,19 @@ $last_modified = $creation_date;  // Date actuelle pour la modification
 $isActive = 1;  
 $operator_level = 1;  
 
+// Vérification que les mots de passe sont identiques
+if ($mdp !== $mdpConfirm) {
+    // Si les mots de passe ne correspondent pas, rediriger avec un message d'erreur
+    header("Location: /login?error=PasswordMismatch");
+    exit;
+}
+
 // Hachage du mot de passe pour plus de sécurité
 $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
 
 // Upload de l'avatar
 $avatar_id = image_upload($avatar)['id'];
+
 $result;
 try {
     // Tente d'exécuter l'inscription
@@ -45,7 +53,7 @@ if ($result == "success") {
 } elseif ($result == 'EmailTooLong') {
     header("Location: /login?error=EmailTooLong");
     exit;
-/*} elseif ($result == 'PasswordTooShort') {
+} elseif ($result == 'PasswordTooShort') {
     header("Location: /login?error=PasswordTooShort");
     exit;
 } elseif ($result == 'PasswordNoUppercase') {
@@ -53,7 +61,7 @@ if ($result == "success") {
     exit;
 } elseif ($result == 'PasswordNoSpecialChar') {
     header("Location: /login?error=PasswordNoSpecialChar");
-    exit;*/
+    exit;
 } elseif ($result == 'NameTooLong') {
     header("Location: /login?error=NameTooLong");
     exit;
@@ -67,3 +75,4 @@ if ($result == "success") {
     showError($result);
 }
 ?>
+
