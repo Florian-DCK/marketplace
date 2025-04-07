@@ -21,12 +21,10 @@ $operator_level = 1;
 // Vérification que les mots de passe sont identiques
 if ($mdp !== $mdpConfirm) {
     // Si les mots de passe ne correspondent pas, rediriger avec un message d'erreur
-    header("Location: /login?error=PasswordMismatch");
+    header("Location: /login?login=true&error=PasswordMismatch");
     exit;
 }
 
-// Hachage du mot de passe pour plus de sécurité
-//$mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
 
 // Upload de l'avatar
 $avatar_id = image_upload($avatar)['id'];
