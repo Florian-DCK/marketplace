@@ -1,9 +1,9 @@
-<form action="" method="post" enctype="multipart/form-data" class="flex flex-col p-4 space-y-4">
+<form action="" method="post" enctype="multipart/form-data" class="flex flex-col m-3 p-4 space-y-4">
     <div class="flex flex-col">
-        <h1 class="font-bold text-2xl">Détails de votre annonce</h1>
+        <h1 class="font-bold text-2xl">Announcement description</h1>
     </div>
     <div class="flex flex-col">
-        <label for="title">Nom du produit</label>
+        <label for="title">Product name</label>
         <input type="text" 
                 name="title" 
                 id="title" 
@@ -11,20 +11,20 @@
                 class="border border-gray-300 rounded-md p-2">
     </div>
     <div class="flex flex-col">
-        <label for="category">Catégorie</label>
+        <label for="category">Category</label>
         <select name="category" 
                 id="category" 
                 required
                 class="border border-gray-300 rounded-md p-2 cursor-pointer">
-            <option value="" disabled selected>Choisir une catégorie</option>
-            <option value="">Meubles</option>
-            <option value="">Informatiques</option>
-            <option value="">Vêtements</option>
-            <option value="">Corps humain</option>            
+            <option value="" disabled selected>Select a category</option>
+            <option value="">Furniture</option>
+            <option value="">High-tech</option>
+            <option value="">Clothes</option>
+            <option value="">Human slaves</option>            
         </select>
     </div>
     <div class="flex flex-col">
-        <label for="price">Prix</label>
+        <label for="price">Price</label>
         <input type="text" 
                 name="price" 
                 id="price" 
@@ -49,6 +49,6 @@
         </textarea>
     </div>
     <div>
-        <button type="submit" class="border border-gray-300 rounded-md p-2 bg-indigo-500 text-white">Publier</button>
+        <button type="submit" class="border border-gray-300 rounded-md p-2 bg-indigo-500 text-white">Publish</button>
     </div>
 </form>
