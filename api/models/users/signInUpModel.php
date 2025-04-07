@@ -57,10 +57,7 @@ function inscription($nom = null, $prenom = null, $mdp = null, $email = null, $t
             || !preg_match('/[0-9]/', $mdp) 
             || !preg_match('/[^A-Za-z0-9]/', $mdp)) {
                 $conn->close();
-            return "Wrong password";
-        } elseif (!preg_match('/[A-Z]/', $mdp)) { // Vérification si une lettre est en majuscule
-            $conn->close();
-            return "PasswordNoUppercase";
+            return "Wrong password"
         } else {
             $conn->query(
                 "INSERT INTO User (id, name, surname, email, phone, avatar, birthDate, creation_date, last_modified, isActive, pass, operator_level) 
