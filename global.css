@@ -649,6 +649,9 @@
   .border-gray-200 {
     border-color: var(--color-gray-200);
   }
+  .border-red-500 {
+    border-color: var(--color-red-500);
+  }
   .border-transparent {
     border-color: transparent;
   }
