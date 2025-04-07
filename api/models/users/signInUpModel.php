@@ -52,12 +52,12 @@ function inscription($nom = null, $prenom = null, $mdp = null, $email = null, $t
         } elseif (strlen($avatar)>191) {
             $conn->close();
             return "UrlImageTooLong";
-        } elseif (strlen($mdp) < 8) {
-            $conn->close();
-            return "PasswordTooShort";
-        } elseif (!preg_match('/[^\W]/', $mdp)) { // Vérification du caractère spécial 
-            $conn->close();
-            return "PasswordNoSpecialChar";
+        }elseif (empty($mdp) || strlen($mdp) < 8 
+            || !preg_match('/[A-Z]/', $mdp) 
+            || !preg_match('/[0-9]/', $mdp) 
+            || !preg_match('/[^A-Za-z0-9]/', $mdp)) {
+                $conn->close();
+            return "Wrong password";
         } elseif (!preg_match('/[A-Z]/', $mdp)) { // Vérification si une lettre est en majuscule
             $conn->close();
             return "PasswordNoUppercase";
