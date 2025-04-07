@@ -26,7 +26,7 @@ if ($mdp !== $mdpConfirm) {
 }
 
 // Hachage du mot de passe pour plus de sécurité
-$mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
+//$mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
 
 // Upload de l'avatar
 $avatar_id = image_upload($avatar)['id'];
@@ -34,7 +34,7 @@ $avatar_id = image_upload($avatar)['id'];
 $result;
 try {
     // Tente d'exécuter l'inscription
-    $result = inscription($nom, $prenom, $mdp_hash, $email, $telephone, $avatar_id, $birthDate);
+    $result = inscription($nom, $prenom, $mdp, $email, $telephone, $avatar_id, $birthDate);
 } catch (Exception $e) {
     // Si une exception est lancée, appelle showError() avec le message d'erreur de l'exception
     showError($e->getMessage());
@@ -47,25 +47,12 @@ ob_end_clean(); // Nettoyer le buffer avant la redirection
 if ($result == "success") {
     header("Location: /login");
     exit;
-} elseif ($result == 'EmailAlreadyUsed') { 
-    header("Location: /login?error=EmailAlreadyUsed");
+} elseif ($result != "success"){
+    header("Location: /login?error=$result");
     exit;
-} elseif ($result == 'EmailTooLong') {
-    header("Location: /login?error=EmailTooLong");
-    exit;
-} elseif ($result == 'Wrong password') {
-    header("Location: /login?error=Wrong password");
-    exit;
-} elseif ($result == 'NameTooLong') {
-    header("Location: /login?error=NameTooLong");
-    exit;
-} elseif ($result == 'FirstNameTooLong') {
-    header("Location: /login?error=FirstNameTooLong");
-    exit; 
-} elseif ($result == 'PhoneNumberTooLong') {
-    header("Location: /login?error=PhoneNumberTooLong");
-    exit; 
-} else {
+}
+
+else {
     showError($result);
 }
 ?>

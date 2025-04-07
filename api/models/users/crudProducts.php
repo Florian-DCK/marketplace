@@ -62,32 +62,3 @@
         }
     }
 
-    $password = "test";
-
-// Variables pour stocker les erreurs
-$errors = [];
-
-// Vérifications individuelles
-if (strlen($password) < 8) {
-    $errors[] = "Le mot de passe doit contenir au moins 8 caractères.";
-}
-if (!preg_match('/[A-Z]/', $password)) {
-    $errors[] = "Le mot de passe doit contenir au moins une majuscule.";
-}
-if (!preg_match('/[0-9]/', $password)) {
-    $errors[] = "Le mot de passe doit contenir au moins un chiffre.";
-}
-if (!preg_match('/[!@#$%^&*(),.?":{}|<>]/', $password)) {
-    $errors[] = "Le mot de passe doit contenir au moins un caractère spécial (!@#$%^&*(),.?\":{}|<>).";
-}
-
-// Vérification finale avec le regex complet
-$regex = '/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z0-9!@#$%^&*(),.?":{}|<>]{8,}$/';
-if (preg_match($regex, $password)) {
-    echo "Mot de passe valide";
-} else {
-    echo "Mot de passe invalide :<br>";
-    foreach ($errors as $error) {
-        echo "- " . $error . "<br>";
-    }
-}

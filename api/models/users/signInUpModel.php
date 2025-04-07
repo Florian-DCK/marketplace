@@ -50,13 +50,41 @@ function inscription($nom = null, $prenom = null, $mdp = null, $email = null, $t
         $conn->close();
         return "UrlImageTooLong";
     }
-    if (empty($mdp) || strlen($mdp) < 8 
+    /*if (empty($mdp) || strlen($mdp) < 8 
         || !preg_match('/[A-Z]/', $mdp) 
         || !preg_match('/[0-9]/', $mdp) 
         || !preg_match('/[^A-Za-z0-9]/', $mdp)) {
         $conn->close();
         return "Wrong password";
-    }
+    }*/
+
+$error = null; // Variable pour stocker les erreurs
+// Variables pour stocker les erreurs
+
+// Vérifications individuelles
+if (strlen($mdp) < 8) {
+    $error = "Le mot de passe doit contenir au moins 8 caractères.";
+    return $error;
+}
+if (!preg_match('/[A-Z]/', $mdp)) {
+    $error = "Le mot de passe doit contenir au moins une majuscule.";
+    return $error;
+}
+if (!preg_match('/[0-9]/', $mdp)) {
+    $error = "Le mot de passe doit contenir au moins un chiffre.";
+    return $error;
+}
+if (!preg_match('/[!@#$%^&*(),.?":{}|<>]/', $mdp)) {
+    $error =  "Le mot de passe doit contenir au moins un caractère spécial (!@#$%^&*(),.?\":{}|<>).";
+    return $error;
+}
+
+// Vérification finale avec le regex complet
+$regex = '/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z0-9!@#$%^&*(),.?":{}|<>]{8,}$/';
+if (preg_match($regex, $mdp)) {
+    $conn->close();
+        return "Success";
+}
 
     // Vérification de l'email existant après les autres validations
     $countResult = $conn->query("SELECT COUNT(*) as cnt FROM User WHERE email = :email", [':email' => $email]);
