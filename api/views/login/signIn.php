@@ -27,19 +27,19 @@
                     echo '<p class="tracking-tight text-3xl lg:text-5xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">Phone number too long</p>';
                     break;
                 case 'PasswordTooLong':
-                    echo '<p class="tracking-tight text-3xl lg:text-5xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">Password too long</p>';
+                    echo '<p class="tracking-tight text-3xl lg:text-7xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">Password too long</p>';
                     break;
                 case 'PasswordTooShort':
-                    echo '<p class="tracking-tight text-3xl lg:text-5xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">Password too short</p>';
+                    echo '<p class="tracking-tight text-3xl lg:text-7xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">Password too short</p>';
                     break;
                 case 'PasswordNoSpecialChar':
-                    echo '<p class="tracking-tight text-3xl lg:text-5xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">Special Character Missing</p>';
+                    echo '<p class="tracking-tight text-3xl lg:text-7xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">Special Character Missing</p>';
                     break;
                 case 'PasswordNoUppercase':
-                    echo '<p class="tracking-tight text-3xl lg:text-5xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">Uppercase Missing</p>';
+                    echo '<p class="tracking-tight text-3xl lg:text-7xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">Uppercase Missing</p>';
                     break;
                 case 'PasswordMismatch':
-                    echo '<p class="tracking-tight text-3xl lg:text-5xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">Password Not Identical</p>';
+                    echo '<p class="tracking-tight text-3xl lg:text-7xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">Password Not Identical</p>';
                     break;
                 default:
                     break;
