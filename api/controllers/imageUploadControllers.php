@@ -9,12 +9,11 @@ if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
         return false;
     }
 
-    
-    if ($image_info['mime'] !== 'image/jpeg' || $image_info['mime'] !== 'image/png') {
+    if ($image_info['mime'] != 'image/jpeg') {
         echo "L'image doit être au format JPEG.";
         return false;
     }
-
+   
     $max_width = 200;  // Largeur maximale en pixels
     $max_height = 200; // Hauteur maximale en pixels
 
