@@ -1,4 +1,4 @@
-/*! tailwindcss v4.0.15 | MIT License | https://tailwindcss.com */
+/*! tailwindcss v4.0.17 | MIT License | https://tailwindcss.com */
 @layer theme, base, components, utilities;
 @layer theme {
   :root, :host {
@@ -12,6 +12,7 @@
     --color-red-500: oklch(0.637 0.237 25.331);
     --color-red-600: oklch(0.577 0.245 27.325);
     --color-red-700: oklch(0.505 0.213 27.518);
+    --color-amber-100: oklch(0.962 0.059 95.617);
     --color-blue-500: oklch(0.623 0.214 259.815);
     --color-gray-200: oklch(0.928 0.006 264.531);
     --color-gray-300: oklch(0.872 0.01 258.338);
@@ -202,9 +203,6 @@
 @layer utilities {
   .absolute {
     position: absolute;
-  }
-  .fixed {
-    position: fixed;
   }
   .relative {
     position: relative;
@@ -681,9 +679,6 @@
   .bg-gray-800 {
     background-color: var(--color-gray-800);
   }
-  .bg-red-500 {
-    background-color: var(--color-red-500);
-  }
   .bg-red-600 {
     background-color: var(--color-red-600);
   }
@@ -843,6 +838,9 @@
   .text-\[\#9F9F9F\]\/50 {
     color: color-mix(in oklab, #9F9F9F 50%, transparent);
   }
+  .text-\[\#F1DB96\] {
+    color: #F1DB96;
+  }
   .text-\[\#5242AE\] {
     color: #5242AE;
   }
@@ -851,6 +849,12 @@
   }
   .text-\[\#FFD1A9\] {
     color: #FFD1A9;
+  }
+  .text-\[\#f1db96\] {
+    color: #f1db96;
+  }
+  .text-amber-100 {
+    color: var(--color-amber-100);
   }
   .text-gray-700 {
     color: var(--color-gray-700);
@@ -929,6 +933,11 @@
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
   }
+  .transition-opacity {
+    transition-property: opacity;
+    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+    transition-duration: var(--tw-duration, var(--default-transition-duration));
+  }
   .duration-100 {
     --tw-duration: 100ms;
     transition-duration: 100ms;
@@ -949,16 +958,6 @@
     -webkit-user-select: none;
     user-select: none;
   }
-  .hover\:scale-105 {
-    &:hover {
-      @media (hover: hover) {
-        --tw-scale-x: 105%;
-        --tw-scale-y: 105%;
-        --tw-scale-z: 105%;
-        scale: var(--tw-scale-x) var(--tw-scale-y);
-      }
-    }
-  }
   .hover\:scale-115 {
     &:hover {
       @media (hover: hover) {
@@ -966,6 +965,13 @@
         --tw-scale-y: 115%;
         --tw-scale-z: 115%;
         scale: var(--tw-scale-x) var(--tw-scale-y);
+      }
+    }
+  }
+  .hover\:bg-\[\#5242AE\] {
+    &:hover {
+      @media (hover: hover) {
+        background-color: #5242AE;
       }
     }
   }

@@ -4,6 +4,7 @@
         <p class="font-semibold tracking-tight text-5xl lg:text-7xl text-white whitespace-nowrap">to your account</p>
     </div>
     <div>
+    <div>
     <?php
         // echo  '<p class="tracking-tight text-3xl lg:text-7xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-5">'. $_GET["error"] . '</p>';
         if (isset($_GET["error"])) {
@@ -46,6 +47,8 @@
             }
         }
         ?>
+    </div>
+
     </div>
     <div class="flex relative sm:w-sm md:w-md lg:w-lg mb-10">
         <input type="email" 
