@@ -1,32 +1,54 @@
-
-<form action="" method="post" enctype="multipart/form-data"
-        class="flex flex-col">
-    <div>
-        <p>Détails de votre annonce</p>
+<form action="" method="post" enctype="multipart/form-data" class="flex flex-col p-4 space-y-4">
+    <div class="flex flex-col">
+        <h1 class="font-bold text-2xl">Détails de votre annonce</h1>
     </div>
-    <div>
+    <div class="flex flex-col">
         <label for="title">Nom du produit</label>
-        <input type="text" name="title" id="title" required>
+        <input type="text" 
+                name="title" 
+                id="title" 
+                required
+                class="border border-gray-300 rounded-md p-2">
     </div>
-    <div>
+    <div class="flex flex-col">
         <label for="category">Catégorie</label>
-        <select name="category" id="category" required>
-            <option value="">Sélectionner une catégorie</option>
-            {{#categories}}
-                <option value="{{id}}">{{name}}</option>
-            {{/categories}}
+        <select name="category" 
+                id="category" 
+                required
+                class="border border-gray-300 rounded-md p-2 cursor-pointer">
+            <option value="" disabled selected>Choisir une catégorie</option>
+            <option value="">Meubles</option>
+            <option value="">Informatiques</option>
+            <option value="">Vêtements</option>
+            <option value="">Corps humain</option>            
         </select>
     </div>
-    <div>
+    <div class="flex flex-col">
         <label for="price">Prix</label>
-        <input type="number" name="price" id="price" required>
+        <input type="text" 
+                name="price" 
+                id="price" 
+                required
+                class="border border-gray-300 rounded-md p-2">
     </div>
-    <div>
+    <div class="flex flex-col">
         <label for="image">Image</label>
-        <input type="file" name="image" id="image" accept="image/*" required>
+        <input type="file" 
+                name="image" 
+                id="image" 
+                accept="image/*" 
+                required
+                class="border border-gray-300 rounded-md p-2 cursor-pointer">
+    </div>
+    <div class="flex flex-col">
+        <label for="description">Description</label>
+        <textarea name="description" 
+                id="description" 
+                required
+                class="border border-gray-300 rounded-md p-2">
+        </textarea>
     </div>
     <div>
-        <label for="description">Description</label>
-        <textarea name="description" id="description" required></textarea>
+        <button type="submit" class="border border-gray-300 rounded-md p-2 bg-indigo-500 text-white">Publier</button>
     </div>
 </form>

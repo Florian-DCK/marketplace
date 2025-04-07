@@ -15,7 +15,7 @@ $url = $_SERVER['REQUEST_URI'];
     <link rel="stylesheet" href="/global.css">
 </head>
 
-<body class="h-screen w-screen flex flex-col bg-[#EAEBED]">
+
     <?php
         include __DIR__ . '/navbar.php';
         include __DIR__ . '/../models/database.php';
@@ -25,6 +25,7 @@ $url = $_SERVER['REQUEST_URI'];
             'partials_loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates/partials')
             ]);
 
-        echo $mustache->render('navbar', $data);
+            echo $mustache->render('publicationForm');
+
     ?>
-</body>
+

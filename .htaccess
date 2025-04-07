@@ -14,3 +14,6 @@ RewriteRule ^dashboard/admin$ api/views/dashboard.php [L]
 
 # Rediriger /signOut vers signOutControllers
 RewriteRule ^signOut$ api/controllers/signOutControllers.php  [L]
+
+# Rediriger /publicationForm
+RewriteRule ^publicationForm$ api/views/publicationForm.php [L]	
