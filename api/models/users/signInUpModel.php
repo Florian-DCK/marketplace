@@ -20,66 +20,75 @@ function connection($email = null, $password = null){
         return false;
     }
 }
+
 function inscription($nom = null, $prenom = null, $mdp = null, $email = null, $telephone = null, $avatar = null, $birthDate = null){
     $conn = new connectionDB();
 
-        $creation_date = date('Y-m-d H:i:s');
-        $last_modified = date('Y-m-d H:i:s', strtotime($creation_date . ' +1 hour'));
-        $isActive = 1;  
-        $operator_level = 1;  
+    $creation_date = date('Y-m-d H:i:s');
+    $last_modified = date('Y-m-d H:i:s', strtotime($creation_date . ' +1 hour'));
+    $isActive = 1;  
+    $operator_level = 1;  
 
-        // Hachage du mot de passe pour plus de sécurité
-        $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
-
-        // Vérification avec query() et COUNT(*)
-        $countResult = $conn->query("SELECT COUNT(*) as cnt FROM User WHERE email = :email", [':email' => $email]);
-        $count = $countResult[0]['cnt'];
-        if ($count > 0) {
-            $conn->close();
-            return "EmailAlreadyUsed";
-        } elseif (strlen($email)>50) {
-            $conn->close();
-            return "EmailTooLong";
-        } elseif (strlen($nom)>50) {
-            $conn->close();
-            return "NameTooLong";
-        } elseif (strlen($prenom)>50) {
-            $conn->close();
-            return "FirstNameTooLong";
-        } elseif (strlen($telephone)>50) {
-            $conn->close();
-            return "PhoneNumberTooLong";
-        } elseif (strlen($avatar)>191) {
-            $conn->close();
-            return "UrlImageTooLong";
-        }elseif (empty($mdp) || strlen($mdp) < 8 
-            || !preg_match('/[A-Z]/', $mdp) 
-            || !preg_match('/[0-9]/', $mdp) 
-            || !preg_match('/[^A-Za-z0-9]/', $mdp)) {
-                $conn->close();
-            return "Wrong password"
-        } else {
-            $conn->query(
-                "INSERT INTO User (id, name, surname, email, phone, avatar, birthDate, creation_date, last_modified, isActive, pass, operator_level) 
-                VALUES (0, :name, :surname, :email, :phone, :avatar, :birthDate, :creation_date, :last_modified, :isActive, :pass, :operator_level)",
-                [
-                    ":name" => $nom,
-                    ":surname" => $prenom,
-                    ":email" => $email,
-                    ":phone" => $telephone,
-                    ":avatar" => $avatar,
-                    ":birthDate" => $birthDate,
-                    ":creation_date" => $creation_date,
-                    ":last_modified" => $last_modified,
-                    ":isActive" => $isActive,
-                    ":pass" => $mdp_hash,
-                    ":operator_level" => $operator_level,
-                ]
-            );
-            $conn->close();
-            return "success";
-        }
+    // Vérification des longueurs d'abord
+    if (strlen($email) > 50) {
+        $conn->close();
+        return "EmailTooLong";
     }
+    if (strlen($nom) > 50) {
+        $conn->close();
+        return "NameTooLong";
+    }
+    if (strlen($prenom) > 50) {
+        $conn->close();
+        return "FirstNameTooLong";
+    }
+    if (strlen($telephone) > 50) {
+        $conn->close();
+        return "PhoneNumberTooLong";
+    }
+    if (strlen($avatar) > 191) {
+        $conn->close();
+        return "UrlImageTooLong";
+    }
+    if (empty($mdp) || strlen($mdp) < 8 
+        || !preg_match('/[A-Z]/', $mdp) 
+        || !preg_match('/[0-9]/', $mdp) 
+        || !preg_match('/[^A-Za-z0-9]/', $mdp)) {
+        $conn->close();
+        return "Wrong password";
+    }
+
+    // Vérification de l'email existant après les autres validations
+    $countResult = $conn->query("SELECT COUNT(*) as cnt FROM User WHERE email = :email", [':email' => $email]);
+    $count = $countResult[0]['cnt'];
+    if ($count > 0) {
+        $conn->close();
+        return "EmailAlreadyUsed";
+    }
+
+    // Si toutes les vérifications sont passées, hasher le mot de passe et insérer l'utilisateur
+    $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
+
+    $conn->query(
+        "INSERT INTO User (id, name, surname, email, phone, avatar, birthDate, creation_date, last_modified, isActive, pass, operator_level) 
+        VALUES (0, :name, :surname, :email, :phone, :avatar, :birthDate, :creation_date, :last_modified, :isActive, :pass, :operator_level)",
+        [
+            ":name" => $nom,
+            ":surname" => $prenom,
+            ":email" => $email,
+            ":phone" => $telephone,
+            ":avatar" => $avatar,
+            ":birthDate" => $birthDate,
+            ":creation_date" => $creation_date,
+            ":last_modified" => $last_modified,
+            ":isActive" => $isActive,
+            ":pass" => $mdp_hash,
+            ":operator_level" => $operator_level,
+        ]
+    );
+    $conn->close();
+    return "success";
+}
 ?>
 
 
