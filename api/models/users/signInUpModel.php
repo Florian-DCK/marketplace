@@ -83,7 +83,7 @@ if (!preg_match('/[!@#$%^&*(),.?":{}|<>]/', $mdp)) {
 $regex = '/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z0-9!@#$%^&*(),.?":{}|<>]{8,}$/';
 if (preg_match($regex, $mdp)) {
     $conn->close();
-        return "Success";
+        return "success";
 }
 
     // Vérification de l'email existant après les autres validations
