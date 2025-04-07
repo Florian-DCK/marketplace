@@ -43,12 +43,11 @@
         </div>
         <div class="flex relative sm:w-md lg:w-lg">
             <input type="date" 
-                    name="birthDate"
-                    placeholder="" 
+                    name="birthDate" 
                     required
                     class="cursor-pointer p-2 ps-10 rounded-sm bg-[#EAEBED] border border-transparent text-[#9F9F9F]/50 w-60 sm:w-full focus:outline-none">
                         <svg fill="none" stroke="#9F9F9F" stroke-linecap="square" aria-labelledby="userIconTitle" viewBox="0 0 24 24"
-                        class="w-8 h-8 flex items-center absolute top-1/2  transform -translate-y-1/2 m-0 pl-2">
+                        class="w-8 h-8 cursor-pointer flex items-center absolute top-1/2  transform -translate-y-1/2 m-0 pl-2">
                         <path stroke-linecap="round" d="M5.5 19.5c2.333-1 3.833-1.833 4.5-2.5 1-1-2-1-2-6 0-3.333 1.333-5 4-5s4 1.667 4 5c0 5-3 5-2 6 .667.667 2.167 1.5 4.5 2.5"/><circle cx="12" cy="12" r="10"/>
                         </svg>
         </div>
@@ -105,7 +104,9 @@
                     class="w-8 h-8 flex text-red-500 items-center absolute top-1/2  transform -translate-y-1/2 m-0 pl-2  peer-[&:not(:placeholder-shown):not(:focus):invalid]:[&_*]:fill-red-500">
                     <path d="M24.014 70.462a9.718 9.718 0 0 1-6.917-2.859L2.175 53.877C.267 51.971-.751 49.513-.751 46.898s1.018-5.072 2.866-6.92a9.723 9.723 0 0 1 6.921-2.866c2.591 0 5.029 1 6.872 2.818l8.102 7.109L55.861 4.618c.057-.075.119-.146.186-.213 1.849-1.85 4.307-2.867 6.921-2.867s5.072 1.018 6.921 2.867c3.784 3.784 3.815 9.923.093 13.747L31.697 67.416a2.242 2.242 0 0 1-.165.188c-1.914 1.912-4.498 2.926-7.214 2.854-.102.002-.202.004-.304.004zM9.037 41.112a5.753 5.753 0 0 0-4.093 1.695C3.851 43.9 3.25 45.353 3.25 46.898s.602 3 1.694 4.093l14.922 13.726c1.148 1.146 2.6 1.914 4.148 1.914l.227.164h.151l.221-.164c1.51 0 2.929-.654 4.008-1.69l38.275-49.294c.051-.065.105-.148.165-.207 2.256-2.258 2.256-5.939 0-8.195a5.754 5.754 0 0 0-4.093-1.701 5.743 5.743 0 0 0-3.999 1.602L25.914 51.169a2 2 0 0 1-2.919.301l-9.771-8.573a1.967 1.967 0 0 1-.095-.089 5.746 5.746 0 0 0-4.092-1.696z"/></svg>
         </div>
-        <button type="submit" name="ok" class="cursor-pointer flex justify-center font-semibold text-xl text-white bg-[#5242AE] border rounded-full w-60 py-3 hover:bg-white hover:text-[#5242AE] duration-500 ease-in-out hover:scale-115">Sign in</button>   
+        <div class="flex relative justify-center sm:w-md lg:w-lg">
+            <button type="submit" name="ok" class="cursor-pointer flex justify-center font-semibold text-xl text-white bg-[#5242AE] border rounded-full w-60 py-3 hover:bg-white hover:text-[#5242AE] duration-500 ease-in-out hover:scale-115">Sign in</button>   
+        </div>
     </div>
 </form>
 
@@ -128,5 +129,9 @@
         width: 100%;
         height: 43px;
         box-sizing: border-box;
+    }
+
+    svg {
+    pointer-events: all; /* Ensures the SVG responds to hover events */
     }
 </style>

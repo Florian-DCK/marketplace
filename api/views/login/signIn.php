@@ -10,22 +10,22 @@
         if (isset($_GET["error"])) {
             switch ($_GET["error"]) {
                 case 'InvalidCredentials':
-                    echo '<p class="tracking-tight text-3xl lg:text-7xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">Invalid credentials</p>';
+                    echo '<p class="tracking-tight text-3xl lg:text-5xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">Invalid credentials</p>';
                     break;
                 case 'EmailAlreadyUsed':
                     echo '<p class="tracking-tight text-3xl lg:text-5xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">Email already used</p>';
                     break;
                 case 'EmailTooLong':
-                    echo '<p class="tracking-tight text-3xl lg:text-7xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">Email too long</p>';
+                    echo '<p class="tracking-tight text-3xl lg:text-5xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">Email too long</p>';
                     break;
                 case 'NameTooLong':
-                    echo '<p class="tracking-tight text-3xl lg:text-7xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">Name too long</p>';
+                    echo '<p class="tracking-tight text-3xl lg:text-5xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">Name too long</p>';
                     break;
                 case 'FirstNameTooLong':
-                    echo '<p class="tracking-tight text-3xl lg:text-7xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">First name too long</p>';
+                    echo '<p class="tracking-tight text-3xl lg:text-5xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">First name too long</p>';
                     break;
                 case 'PhoneNumberTooLong':
-                    echo '<p class="tracking-tight text-3xl lg:text-7xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">Phone number too long</p>';
+                    echo '<p class="tracking-tight text-3xl lg:text-5xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">Phone number too long</p>';
                     break;
                 case 'PasswordTooLong':
                     echo '<p class="tracking-tight text-3xl lg:text-7xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">Password too long</p>';
