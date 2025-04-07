@@ -22,7 +22,21 @@ $headers = [
 function image_upload($file){
     global $headers;
     
+    // Vérifie si un fichier a été téléchargé et si le chemin est valide
+    if (empty($file['tmp_name']) || !file_exists($file['tmp_name'])) {
+        echo "Erreur : Aucun fichier téléchargé ou chemin invalide.";
+        return false;
+    }
+
+    // Lire l'image
     $image = file_get_contents($file['tmp_name']);
+    
+    // Vérifie si la lecture a réussi
+    if ($image === false) {
+        echo "Erreur : Impossible de lire le fichier.";
+        return false;
+    }
+
     $base64 = base64_encode($image);
     
     $postData = [
@@ -59,10 +73,11 @@ function image_upload($file){
             'deletehash' => $result['deletehash'], 
             'link' => $result['link']];
     } else {
+        echo "Erreur : L'upload de l'image a échoué.";
         return false;
     }
-    
 }
+
 
 /** 
 * Récupérer les infos d'une image de Imgur
