@@ -1,6 +1,9 @@
 <?php
 require_once __DIR__ . '/../config/session.php';
 init_session();
+
+$url = $_SERVER['REQUEST_URI'];
+
 ?>
 
 <!DOCTYPE html>
@@ -21,5 +24,7 @@ init_session();
             'loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates'),
             'partials_loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates/partials')
             ]);
+
+        echo $mustache->render('navbar', $data);
     ?>
 </body>
