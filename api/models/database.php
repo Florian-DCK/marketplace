@@ -1,8 +1,6 @@
 <?php
-require_once __DIR__ . '/../../vendor/autoload.php'; //Chemin pour accéder au fichier autoload.php
+require_once __DIR__ . '/../../vendor/autoload.php'; 
 
-// Vérifier si nous sommes sur Vercel (production) ou en local
-	//Définition d'une classe "connexionDB" en utilisant le camelCase
 	class   connectionDB
 
 		{
@@ -45,22 +43,23 @@ require_once __DIR__ . '/../../vendor/autoload.php'; //Chemin pour accéder au f
                     $dsn = "mysql:host=$this->host;port=$this->port;dbname=$this->dbname;charset=$this->charset";
                     $this->db = new PDO($dsn, $this->user, $this->pass);
                     $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                 } catch (PDOException $e) {
+					$this->db->exec("SET time_zone = 'Europe/Brussels'");
+                } catch (PDOException $e) {
                     echo 'Erreur de connexion : ' . $e->getMessage() . "\n";
                     exit;
-                 }
+                }
 			}
-            public function query($query, $params = []) { //crée un tableau vide
-				$stmt = $this->db->prepare($query); //Prépare la requête SQL
-				foreach ($params as $key => $value) { //Boucle pour récupérer les éléments de la requête SQL
-					$stmt->bindValue($key, $value); //Associe les éléments de la requête entre eux
+            public function query($query, $params = []) { 
+				$stmt = $this->db->prepare($query);
+				foreach ($params as $key => $value) { 
+					$stmt->bindValue($key, $value);
 				}
-				$stmt->execute(); //Pour exécuter la requête SQL ou autrement nommé la QUUUUERRRRYYYYYYYY
+				$stmt->execute(); 
 				
-				return $stmt->fetchAll(PDO::FETCH_ASSOC); //Pour retourner les valeurs
+				return $stmt->fetchAll(PDO::FETCH_ASSOC);
 			}
             public function close () {
-				$this->db = null; //Pour fermer la connection à la DB
+				$this->db = null; 
             }
 		}
 

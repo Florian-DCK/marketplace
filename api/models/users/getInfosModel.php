@@ -1,37 +1,54 @@
 <?php
-
-    // Fonction pour récupérer les informations d'une personne à partir de son email
-
-   
     function getUserInfo($email, $db) {
-        // Inclure le fichier de connexion à la base de données
-
-        
         try {
-            // Préparer la requête SQL pour récupérer les informations de l'utilisateur
-            //$stmt = $db->prepare("SELECT * FROM User WHERE email = :email");
-            //$stmt->bindParam(':email', $email);
-            //$stmt->execute();
-    
-            // Récupérer les résultats de la requête
-            //$user = $stmt->fetch(PDO::FETCH_ASSOC);
-
             $user  = $db->query("SELECT * FROM User WHERE email = :email", [':email' => $email]);
             
             // Si l'utilisateur existe, renvoyer ses informations
             if ($user) {
-                $db->close(); // close connection after successful query
-                return $user[0]; // Retourne un tableau associatif avec les informations de l'utilisateur
+                $db->close(); 
+                return $user[0]; 
             } else {
-                $db->close(); // close connection even if user not found
-                return null; // Si l'utilisateur n'existe pas, retourner null
+                $db->close();
+                return null;
             }
         } catch (PDOException $e) {
-            $db->close(); // close connection on error
+            $db->close(); 
             echo 'Erreur de requête : ' . $e->getMessage();
-            return null; // En cas d'erreur, retourner null
+            return null;
         }
     }
-?>
 
+    function getIsActive($email, $isActive, $db) {
+        try {
+            $user  = $db->query("SELECT isActive FROM User WHERE email = :email", [':email' => $email]);
+            
+            // Si l'utilisateur existe, renvoyer ses informations
+            if ($user) {
+                $db->close(); 
+                return $isActive;
+            } else {
+                $db->close();
+                return null;
+            }
 
+        } catch (PDOException $e) {
+            $db->close(); 
+            echo 'Erreur de requête : ' . $e->getMessage();
+            return null;
+        }
+    }
+
+    function deleteUser($isActive, $email, $db) {
+        try {
+            if ($isActive == 1) {
+                $db->query("UPDATE User SET isActive = 0 WHERE email = :email", [':email' => $email]);
+            } else {
+                $db->query("UPDATE User SET isActive = 1 WHERE email = :email", [':email' => $email]);
+            }
+        } catch (PDOException $e) {
+            $db->close(); 
+            echo 'Erreur de requête : ' . $e->getMessage();
+            return null;
+        }
+
+    }
