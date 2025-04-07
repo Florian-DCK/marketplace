@@ -6,7 +6,7 @@ RewriteBase /
 RewriteRule ^$ api/index.php [L]
 
 # Rediriger /login vers la page de login
-RewriteRule ^login$ api/views/login/signInUp.php [L]
+RewriteRule ^login$ api/views/signInUp.php [L]
 
 # Rediriger /dashboard et /dashboard/admin
 RewriteRule ^dashboard$ api/views/dashboard.php [L]
