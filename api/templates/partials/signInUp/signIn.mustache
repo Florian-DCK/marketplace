@@ -1,54 +1,8 @@
+
 <form action="../../../api/controllers/connectionControllers.php" method="POST" class="h-full flex flex-col p-1 items-center bg-gradient-to-br from-[#5242AE] to-[#8d54b1] w-full pt-30 lg:justify-center lg:pt-0">
     <div class="mb-10 mx-10 flex flex-col lg:flex-row items-center">
         <p class="font-semibold tracking-tight text-5xl lg:text-7xl text-white whitespace-nowrap">Sign in</p>
         <p class="font-semibold tracking-tight text-5xl lg:text-7xl text-white whitespace-nowrap">to your account</p>
-    </div>
-    <div>
-    <div>
-    <?php
-        // echo  '<p class="tracking-tight text-3xl lg:text-7xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-5">'. $_GET["error"] . '</p>';
-        if (isset($_GET["error"])) {
-            switch ($_GET["error"]) {
-                case 'InvalidCredentials':
-                    echo '<p class="tracking-tight text-3xl lg:text-5xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">Invalid credentials</p>';
-                    break;
-                case 'EmailAlreadyUsed':
-                    echo '<p class="tracking-tight text-3xl lg:text-5xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">Email already used</p>';
-                    break;
-                case 'EmailTooLong':
-                    echo '<p class="tracking-tight text-3xl lg:text-5xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">Email too long</p>';
-                    break;
-                case 'NameTooLong':
-                    echo '<p class="tracking-tight text-3xl lg:text-5xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">Name too long</p>';
-                    break;
-                case 'FirstNameTooLong':
-                    echo '<p class="tracking-tight text-3xl lg:text-5xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">First name too long</p>';
-                    break;
-                case 'PhoneNumberTooLong':
-                    echo '<p class="tracking-tight text-3xl lg:text-5xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">Phone number too long</p>';
-                    break;
-                case 'PasswordTooLong':
-                    echo '<p class="tracking-tight text-3xl lg:text-7xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">Password too long</p>';
-                    break;
-                case 'PasswordTooShort':
-                    echo '<p class="tracking-tight text-3xl lg:text-7xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">Password too short</p>';
-                    break;
-                case 'PasswordNoSpecialChar':
-                    echo '<p class="tracking-tight text-3xl lg:text-7xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">Special Character Missing</p>';
-                    break;
-                case 'PasswordNoUppercase':
-                    echo '<p class="tracking-tight text-3xl lg:text-7xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">Uppercase Missing</p>';
-                    break;
-                case 'PasswordMismatch':
-                    echo '<p class="tracking-tight text-3xl lg:text-7xl whitespace-nowrap px-4 py-3 text-red-200 bg-red-700 rounded-lg mb-10">Password Not Identical</p>';
-                    break;
-                default:
-                    break;
-            }
-        }
-        ?>
-    </div>
-
     </div>
     <div class="flex relative sm:w-sm md:w-md lg:w-lg mb-10">
         <input type="email" 

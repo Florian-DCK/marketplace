@@ -48,7 +48,7 @@ if ($result == "success") {
     header("Location: /login");
     exit;
 } elseif ($result != "success"){
-    header("Location: /login?error=$result");
+    header("Location: /login?error=$result&login=true");
     exit;
 }
 
