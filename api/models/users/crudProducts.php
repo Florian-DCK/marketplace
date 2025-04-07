@@ -1,6 +1,6 @@
 <?php
 
-    function getProducts($id, $db) {
+    function getProduct($id, $db) {
         try {
             $products  = $db->query("SELECT * FROM Product WHERE id = :id", [':id' => $id]);
             
@@ -55,6 +55,25 @@
                 ':price' => $price,
                 ':isAvalaible' => $isAvalaible
             ]);
+        } catch (PDOException $e) {
+            $db->close(); 
+            echo 'Erreur de requête : ' . $e->getMessage();
+            return null;
+        }
+    }
+
+    function getProducts($count, $db) {
+        try {
+            $products  = $db->query("SELECT * FROM Product LIMIT :count", [':count' => $count]);
+            
+            // Si l'article existe, renvoyer ses informations
+            if ($products) {
+                $db->close(); 
+                return $products; 
+            } else {
+                $db->close();
+                return null;
+            }
         } catch (PDOException $e) {
             $db->close(); 
             echo 'Erreur de requête : ' . $e->getMessage();
