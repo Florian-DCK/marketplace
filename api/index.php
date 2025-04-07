@@ -12,7 +12,6 @@ init_session();
 </head>
 <body class="bg-[#EAEBED] flex flex-col">
     <?php 
-    //session_start();
     include __DIR__ . '/views/navbar.php'; 
 
     $mustache = new Mustache_Engine([
@@ -28,7 +27,6 @@ init_session();
                 'price' => 25.99,
                 'description' => 'this is a nice good description of a t-shirt',
                 'sales' => true,
-                'useOriginal' => true
             ],
             [
                 'name' => 'Bob le Bricoleur',
@@ -36,7 +34,6 @@ init_session();
                 'price' => 10.99,
                 'description' => '',
                 'new' => true,
-                'useBlueNuitCorail' => true
             ],
             [
                 'name' => 'Sneakers Nike Air Max',
@@ -44,7 +41,6 @@ init_session();
                 'price' => 129.99,
                 'description' => '',
                 'trending' => true,
-                'useIndigoAmbre' => true
             ],
             [
                 'name' => 'Smartphone Galaxy S23',
@@ -52,7 +48,6 @@ init_session();
                 'price' => 899.99,
                 'description' => '',
                 'fast' => true,
-                'antoine' => true
             ]
         ]
     ];

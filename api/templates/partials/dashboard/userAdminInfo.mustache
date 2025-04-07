@@ -1,14 +1,29 @@
 <main class="bg-white w-full h-full rounded-tl-xl p-5">
-    <h1 class=" text-4xl font-bold">Hello {{user.lastName}} {{user.firstName}}!</h1>
+    <form action="/dashboard/admin" method="GET" class="grid grid-cols-2 gap-4 [&_input:disabled]:bg-gray-200 [&_input:disabled]:text-gray-400">
+        <div class="form-group">
+            <label for="userEmail">User email:</label>
+            <input type="text" name="userEmail" id="userEmail" value="{{user.email}}" class="border p-2 w-full rounded">
+        </div>
+        <div class="form-group flex items-end">
+            <input type="hidden" name="page" value="userInfos">
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Search</button>
+        </div>
+    </form> 
+
     <form action="POST" aria-disabled="true" class="grid grid-cols-2 gap-4 [&_input:disabled]:bg-gray-200 [&_input:disabled]:text-gray-400">
         <div class="form-group">
-            <label for="lastName">Last Name</label>
+            <label for="lastName">Last name</label>
             <input disabled type="text" id="last_name" value="{{user.lastName}}" class="border p-2 w-full rounded">
         </div>
         
         <div class="form-group">
-            <label for="firstName">First Name</label>
+            <label for="firstName">First name</label>
             <input disabled type="text" id="first_name" value="{{user.firstName}}" class="border p-2 w-full rounded">
+        </div>
+        
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input disabled type="password" id="password" value="{{user.password}}" class="border p-2 w-full rounded">
         </div>
         
         <div class="form-group">
@@ -27,18 +42,24 @@
         </div>
         
         <div class="form-group">
-            <label for="birthDate">Birth Date</label>
+            <label for="birthDate">Birth date</label>
             <input disabled type="text" id="birthDate" value="{{user.birthDate}}" class="border p-2 w-full rounded">
         </div>
         
         <div class="form-group">
-            <label for="creationDate">Creation Date</label>
+            <label for="creationDate">Creation date</label>
             <input disabled type="text" id="creationDate" value="{{user.creationDate}}" class="border p-2 w-full rounded" disabled>
         </div>
         
         <div class="form-group">
-            <label for="lastModified">Last Modified</label>
+            <label for="lastModified">Last modified</label>
             <input disabled type="text" id="lastModified" value="{{user.lastModified}}" class="border p-2 w-full rounded" disabled>
         </div>
+        
+        <div class="form-group">
+            <label for="operatorLevel">Operator level</label>
+            <input disabled type="text" id="operatorLevel" value="{{user.operatorLevel}}" class="border p-2 w-full rounded">
+        </div>
     </form>
+
 </main>
