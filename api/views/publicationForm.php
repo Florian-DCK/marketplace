@@ -1,4 +1,6 @@
 <?php
+
+use GrahamCampbell\ResultType\Success;
 session_start() ;
 require_once __DIR__ . '/../config/session.php';
 init_session();
@@ -50,7 +52,8 @@ $url = $_SERVER['REQUEST_URI'];
                 ":price" => $price
                 ]
         );
-
+        $conn->close();
+        return "Success";
         }
     ?>
 
