@@ -6,7 +6,7 @@ if(isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
     $allowed_types = ['image/png', 'image/jpeg', 'image/jpg'];
     $file_type = mime_content_type($_FILES['image']['tmp_name']);
     
-    if(!in_array($file_type, $allowed_types)) {
+    if(!$_FILES($file_type, $allowed_types)) {
         echo "Erreur : Seuls les formats PNG et JPEG sont acceptés";
         return false;
     }

@@ -2,6 +2,8 @@
 
 // Inclure le fichier de connexion à la base de données
 require_once __DIR__ . '/../database.php';
+// Inclure le fichier pour la gestion des images
+require_once __DIR__ . '/../images.php';
 
 function connection($email = null, $password = null){
     $conn = new connectionDB();
@@ -63,54 +65,90 @@ function inscription($nom = null, $prenom = null, $mdp = null, $email = null, $t
     } else {
         $error = $error . "0";
     }
-    if (strlen($avatar) > 191) {
-        $conn->close();
+
+    // Vérification de l'upload de l'image
+    if (is_array($avatar) && isset($avatar['tmp_name'])) {
+        // Vérifications similaires à imageUploadControllers.php
+        $allowed_types = ['image/png', 'image/jpeg', 'image/jpg'];
+        $file_type = mime_content_type($avatar['tmp_name']);
+        if (!in_array($file_type, $allowed_types)) {
+            $conn->close();
+            $error = $error . "1";
+        } else {
+            $image_info = getimagesize($avatar['tmp_name']);
+            $width = $image_info[0];
+            $height = $image_info[1];
+            $max_size = 500;
+            if ($width > $max_size || $height > $max_size) {
+                $conn->close();
+                $error = $error . "1";
+            } else {
+                $upload_result = image_upload($avatar);
+                if ($upload_result && isset($upload_result['link'])) {
+                    $avatar = $upload_result['link']; // Stocker le lien de l'image
+                    $error = $error . "0";
+                } else {
+                    $conn->close();
+                    $error = $error . "1";
+                }
+            }
+        }
+    } else {
+        // Si aucun fichier n'est fourni, considérer comme valide (avatar facultatif)
+        $avatar = null;
+        $error = $error . "0";
+    }
+
+    // Vérifications individuelles pour le mot de passe
+    if (strlen($mdp) < 8) {
+        $error = $error . "1";
+    } else {
+        $error = $error . "0";
+    }
+    if (!preg_match('/[A-Z]/', $mdp)) {
+        $error = $error . "1";
+    } else {
+        $error = $error . "0";
+    }
+    if (!preg_match('/[0-9]/', $mdp)) {
+        $error = $error . "1";
+    } else {
+        $error = $error . "0";
+    }
+    if (!preg_match('/[!@#$%^&*(),.?":{}|<>]/', $mdp)) {
         $error = $error . "1";
     } else {
         $error = $error . "0";
     }
 
+    // Vérifier si toutes les validations sont passées
+    if (!preg_match('/^0+$/', $error)) {
+        $conn->close();
+        return $error;
+    }
 
-// Vérifications individuelles
-if (strlen($mdp) < 8) {
-    $error = $error . "1";
-}
-elseif (!preg_match('/[A-Z]/', $mdp)) {
-    $error = $error . "1";
-}
-elseif (!preg_match('/[0-9]/', $mdp)) {
-    $error = $error . "1";
-}
-elseif (!preg_match('/[!@#$%^&*(),.?":{}|<>]/', $mdp)) {
-    $error = $error . "1";
-} 
+    // Si toutes les vérifications sont passées, hasher le mot de passe et insérer l'utilisateur
+    $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
 
-if (!preg_match('/^0+$/', $error)) {
-return $error;
-}
-
-// Si toutes les vérifications sont passées, hasher le mot de passe et insérer l'utilisateur
-$mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
-
-$conn->query(
-    "INSERT INTO User (id, name, surname, email, phone, avatar, birthDate, creation_date, last_modified, isActive, pass, operator_level) 
-        VALUES (0, :name, :surname, :email, :phone, :avatar, :birthDate, :creation_date, :last_modified, :isActive, :pass, :operator_level)",
-        [
-            ":name" => $nom,
-            ":surname" => $prenom,
-            ":email" => $email,
-            ":phone" => $telephone,
-            ":avatar" => $avatar,
-            ":birthDate" => $birthDate,
-            ":creation_date" => $creation_date,
-            ":last_modified" => $last_modified,
-            ":isActive" => $isActive,
-            ":pass" => $mdp_hash,
-            ":operator_level" => $operator_level,
-        ]
-    );
-    $conn->close();
-    return "success";
+    $conn->query(
+        "INSERT INTO User (id, name, surname, email, phone, avatar, birthDate, creation_date, last_modified, isActive, pass, operator_level) 
+            VALUES (0, :name, :surname, :email, :phone, :avatar, :birthDate, :creation_date, :last_modified, :isActive, :pass, :operator_level)",
+            [
+                ":name" => $nom,
+                ":surname" => $prenom,
+                ":email" => $email,
+                ":phone" => $telephone,
+                ":avatar" => $avatar,
+                ":birthDate" => $birthDate,
+                ":creation_date" => $creation_date,
+                ":last_modified" => $last_modified,
+                ":isActive" => $isActive,
+                ":pass" => $mdp_hash,
+                ":operator_level" => $operator_level,
+            ]
+        );
+        $conn->close();
+        return "success";
 }
 ?>
 
