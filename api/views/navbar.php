@@ -4,25 +4,37 @@ init_session();
 require __DIR__ . '/../../vendor/autoload.php';
 require __DIR__ . '/../models/images.php';
 
+require_once __DIR__ . '/../models/database.php';
+
 $mustache = new Mustache_Engine([
 	'loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates'),
 	'partials_loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates/partials')
 ]);
 
-$categories = [
-    "Food",
-    "Tech",
-    "Furnitures",
-    "Books",
-    "Sports",
-    "Crafts",
-    "Pets",
-    "Human slavery",
-    "Cars",
-    "Clothes",
-    "Beauty, healthcare and wellness",
-    "Kitchen and houses",
-];
+
+$conn = new connectionDB();
+$result = $conn->query("SELECT name FROM Category", []);
+
+$categories = [];
+foreach ($result as $row) {
+    $categories[] = $row['name'];
+}
+
+
+// $categories = [
+//     "Food",
+//     "Tech",
+//     "Furnitures",
+//     "Books",
+//     "Sports",
+//     "Crafts",
+//     "Pets",
+//     "Human slavery",
+//     "Cars",
+//     "Clothes",
+//     "Beauty, healthcare and wellness",
+//     "Kitchen and houses",
+// ];
 $url = $_SERVER['REQUEST_URI'];
 $data = [
     'isConnected' =>$_SESSION ? isset($_SESSION['id']) : false ,
