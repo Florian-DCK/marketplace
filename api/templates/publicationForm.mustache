@@ -1,21 +1,21 @@
-<form action="" method="post" enctype="multipart/form-data" class="flex flex-col m-3 p-4 space-y-4">
+<form action="" method="post" enctype="multipart/form-data" class="flex flex-col items-center m-5 p-4 space-y-4">
     <div class="flex flex-col">
-        <h1 class="font-bold text-2xl">Announcement description</h1>
+        <h1 class="font-bold text-2xl underline">Announcement description</h1>
     </div>
-    <div class="flex flex-col">
+    <div class="flex flex-col w-3/4">
         <label for="title">Product name</label>
         <input type="text" 
                 name="title" 
                 id="title" 
                 required
-                class="border border-gray-300 rounded-md p-2">
+                class="border border-gray-300 rounded-md p-2 shadow-md shadow-indigo-200/50">
     </div>
-    <div class="flex flex-col">
+    <div class="flex flex-col w-3/4">
         <label for="category">Category</label>
         <select name="category" 
                 id="category" 
                 required
-                class="border border-gray-300 rounded-md p-2 cursor-pointer">
+                class="border border-gray-300 rounded-md p-2 cursor-pointer shadow-md shadow-indigo-200/50">
             <option value="" disabled selected>Select a category</option>
             <option value="">Furniture</option>
             <option value="">High-tech</option>
@@ -23,32 +23,34 @@
             <option value="">Human slaves</option>            
         </select>
     </div>
-    <div class="flex flex-col">
+    <div class="flex flex-col w-3/4">
         <label for="price">Price</label>
         <input type="text" 
                 name="price" 
                 id="price" 
                 required
-                class="border border-gray-300 rounded-md p-2">
+                class="border border-gray-300 rounded-md p-2 shadow-md shadow-indigo-200/50">
     </div>
-    <div class="flex flex-col">
+    <div class="flex flex-col w-3/4">
         <label for="image">Image</label>
         <input type="file" 
                 name="image" 
                 id="image" 
                 accept="image/*" 
                 required
-                class="border border-gray-300 rounded-md p-2 cursor-pointer">
+                class="border border-gray-300 rounded-md p-2 cursor-pointer shadow-md shadow-indigo-200/50">
     </div>
-    <div class="flex flex-col">
+    <div class="flex flex-col w-3/4">
         <label for="description">Description</label>
         <textarea name="description" 
-                id="description" 
+                id="description"
+                rows="5"
                 required
-                class="border border-gray-300 rounded-md p-2">
+                class="border border-gray-300 rounded-md p-2 shadow-md shadow-indigo-200/50">
         </textarea>
     </div>
     <div>
-        <button type="submit" class="border border-gray-300 rounded-md p-2 bg-indigo-500 text-white">Publish</button>
+        <button type="submit" 
+                class="border border-gray-300 rounded-md p-2 bg-indigo-500 text-white w-75 mt-5">Publish</button>
     </div>
 </form>
