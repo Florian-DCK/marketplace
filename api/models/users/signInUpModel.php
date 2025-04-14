@@ -2,12 +2,10 @@
 
 // Inclure le fichier de connexion à la base de données
 require_once __DIR__ . '/../database.php';
-// Inclure le fichier pour la gestion des images
-require_once __DIR__ . '/../images.php';
+require_once __DIR__ . '/../../controllers/imageUploadControllers.php';
 
 function connection($email = null, $password = null){
     $conn = new connectionDB();
-    // Remplacer la préparation/exécution par query()
     $result = $conn->query("SELECT * FROM User WHERE email = :email", [':email' => $email]);
 
     if($result && count($result) > 0) {
@@ -32,7 +30,7 @@ function inscription($nom = null, $prenom = null, $mdp = null, $email = null, $t
     $isActive = 1;  
     $operator_level = 1;  
 
-    // Vérification de l'email existant après les autres validations
+    // Vérification de l'email existant
     $countResult = $conn->query("SELECT COUNT(*) as cnt FROM User WHERE email = :email", [':email' => $email]);
     $count = $countResult[0]['cnt'];
     if ($count > 0) {
@@ -40,7 +38,7 @@ function inscription($nom = null, $prenom = null, $mdp = null, $email = null, $t
         return "EmailAlreadyUsed";
     }
 
-    // Vérification des longueurs d'abord
+    // Vérification des longueurs
     if (strlen($email) > 50) {
         $conn->close();
         $error = $error . "1";
@@ -66,40 +64,7 @@ function inscription($nom = null, $prenom = null, $mdp = null, $email = null, $t
         $error = $error . "0";
     }
 
-    // Vérification de l'upload de l'image
-    if (is_array($avatar) && isset($avatar['tmp_name'])) {
-        // Vérifications similaires à imageUploadControllers.php
-        $allowed_types = ['image/png', 'image/jpeg', 'image/jpg'];
-        $file_type = mime_content_type($avatar['tmp_name']);
-        if (!in_array($file_type, $allowed_types)) {
-            $conn->close();
-            $error = $error . "1";
-        } else {
-            $image_info = getimagesize($avatar['tmp_name']);
-            $width = $image_info[0];
-            $height = $image_info[1];
-            $max_size = 500;
-            if ($width > $max_size || $height > $max_size) {
-                $conn->close();
-                $error = $error . "1";
-            } else {
-                $upload_result = image_upload($avatar);
-                if ($upload_result && isset($upload_result['link'])) {
-                    $avatar = $upload_result['link']; // Stocker le lien de l'image
-                    $error = $error . "0";
-                } else {
-                    $conn->close();
-                    $error = $error . "1";
-                }
-            }
-        }
-    } else {
-        // Si aucun fichier n'est fourni, considérer comme valide (avatar facultatif)
-        $avatar = null;
-        $error = $error . "0";
-    }
-
-    // Vérifications individuelles pour le mot de passe
+    // Vérifications du mot de passe
     if (strlen($mdp) < 8) {
         $error = $error . "1";
     } else {
@@ -121,13 +86,40 @@ function inscription($nom = null, $prenom = null, $mdp = null, $email = null, $t
         $error = $error . "0";
     }
 
+    // Vérification de l'avatar
+    $avatar_path = null;
+    if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
+        $upload_result = require __DIR__ . '/../../controllers/imageUploadControllers.php';
+        if ($upload_result === "format_error") {
+            $conn->close();
+            $error = $error . "1";
+        } elseif ($upload_result === "size_error") {
+            $conn->close();
+            $error = $error . "1";
+        } elseif ($upload_result === false) {
+            $conn->close();
+            $error = $error . "1";
+        } else {
+            // S'assurer que $upload_result est une chaîne
+            if (is_array($upload_result)) {
+                $error = $error . "1"; // Considérer comme une erreur si c'est un tableau
+                $conn->close();
+                return $error;
+            }
+            $avatar_path = $upload_result; // Doit être une chaîne (URL)
+            $error = $error . "0";
+        }
+    } else {
+        $error = $error . "0"; // Pas d'avatar, valide
+    }
+
     // Vérifier si toutes les validations sont passées
     if (!preg_match('/^0+$/', $error)) {
         $conn->close();
         return $error;
     }
 
-    // Si toutes les vérifications sont passées, hasher le mot de passe et insérer l'utilisateur
+    // Hasher le mot de passe et insérer l'utilisateur
     $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
 
     $conn->query(
@@ -138,7 +130,7 @@ function inscription($nom = null, $prenom = null, $mdp = null, $email = null, $t
                 ":surname" => $prenom,
                 ":email" => $email,
                 ":phone" => $telephone,
-                ":avatar" => $avatar,
+                ":avatar" => $avatar_path,
                 ":birthDate" => $birthDate,
                 ":creation_date" => $creation_date,
                 ":last_modified" => $last_modified,
