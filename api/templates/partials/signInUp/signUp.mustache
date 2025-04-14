@@ -1,11 +1,12 @@
-<form action="../../../api/controllers/inscriptionControllers.php" class="h-full flex flex-col justify-center items-center w-full" method="POST" enctype="multipart/form-data">
+<form action="../../../api/controllers/inscriptionControllers.php" class="h-full flex flex-col justify-center items-center w-full" method="POST" enctype="multipart/form-data" name="inscription">
     <div class="mb-8">
         <p class="font-semibold tracking-tight text-4xl sm:text-5xl lg:text-6xl text-[#5242AE] whitespace-nowrap">Create your account</p>
     </div>
-    <div class=" flex flex-col space-y-3">
+    <div class=" flex flex-col space-y-4">
         <div class="flex relative sm:w-md lg:w-lg">
             <input type="text" 
                     name="firstName"
+                    id="firstName"
                     placeholder="First name" 
                     required
                     class="peer p-2 ps-10 rounded-sm bg-[#EAEBED] border border-transparent text-[#9F9F9F] w-full focus:outline-none invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 invalid:[&:not(:placeholder-shown):not(:focus)]:text-red-500">
@@ -17,6 +18,7 @@
         <div class="flex relative sm:w-md lg:w-lg">
             <input type="text" 
                     name="lastName"
+                    id="lastName"
                     placeholder="Last name" 
                     required
                     class="peer p-2 ps-10 rounded-sm bg-[#EAEBED] border border-transparent text-[#9F9F9F] w-full focus:outline-none invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 invalid:[&:not(:placeholder-shown):not(:focus)]:text-red-500">
@@ -26,7 +28,8 @@
                         </svg>
         </div>
         <div class="flex relative sm:w-md lg:w-lg">
-            <input type="date" 
+            <input type="date"
+                    id="birthDate" 
                     name="birthDate" 
                     required
                     class="cursor-pointer p-2 ps-10 rounded-sm bg-[#EAEBED] border border-transparent text-[#9F9F9F]/50 w-60 sm:w-full focus:outline-none">
@@ -50,6 +53,7 @@
         </div>
         <div class="flex relative sm:w-md lg:w-lg">
             <input type="text" 
+                    id="phoneNumber"
                     name="phoneNumber"
                     placeholder="Phone number" 
                     class="peer p-2 ps-10 rounded-sm bg-[#EAEBED] border border-transparent text-[#9F9F9F] w-full focus:outline-none invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 invalid:[&:not(:placeholder-shown):not(:focus)]:text-red-500">
@@ -59,6 +63,7 @@
         <div class="flex relative sm:w-md lg:w-lg">
             <input type="email" 
                     name="email"
+                    id="email"
                     placeholder="Email" 
                     required
                     class="peer p-2 ps-10 rounded-sm bg-[#EAEBED] border border-transparent text-[#9F9F9F] w-full focus:outline-none invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 invalid:[&:not(:placeholder-shown):not(:focus)]:text-red-500">
@@ -69,6 +74,7 @@
         </div>
         <div class="flex relative sm:w-md lg:w-lg">
             <input type="password" 
+                    id="password"
                     name="password"  
                     placeholder="Password" 
                     required
@@ -80,6 +86,7 @@
         </div>
         <div class="flex relative sm:w-md lg:w-lg">
             <input type="password" 
+                    id = "confirmPassword"
                     name="confirmPassword"  
                     placeholder="Confirm password" 
                     required

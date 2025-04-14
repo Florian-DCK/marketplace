@@ -17,3 +17,6 @@ RewriteRule ^signOut$ api/controllers/signOutControllers.php  [L]
 
 # Rediriger /error
 RewriteRule ^error$ api/views/error.php [L]
+
+# Rediriger /publicationForm
+RewriteRule ^publicationForm$ api/views/publicationForm.php [L]	
