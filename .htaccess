@@ -23,3 +23,6 @@ RewriteRule ^publicationForm$ api/views/publicationForm.php [L]
 
 # Rediriger /messageForm
 RewriteRule ^messageForm$ api/views/messageForm.php [L]
+
+# Rediriger /messageDashboard
+RewriteRule ^messageDashboard$ api/views/messageDashboard.php [L]
