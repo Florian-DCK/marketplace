@@ -49,7 +49,6 @@ $url = $_SERVER['REQUEST_URI'];
 
             echo $mustache->render('publicationForm', $data);
 
-            $image = image_upload($image);
         
             if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST)) {
                 $id = $_SESSION['id'];
@@ -59,18 +58,21 @@ $url = $_SERVER['REQUEST_URI'];
                 $image = $_FILES['image'];
                 $description = $_POST['description'];
        
-    
-                $conn->query("INSERT INTO Product (id_category, id_user, title, description, price) 
-                VALUES (:id_category, :id_user, :title, :description, :price)",
+                $image = image_upload($image);
+
+                $conn->query("INSERT INTO Product (id_category, id_user, title, description, price, image) 
+                VALUES (:id_category, :id_user, :title, :description, :price, :image)",
                 [
                 ":id_category" => $category,
                 ":id_user" => $id, 
                 ":title" => $title,
                 ":description" => $description,
-                ":image" => $image,  
-                ":price" => $price
+                ":price" => $price,
+                ":image" => $image  // Correspond maintenant à un placeholder dans la requête
                 ]);
             }
+
+            
             $conn->close();
     ?>
 
