@@ -49,16 +49,16 @@ $url = $_SERVER['REQUEST_URI'];
 
             echo $mustache->render('publicationForm', $data);
 
-       
+            $image = image_upload($image);
         
             if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST)) {
                 $id = $_SESSION['id'];
                 $title = $_POST['title'];
                 $category = $_POST['category'];
                 $price = $_POST['price'];
-                //$image = $_FILES['image'];
+                $image = $_FILES['image'];
                 $description = $_POST['description'];
-        var_dump($id);
+       
     
                 $conn->query("INSERT INTO Product (id_category, id_user, title, description, price) 
                 VALUES (:id_category, :id_user, :title, :description, :price)",
@@ -67,7 +67,7 @@ $url = $_SERVER['REQUEST_URI'];
                 ":id_user" => $id, 
                 ":title" => $title,
                 ":description" => $description,
-                //":image" => $image,  
+                ":image" => $image,  
                 ":price" => $price
                 ]);
             }
