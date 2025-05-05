@@ -46,14 +46,15 @@
         }
     }
 
-    function createProduct($name, $description, $image, $price, $isAvalaible, $db) {
+    function createProduct($id_category, $id_vendor, $name, $description, $image, $price, $db) {
         try {
-            $db->query("INSERT INTO Product (name, description, image, price, isAvalaible) VALUES (:name, :description, :image, :price, :isAvalaible)", [
+            $db->query("INSERT INTO Product (id_category, id_vendor, name, description, image, price) VALUES (:id_category, :id_vendor, :name, :description, :image, :price)", [
+                ':id_category' => $id_category,
+                ':id_vendor' => $id_vendor,
                 ':name' => $name,
                 ':description' => $description,
                 ':image' => $image,
                 ':price' => $price,
-                ':isAvalaible' => $isAvalaible
             ]);
         } catch (PDOException $e) {
             $db->close(); 

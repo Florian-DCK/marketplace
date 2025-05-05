@@ -1,5 +1,8 @@
 <form action="../../../api/controllers/inscriptionControllers.php" class="h-full flex flex-col justify-center items-center w-full" method="POST" enctype="multipart/form-data" name="inscription">
     <div class="mb-8">
+        {{#error}}
+            <p class="text-red-500 text-lg font-semibold text-center">{{.}}</p>
+        {{/error}}
         <p class="font-semibold tracking-tight text-4xl sm:text-5xl lg:text-6xl text-[#5242AE] whitespace-nowrap">Create your account</p>
     </div>
     <div class=" flex flex-col space-y-4">
