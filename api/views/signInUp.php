@@ -15,6 +15,10 @@
         'partials_loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates/partials')
     ]);
 
+    $errorCode = isset($_GET['error']) ? $_GET['error'] : null;
+    $errorMessage = null;
+    
+
     $data = [
         "inscription" => isset($_GET['login']) ?? $_GET['login'],
     ];

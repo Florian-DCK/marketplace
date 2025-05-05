@@ -71,19 +71,30 @@ function inscription($nom = null, $prenom = null, $mdp = null, $email = null, $t
     }
 
 
-// Vérifications individuelles
+// Vérifications individuelles du mot de passe
 if (strlen($mdp) < 8) {
     $error = $error . "1";
+} else {
+    $error = $error . "0";
+    
+    if (!preg_match('/[A-Z]/', $mdp)) {
+        $error = $error . "1";
+    } else {
+        $error = $error . "0";
+        
+        if (!preg_match('/[0-9]/', $mdp)) {
+            $error = $error . "1";
+        } else {
+            $error = $error . "0";
+            
+            if (!preg_match('/[!@#$%^&*(),.?":{}|<>]/', $mdp)) {
+                $error = $error . "1";
+            } else {
+                $error = $error . "0";
+            }
+        }
+    }
 }
-elseif (!preg_match('/[A-Z]/', $mdp)) {
-    $error = $error . "1";
-}
-elseif (!preg_match('/[0-9]/', $mdp)) {
-    $error = $error . "1";
-}
-elseif (!preg_match('/[!@#$%^&*(),.?":{}|<>]/', $mdp)) {
-    $error = $error . "1";
-} 
 
 if (!preg_match('/^0+$/', $error)) {
 return $error;
