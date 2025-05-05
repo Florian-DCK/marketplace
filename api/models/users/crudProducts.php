@@ -1,13 +1,13 @@
 <?php
 
-    function getProduct($id, $db) {
+    function getAllCategories($db) {
         try {
-            $products  = $db->query("SELECT * FROM Product WHERE id = :id", [':id' => $id]);
+            $Category  = $db->query("SELECT * FROM Category");
             
             // Si l'article existe, renvoyer ses informations
-            if ($products) {
+            if ($Category) {
                 $db->close(); 
-                return $products; 
+                return $Category; 
             } else {
                 $db->close();
                 return null;
