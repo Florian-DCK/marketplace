@@ -30,3 +30,6 @@ RewriteRule ^messageDashboard$ api/views/messageDashboard.php [L]
 # Rediriger /product
 RewriteRule ^product$ api/views/product.php [L]
 
+# Routes pour les API
+# Routes pour les messages
+RewriteRule ^api/messages$ api/api/messages/api.php [L]

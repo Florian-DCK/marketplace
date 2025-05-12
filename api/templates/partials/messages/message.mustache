@@ -1,0 +1,16 @@
+{{# ours}}
+    <div class="flex justify-end items-center w-full relative">
+        <p class="text-xs text-gray-500 text-right mr-2 absolute -top-4 right-2 ">{{date}}</p>
+        <div class="py-2 max-w-[75%] text-white text-sm px-4 bg-[#303F9F] rounded-3xl shadow-[0_0_15px_rgba(0,0,0,0.2)]">
+            {{message}}
+        </div>
+    </div>
+{{/ours}}
+{{^ ours}}
+    <div class="flex justify-start items-center w-full relative">
+        <p class="text-xs text-gray-500 text-left ml-2 absolute -top-4 left-2 ">{{date}}</p>
+        <div class="py-2 w-[75%] text-white text-sm px-4 bg-[#FFC107] rounded-3xl shadow-[0_0_15px_rgba(0,0,0,0.2)]">
+            {{message}}
+        </div>
+    </div>
+{{/ours}}
