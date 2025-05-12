@@ -24,10 +24,11 @@ if(isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
     
     // Si toutes les vérifications passent, on procède à l'upload
     $result = image_upload($_FILES['image']);
-    if($result) {
+    if ($result) {
         return $result;
     } else {
         echo "Erreur lors de l'upload";
         return false;
     }
 }
+
