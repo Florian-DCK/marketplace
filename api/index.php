@@ -23,7 +23,27 @@ init_session();
 
     $db = new connectionDB();
     $products = getProducts($db);
+    foreach ($products as $key => $product) {
+        if ($product['image'] ) {
+            $products[$key]['image'] = image_get($product['image'])['link'];
+        } else {
+            $products[$key]['image'] = null;
+        }
+    }
+
     $hotProducts = getHotProducts($db);
+    if ($hotProducts) {
+        foreach ($hotProducts as $key => $product) {
+            if ($product['image'] !=null) {
+                $hotProducts[$key]['image'] = image_get($product['image'])['link'];
+            } else {
+                $hotProducts[$key]['image'] = null;
+            }
+        }
+    } else {
+        $hotProducts = [];
+    }
+
 
 
     $data = [
