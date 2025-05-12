@@ -33,11 +33,11 @@ $data = [
 	}, $categories),
 	'menuItems' => [
 		['url' => '/dashboard', 'label' => 'Your Profile', 'id' => 'user-menu-item-0'],
-		['url' => '/dashboard/admin', 'label' => 'Admin', 'id' => 'user-menu-item-1'],
+		isset($_SESSION['operatorLevel']) && $_SESSION['operatorLevel'] === 'administrator' ? ['url' => '/dashboard/admin', 'label' => 'Admin', 'id' => 'user-menu-item-1'] : null,
 		['url' => '/signOut', 'label' => 'Sign Out', 'id' => 'user-menu-item-2'],
 	],
     'userName' =>$_SESSION ? $_SESSION['name'] : null ,
-    'userProfileImage' => isset($_SESSION['avatar']) && $_SESSION['avatar'] ? image_get($_SESSION['avatar'])['link'] : null
+    'userProfileImage' => isset($_SESSION['avatar']) && $_SESSION['avatar'] ? image_get($_SESSION['avatar'])['link'] : null,
 ];
 
 echo $mustache->render('navbar', $data);
