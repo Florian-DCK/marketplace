@@ -46,24 +46,47 @@ $url = $_SERVER['REQUEST_URI'];
             $data = [
                 'categories' => $AllCategories,
             ];
-
-            echo $mustache->render('publicationForm', $data);
-
         
-            if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST)) {
-                $id = $_SESSION['id'];
-                $title = $_POST['title'];
-                $category = $_POST['category'];
-                $price = $_POST['price'];
-                $image = $_FILES['image'];
-                $description = $_POST['description'];
+    $messages = [];
 
-                // Upload l'image et récupère l'ID
-                $imageId = image_upload($image);
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST)) {
+        $id = $_SESSION['id'];
+        $title = $_POST['title'];
+        $category = $_POST['category'] ?? '';
+        $price = $_POST['price'];
+        $image = $_FILES['image'];
+        $description = $_POST['description'];
 
-                var_dump($imageId);
+        // Validations
+        if (empty($title) || strlen($title) > 30 ){
+            $messages['title'] = "Titre trop long ou vide.";
+        }
 
-                $conn->query("INSERT INTO Product (id_category, id_user, title, description, price, image) 
+        if (empty($price) || !is_numeric($price) || $price < 0) {
+            $messages['price'] = "Prix invalide.";
+        }
+
+        if (empty($category)) {
+            $messages['category'] = "Veuillez choisir une catégorie.";
+        }
+
+        if (empty($description) || strlen($description) > 200 ){
+            $messages['description'] = "Description trop longue ou vide.";
+        }
+
+        if (empty($image)) {
+            $messages['image'] = "Veuillez choisir une image.";
+        } else {
+            $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+            if (!in_array($image['type'], $allowedTypes)) {
+                $messages['image'] = "Type de fichier non autorisé.";
+            }
+        }
+        // Si aucune erreur, insère en BDD
+        if (empty($messages)) {
+            $imageId = image_upload($image);
+
+            $conn->query("INSERT INTO Product (id_category, id_user, title, description, price, image) 
                 VALUES (:id_category, :id_user, :title, :description, :price, :image)",
                 [
                     ":id_category" => $category,
@@ -71,11 +94,18 @@ $url = $_SERVER['REQUEST_URI'];
                     ":title" => $title,
                     ":description" => $description,
                     ":price" => $price,
-                    ":image" => $imageId["id"]  // Utilise l'ID de l'image au lieu de l'array
+                    ":image" => $imageId["id"]
                 ]);
+        }
     }
 
-            
-            $conn->close();
+    $data = [
+        'categories' => $AllCategories,
+        'messages' => $messages, 
+    ];
+
+    echo $mustache->render('publicationForm', $data);
+    var_dump($messages);
+    $conn->close();
     ?>
 
