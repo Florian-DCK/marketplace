@@ -25,7 +25,13 @@ $url = $_SERVER['REQUEST_URI'];
             'partials_loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates/partials')
             ]);
 
-            echo $mustache->render('product');
+        // Fetch data from the Product table
+        $conn = new connectionDB();
+        $products = $conn->query("SELECT * FROM Product");
+        $conn->close();
+
+        // Render the Mustache template with the fetched data
+        echo $mustache->render('product', ['products' => $products]);
 
     ?>
 
