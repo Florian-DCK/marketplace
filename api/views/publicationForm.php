@@ -96,6 +96,7 @@ $url = $_SERVER['REQUEST_URI'];
                     ":price" => $price,
                     ":image" => $imageId["id"]
                 ]);
+            header("Location: index.php");
         }
     }
 

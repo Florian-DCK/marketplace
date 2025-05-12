@@ -26,7 +26,6 @@ $url = $_SERVER['REQUEST_URI'];
             ]);
 
         $db = new connectionDB();
-        
 
         // Get the product ID from the URL
         $product_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -39,11 +38,15 @@ $url = $_SERVER['REQUEST_URI'];
                         WHERE Product.id = :id";
             $product = $db->query($query, [':id' => $product_id]);
 
+            // Retrieve the image URL using the image_get function
+            if (!empty($product[0]['image'])) {
+                $product[0]['image'] = image_get($product[0]['image'])['link'];
+            }
+
             // Render the Mustache template with the product data
             echo $mustache->render('product', ['product' => $product[0]]);
         } else {
             echo "Product not found.";
         }
-        var_dump($product);
     ?>
 
