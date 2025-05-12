@@ -886,8 +886,14 @@
   .border-transparent {
     border-color: transparent;
   }
+  .bg-\[\#00c524\] {
+    background-color: #00c524;
+  }
   .bg-\[\#2f36ff\] {
     background-color: #2f36ff;
+  }
+  .bg-\[\#07ff34\] {
+    background-color: #07ff34;
   }
   .bg-\[\#22b60f\] {
     background-color: #22b60f;
