@@ -57,20 +57,23 @@ $url = $_SERVER['REQUEST_URI'];
                 $price = $_POST['price'];
                 $image = $_FILES['image'];
                 $description = $_POST['description'];
-       
-                $image = image_upload($image);
+
+                // Upload l'image et récupère l'ID
+                $imageId = image_upload($image);
+
+                var_dump($imageId);
 
                 $conn->query("INSERT INTO Product (id_category, id_user, title, description, price, image) 
                 VALUES (:id_category, :id_user, :title, :description, :price, :image)",
                 [
-                ":id_category" => $category,
-                ":id_user" => $id, 
-                ":title" => $title,
-                ":description" => $description,
-                ":price" => $price,
-                ":image" => $image  // Correspond maintenant à un placeholder dans la requête
+                    ":id_category" => $category,
+                    ":id_user" => $id, 
+                    ":title" => $title,
+                    ":description" => $description,
+                    ":price" => $price,
+                    ":image" => $imageId["id"]  // Utilise l'ID de l'image au lieu de l'array
                 ]);
-            }
+    }
 
             
             $conn->close();
