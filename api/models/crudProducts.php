@@ -6,14 +6,12 @@
             
             // Si l'article existe, renvoyer ses informations
             if ($products) {
-                $db->close(); 
                 return $products; 
             } else {
-                $db->close();
                 return null;
             }
         } catch (PDOException $e) {
-            $db->close(); 
+
             echo 'Erreur de requête : ' . $e->getMessage();
             return null;
         }
@@ -30,7 +28,6 @@
                 ':quantity' => $isAvalaible
             ]);
         } catch (PDOException $e) {
-            $db->close(); 
             echo 'Erreur de requête : ' . $e->getMessage();
             return null;
         }
@@ -40,7 +37,6 @@
         try {
             $db->query("DELETE FROM Product WHERE id = :id", [':id' => $id]);
         } catch (PDOException $e) {
-            $db->close(); 
             echo 'Erreur de requête : ' . $e->getMessage();
             return null;
         }
@@ -57,7 +53,6 @@
                 ':price' => $price,
             ]);
         } catch (PDOException $e) {
-            $db->close(); 
             echo 'Erreur de requête : ' . $e->getMessage();
             return null;
         }
@@ -73,10 +68,24 @@
             
             // Si l'article existe, renvoyer ses informations
             if ($products) {
-                $db->close(); 
                 return $products; 
             } else {
-                $db->close();
+                return null;
+            }
+        } catch (PDOException $e) {
+            echo 'Erreur de requête : ' . $e->getMessage();
+            return null;
+        }
+    }
+
+    function getHotProducts($db) {
+        try {
+            $products  = $db->query("SELECT * FROM Product WHERE event = 'Tendance'");
+            
+            // Si l'article existe, renvoyer ses informations
+            if ($products) {
+                return $products; 
+            } else {
                 return null;
             }
         } catch (PDOException $e) {
