@@ -10,9 +10,8 @@ if (!function_exists('init_session')) {
 
             require_once __DIR__ . '/../../vendor/autoload.php';
             
-            $isLocal = !getenv('VERCEL_ENV');
-            
-            if ($isLocal) {
+            // Toujours charger le .env s'il existe, indépendamment de l'environnement
+            if (file_exists(__DIR__ . '/../../.env')) {
                 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
                 $dotenv->safeLoad();
             }
