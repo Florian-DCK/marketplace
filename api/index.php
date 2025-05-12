@@ -24,8 +24,22 @@ init_session();
     $db = new connectionDB();
     $products = getProducts($db);
 
+
     $data = [
-        'products' => $products,
+        'products' => array_map(function($product) {
+            return [
+                'id' => $product['id'],
+                'title' => $product['title'],
+                'description' => $product['description'],
+                'image' => $product['image'],
+                'price' => $product['price'],
+                'is_available' => $product['is_available'],
+                'fast' => $product['event'] === 'Flash',
+                'sales' => $product['event'] === 'Soldes',
+                'new' => $product['event'] === 'New',
+                'trending' => $product['event'] === 'Tendance',
+            ];
+        }, $products)
     ];
     ?>
     <div class="flex space-x-5 mx-24 my-4">
