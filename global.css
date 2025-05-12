@@ -1122,6 +1122,15 @@
   .text-\[\#FFC107\] {
     color: #FFC107;
   }
+  .text-\[\#ffbf00\] {
+    color: #ffbf00;
+  }
+  .text-\[\#ffbf00a4\] {
+    color: #ffbf00a4;
+  }
+  .text-\[\#ffc107a4\] {
+    color: #ffc107a4;
+  }
   .text-gray-600 {
     color: var(--color-gray-600);
   }
