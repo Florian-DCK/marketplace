@@ -1,15 +1,15 @@
 <?php
-require_once __DIR__ . '/../config/session.php';
-init_session();
+    require_once __DIR__ . '/../config/session.php';
+    
+    init_session();
 
-$url = $_SERVER['REQUEST_URI'];
+    include_once __DIR__ . 'product.php';
 
-    include __DIR__ . '/../models/database.php';
     include __DIR__ . '/../models/crudBasket.php';
 
     $user_id = $_SESSION['user_id'] ?? null;
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if ($_SESSION['REQUEST_METHOD'] === 'POST') {
         $product_id = $_POST['product_id'] ?? null;
         $quantity = $_POST['quantity'] ?? 1;
 
