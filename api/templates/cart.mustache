@@ -1,0 +1,15 @@
+<main>
+    <div class="cart">
+        <h1>Your Shopping Cart</h1>
+        {{#items}}
+        <div class="cart-item">
+            <h2>{{name}}</h2>
+            <p>Price: ${{price}}</p>
+            <p>Quantity: {{quantity}}</p>
+        </div>
+        {{/items}}
+        <div class="cart-total">
+        <h2>Total: ${{total}}</h2>
+        </div>
+    </div> 
+</main>
