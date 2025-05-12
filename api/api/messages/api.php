@@ -1,26 +1,27 @@
 <?php
 include __DIR__ . '/../../models/database.php';
-include __DIR__ . '/../../models/messages.php';
-include __DIR__ . '/../../models/users.php';
+include __DIR__ . '/../../models/crudMessages.php';
+include __DIR__ . '/../../models/users/crudUsersModel.php';
 
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Vérifier si l'utilisateur est authentifié
-    session_start();
-    if (!isset($_SESSION['user_id'])) {
-        http_response_code(401);
-        echo json_encode(['error' => 'Non authentifié']);
-        exit;
-    }
+    // if (!isset($_SESSION['user_id'])) {
+    //     session_start();
+    //     http_response_code(401);
+    //     echo json_encode(['error' => 'Non authentifié']);
+    //     exit;
+    // }
 
-    $userId = $_SESSION['user_id'];
+    // $userId = $_SESSION['user_id'];
+    $userId = $_GET['user_id'] ?? null;
     
     try {
         $db = new connectionDB();
         
         // Récupérer toutes les conversations de l'utilisateur
-        $conversations = $messagesModel->getUserConversations($userId);
+        $conversations = getConversations($userId, $db);
         
         echo json_encode([
             'success' => true,
