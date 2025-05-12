@@ -1,18 +1,16 @@
 <form enctype="multipart/form-data" method="POST">
-    <div>
-        <label for="category">Category</label>
-            <select name="category" 
-                    id="category" 
-                    required
-                    class="border border-gray-300 rounded-md p-2 cursor-pointer">
-                    <option value="" disabled selected>Select a category</option>
-                    {{#categories}}
-                    <option value="{{id}}">{{name}}</option>
-                    {{/categories}}
-    </div>
     <div class="m-4 flex flex-col rounded-2xl relative h-screen w-7/10 mx-auto ">
+        <select name="category" 
+                id="category" 
+                required
+                class="bg-[#FFC107] text-[#303F9F] rounded-t-xl p-2 cursor-pointer">
+                <option value="" disabled selected>Select a category</option>
+                {{#categories}}
+                <option value="{{id}}">{{name}}</option>
+                {{/categories}}
+        </select>
         <div class="self-start w-full h-20 flex relative">
-            <div class="bg-[#303F9F] text-[#FFC107] w-[calc(100%-40px)] text-sm text-left px-2 py-2 mt-1 rounded-t-2xl text-nowrap overflow-hidden flex flex-col">
+            <div class="bg-[#303F9F] text-[#FFC107] w-[calc(100%-40px)] text-sm text-left px-2 py-2 mt-1 text-nowrap overflow-hidden flex flex-col">
             <input type="text" 
                     name="title" 
                     id="title" 
@@ -30,7 +28,7 @@
             </div>
         </div>
         <div class="bg-[#303F9F] border border-[#FFC107] border-dashed w-[calc(100%-40px)] self-start"></div>
-        <div class="bg-[#303F9F] text-[#FFC107] flex flex-col items-center justify-center w-full h-full rounded-b-2xl space-y-2 p-10 rounded-tr-lg">
+        <div class="bg-[#303F9F] text-[#FFC107] flex flex-col items-center justify-center w-full h-full space-y-2 p-10">
             <div class="border-4 border-double rounded-lg w-2/3 h-3/4 flex flex-col relative">
                 <label for="image" class="flex justify-center"></label>
                 <input  type="file" 
@@ -65,7 +63,7 @@
             </div>
         </div>
         <button type="submit">
-            <div class="bg-[#FFC107] text-[#303F9F] w-full text-md py-2 mt-1 rounded-b-2xl cursor-pointer">
+            <div class="bg-[#FFC107] text-[#303F9F] w-full text-md py-2 mt-1 rounded-b-2xl cursor-pointer hover:">
                 <p class="text-center">Publish</p>
             </div>
         </button>
