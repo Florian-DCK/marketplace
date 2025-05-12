@@ -80,6 +80,7 @@ init_session();
     
         <?php
         echo $mustache->render('productList', $data);
+        echo $mustache->render('messages');
         ?>
     </div>  
 </body>
