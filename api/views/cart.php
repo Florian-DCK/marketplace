@@ -4,6 +4,22 @@ init_session();
 
 $url = $_SERVER['REQUEST_URI'];
 
+    include __DIR__ . '/../models/database.php';
+    include __DIR__ . '/../models/crudBasket.php';
+
+    $user_id = $_SESSION['user_id'] ?? null;
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $product_id = $_POST['product_id'] ?? null;
+        $quantity = $_POST['quantity'] ?? 1;
+
+        if ($quantity && $product_id) {
+            addBasket($id, $basket_id, $product_id, $quantity ,$db);
+        }
+    }
+
+    var_dump($product_id, $quantity);
+
 ?>
 
 <!DOCTYPE html>
@@ -18,14 +34,9 @@ $url = $_SERVER['REQUEST_URI'];
 <?php
 
     include __DIR__ . '/navbar.php';
-    include __DIR__ . '/../models/database.php';
 
     $mustache = new Mustache_Engine([
         'loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates'),
         'partials_loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates/partials')
     ]);
-
-    $user_id = $_SESSION['user_id'] ?? null;
-    
-
 ?>
