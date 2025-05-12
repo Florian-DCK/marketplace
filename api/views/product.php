@@ -25,13 +25,25 @@ $url = $_SERVER['REQUEST_URI'];
             'partials_loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates/partials')
             ]);
 
-        // Fetch data from the Product table
-        $conn = new connectionDB();
-        $products = $conn->query("SELECT * FROM Product");
-        $conn->close();
+        $db = new connectionDB();
+        
 
-        // Render the Mustache template with the fetched data
-        echo $mustache->render('product', ['products' => $products]);
+        // Get the product ID from the URL
+        $product_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
+        if ($product_id > 0) {
+            // Fetch the product data along with its category from the database
+            $query =   "SELECT Product.*, Category.name AS category_name 
+                        FROM Product 
+                        JOIN Category ON Product.id_category = Category.id 
+                        WHERE Product.id = :id";
+            $product = $db->query($query, [':id' => $product_id]);
+
+            // Render the Mustache template with the product data
+            echo $mustache->render('product', ['product' => $product[0]]);
+        } else {
+            echo "Product not found.";
+        }
+        var_dump($product);
     ?>
 
