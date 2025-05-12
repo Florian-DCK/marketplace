@@ -19,13 +19,13 @@ $url = $_SERVER['REQUEST_URI'];
     <?php
         include __DIR__ . '/navbar.php';
         include __DIR__ . '/../models/database.php';
-    
+
         $mustache = new Mustache_Engine([
             'loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates'),
             'partials_loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates/partials')
             ]);
 
-            echo $mustache->render('messageForm');
-        
-     
+            echo $mustache->render('product');
+
     ?>
+
