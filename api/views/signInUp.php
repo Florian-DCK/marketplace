@@ -15,8 +15,56 @@
         'partials_loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates/partials')
     ]);
 
+    $errorCode = isset($_GET['error']) ? $_GET['error'] : null;
+    $errorMessage = [];
+
+    if($errorCode == "EmailAlreadyUsed"){
+        array_push($errorMessage, "Email already used");
+        $errorCode = [];
+    } elseif($errorCode == "InvalidCredentials"){
+        array_push($errorMessage, "Invalid credentials");
+        $errorCode = [];
+    } elseif ($errorCode !== null) {
+        $errorCode = str_split($errorCode, 1);
+    } else {
+        $errorCode = [];
+    }
+    
+    foreach ($errorCode as $key => $value) {
+        switch ($key) {
+            case 0:
+                if ($value == 1) {
+                    array_push($errorMessage, "Your email exceed 50 characters");
+                }
+                break;
+            case 1:
+                if ($value == 1) {
+                    array_push($errorMessage, "Your last name exceed 50 characters");
+                }
+                break;
+            case 2:
+                if ($value == 1) {
+                    array_push($errorMessage, "Your first name exceed 50 characters");
+                }
+                break;
+            case 3:
+                if ($value == 1) {
+                    array_push($errorMessage, "Your phone number exceed 50 characters");
+                }
+                break;
+            case 4:
+                if ($value == 1) {
+                    array_push($errorMessage, "Email already used");
+                }
+                break;
+        }
+    }
+    
+    
+
     $data = [
         "inscription" => isset($_GET['login']) ?? $_GET['login'],
+        "error" => $errorMessage,
     ];
 
     echo $mustache->render('signInUp', $data);
