@@ -1,54 +1,112 @@
-<form action="" method="post" enctype="multipart/form-data" class="flex flex-col m-3 p-4 space-y-4">
-    <div class="flex flex-col">
-        <h1 class="font-bold text-2xl">Announcement description</h1>
-    </div>
-    <div class="flex flex-col">
-        <label for="title">Product name</label>
-        <input type="text" 
-                name="title" 
-                id="title" 
-                required
-                class="border border-gray-300 rounded-md p-2">
-    </div>
-    <div class="flex flex-col">
-        <label for="category">Category</label>
+<form enctype="multipart/form-data" method="POST">
+    <div class="m-4 flex flex-col rounded-2xl relative h-screen w-7/10 mx-auto ">
         <select name="category" 
                 id="category" 
                 required
-                class="border border-gray-300 rounded-md p-2 cursor-pointer">
-            <option value="" disabled selected>Select a category</option>
-            <option value="">Furniture</option>
-            <option value="">High-tech</option>
-            <option value="">Clothes</option>
-            <option value="">Human slaves</option>            
+                class="bg-[#FFC107] text-[#303F9F] rounded-t-xl p-2 text-center cursor-pointer">
+                <option value="" disabled selected>Select a category</option>
+                {{#categories}}
+                <option value="{{id}}">{{name}}</option>
+                {{/categories}}
         </select>
-    </div>
-    <div class="flex flex-col">
-        <label for="price">Price</label>
-        <input type="text" 
-                name="price" 
-                id="price" 
-                required
-                class="border border-gray-300 rounded-md p-2">
-    </div>
-    <div class="flex flex-col">
-        <label for="image">Image</label>
-        <input type="file" 
-                name="image" 
-                id="image" 
-                accept="image/*" 
-                required
-                class="border border-gray-300 rounded-md p-2 cursor-pointer">
-    </div>
-    <div class="flex flex-col">
-        <label for="description">Description</label>
-        <textarea name="description" 
-                id="description" 
-                required
-                class="border border-gray-300 rounded-md p-2">
-        </textarea>
-    </div>
-    <div>
-        <button type="submit" class="border border-gray-300 rounded-md p-2 bg-indigo-500 text-white">Publish</button>
+        <div class="self-start w-full h-20 flex relative">
+            <div class="bg-[#303F9F] text-[#FFC107] w-[calc(100%-40px)] text-sm text-left px-2 py-2 mt-1 text-nowrap overflow-hidden flex flex-col">
+            <input type="text" 
+                    name="title" 
+                    id="title" 
+                    
+                    placeholder="Add a product name"
+                    class="focus:outline-none rounded-md m-2 text-2xl">
+            </div>
+            <div class="flex p-4">
+                <select name="event" id="event">
+                    <option value="new">New</option>
+                    <option value="sales">Sales</option>
+                    <option value="trending">Trending</option>
+                    <option value="flash">Flash</option>
+                </select>
+            </div>
+        </div>
+        <div class="bg-[#303F9F] border border-[#FFC107] border-dashed w-[calc(100%-40px)] self-start"></div>
+        <div class="bg-[#303F9F] text-[#FFC107] flex flex-col items-center justify-center w-full h-full space-y-2 p-10">
+            <div class="border-4 border-double rounded-lg w-2/3 h-3/4 flex flex-col relative">
+                <label for="image" class="flex justify-center"></label>
+                <input  type="file" 
+                        name="image"
+                        id="image"
+                        
+                        accept="image/*"
+                        onchange="previewImage(event)" 
+                        class="cursor-pointer w-full h-full"
+                        >
+                <img    id="imagePreview" 
+                        src="#" 
+                        alt="Image Preview" 
+                        class="hidden mt-4 h-2/3 opacity-75 absolute top-5">
+            </div>
+            <div class="border-4 border-double rounded-lg w-1/6 h-1/10 absolute bottom-75 right-2 flex justify-center items-center">
+                <input  placeholder="Add a price"
+                        name="price"
+                        id="price"
+                        class="w-full m-3">
+                <span class="me-3">$</span>
+            </div>
+            <div class="border-4 border-double rounded-lg w-2/3 h-1/4">
+                <textarea   name="description"
+                            id="description"
+                            
+                            rows="4"
+                            cols="50"
+                            placeholder="Your description here..."
+                            class="w-full h-full text-[#FFC107]">
+                </textarea>
+            </div>
+        </div>
+        <button type="submit">
+            <div class="bg-[#FFC107] text-[#303F9F] w-full text-md py-2 mt-1 rounded-b-2xl cursor-pointer hover:">
+                <p class="text-center">Publish</p>
+            </div>
+        </button>
     </div>
 </form>
+
+<script>
+function previewImage(event) {
+    const input = event.target;
+    const preview = document.getElementById('imagePreview');
+    const fileNameDisplay = document.getElementById('fileName');
+    
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            preview.classList.remove('hidden');
+        }
+        
+        reader.readAsDataURL(input.files[0]);
+        
+        // Mettre à jour le nom du fichier affiché
+        fileNameDisplay.textContent = input.files[0].name;
+    } else {
+        preview.classList.add('hidden');
+        fileNameDisplay.textContent = "Choisir un fichier";
+    }
+}
+
+document.getElementById('image').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const preview = document.getElementById('imagePreview');
+            preview.src = e.target.result;
+            preview.classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+    }
+});
+</script>
+
+
+
