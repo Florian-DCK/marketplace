@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketplace - Cart</title>
+    <link rel="stylesheet" href="/global.css">
+</head>
+
 <?php
     require_once __DIR__ . '/../config/session.php';
     
@@ -18,25 +27,12 @@
         }
     }
 
-    var_dump($product_id, $quantity);
-
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marketplace - Cart</title>
-    <link rel="stylesheet" href="/global.css">
-</head>
-
-<?php
-
     include __DIR__ . '/navbar.php';
 
     $mustache = new Mustache_Engine([
         'loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates'),
         'partials_loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates/partials')
     ]);
+
+    echo $mustache->render('cart');
 ?>

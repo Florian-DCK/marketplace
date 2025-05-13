@@ -106,7 +106,7 @@ $url = $_SERVER['REQUEST_URI'];
     ];
 
     echo $mustache->render('publicationForm', $data);
-    var_dump($messages);
+    
     $conn->close();
     ?>
 

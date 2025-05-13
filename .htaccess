@@ -30,3 +30,6 @@ RewriteRule ^messageDashboard$ api/views/messageDashboard.php [L]
 # Rediriger /product
 RewriteRule ^product$ api/views/product.php [L]
 
+# Rediriger /cart
+RewriteRule ^cart$ api/views/cart.php [L]
+
