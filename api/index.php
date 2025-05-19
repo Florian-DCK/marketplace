@@ -15,6 +15,7 @@ init_session();
     include __DIR__ . '/views/navbar.php'; 
     include __DIR__ . '/models/crudProducts.php';
     include __DIR__ . '/models/database.php';
+    
 
 
     $mustache = new Mustache_Engine([
@@ -26,7 +27,7 @@ init_session();
 
     $user_id = $_SESSION['id'] ?? null;
     if ($user_id) {
-    checkBasket($user_id, $db);
+        checkBasket($user_id, $db);
     }
 
     $products = getProducts($db);
