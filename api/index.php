@@ -15,6 +15,8 @@ init_session();
     include __DIR__ . '/views/navbar.php'; 
     include __DIR__ . '/models/crudProducts.php';
     include __DIR__ . '/models/database.php';
+    
+
 
     $mustache = new Mustache_Engine([
 	'loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/templates'),
@@ -22,6 +24,12 @@ init_session();
     ]);
 
     $db = new connectionDB();
+
+    $user_id = $_SESSION['id'] ?? null;
+    if ($user_id) {
+        checkBasket($user_id, $db);
+    }
+
     $products = getProducts($db);
     foreach ($products as $key => $product) {
         if ($product['image'] ) {
