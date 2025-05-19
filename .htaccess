@@ -26,3 +26,13 @@ RewriteRule ^messageForm$ api/views/messageForm.php [L]
 
 # Rediriger /messageDashboard
 RewriteRule ^messageDashboard$ api/views/messageDashboard.php [L]
+
+# Rediriger /product
+RewriteRule ^product$ api/views/product.php [L]
+
+# Rediriger /cart
+RewriteRule ^cart$ api/views/cart.php [L]
+
+# Routes pour les API
+# Routes pour les messages
+RewriteRule ^api/messages$ api/api/messages/api.php [L]
