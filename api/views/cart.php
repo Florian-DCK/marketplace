@@ -49,6 +49,3 @@
     echo $mustache->render('cart', []);
     
 ?>
-
-
-</html>
