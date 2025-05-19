@@ -24,7 +24,7 @@ init_session();
 
     $db = new connectionDB();
 
-    $user_id = $_SESSION['id'];
+    $user_id = $_SESSION['id'] ?? null;
     if ($user_id) {
     checkBasket($user_id, $db);
     }
