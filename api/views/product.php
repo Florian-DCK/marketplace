@@ -38,7 +38,6 @@ $url = $_SERVER['REQUEST_URI'];
                         WHERE Product.id = :id";
             $product = $db->query($query, [':id' => $product_id]);
 
-            var_dump($product_id);
             // Retrieve the image URL using the image_get function
             if (!empty($product[0]['image'])) {
                 $product[0]['image'] = image_get($product[0]['image'])['link'];
