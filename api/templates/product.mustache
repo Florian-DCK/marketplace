@@ -6,23 +6,23 @@
                     {{product.category_name}}
                 </div>
                 <div class="self-start w-full h-20 flex relative space-x-1">
-                    <div class="text-[#303F9F] w-[calc(100%-40px)] text-lg text-center font-semibold px-2 py-2 mt-1 flex flex-col justify-center border-l border-r">
+                    <div class="w-[calc(100%-40px)] text-lg text-center font-semibold px-2 py-2 mt-1 flex flex-col justify-center border-l border-r border-[#303F9F]">
                     {{product.title}}
                     </div>
-                    <div class="flex justify-center p-4 w-1/6 mt-1 border-r">
+                    <div class="flex justify-center p-4 w-1/6 mt-1 border-r border-[#303F9F]">
                         {{product.event}}
                     </div>
                 </div>
-                <div class="bg-[#303F9F] border border-[#FFC107] border-dashed w-full self-start mt-1"></div>
+                <div class=" border border-dashed border-[#303F9F] w-full self-start mt-1"></div>
                 <div class=" flex flex-col items-center justify-center w-full h-full space-y-2 p-10 mt-1 border-l border-r border-[#303F9F]">
-                    <div class="border-4 border-double rounded-lg w-2/3 h-3/4 flex flex-col relative text-[#303F9F]">
+                    <div class="border-4 border-double rounded-lg w-2/3 h-3/4 flex flex-col relative border-[#303F9F]">
                         <img src="{{product.image}}" alt="{{product.title}}" class="h-full object-cover rounded-lg">
                     </div>
-                    <div class="border-4 border-double rounded-lg w-1/6 h-1/10 absolute bottom-75 right-2 flex justify-center items-center text-[#303F9F]">
+                    <div class="border-4 border-double rounded-lg w-1/6 h-1/10 absolute bottom-75 right-2 flex justify-center items-center border-[#303F9F]">
                         {{product.price}}
-                        <span class="me-3 text-[#303F9F]">$</span>
+                        <span class="me-3">$</span>
                     </div>
-                    <div class="border-4 border-double rounded-lg w-2/3 h-1/4 text-[#303F9F] p-5">
+                    <div class="border-4 border-double rounded-lg w-2/3 h-1/4 p-5 border-[#303F9F]">
                         {{product.description}}
                     </div>
                     <input type="hidden" name="product_id" value="{{product.id}}">
@@ -42,15 +42,15 @@
                 <div class="text-center space-y-10 pt-10 flex flex-col items-center">
                 <div class="flex flex-col w-full items-center space-y-10">
                     <div>
-                        <h2 class="font-bold text-lg">Name :{{product.seller_name}}</h2>
+                        <h2 class="font-bold text-lg">Name : {{product.seller_name}}</h2>
                         <hr class="w-2/3 border-gray-300">
                     </div>
                     <div>
-                        <h2 class="font-semibold text-lg">Phone number :{{product.seller_phone}}</h2>
+                        <h2 class="font-semibold text-lg">Phone number : {{product.seller_phone}}</h2>
                         <hr class="w-2/3 border-gray-300">
                     </div>
                     <div>
-                        <h2 class="font-semibold text-lg">Email :{{product.seller_email}}</h2>
+                        <h2 class="font-semibold text-lg">Email : {{product.seller_email}}</h2>
                         <hr class="w-2/3 border-gray-300">
                     </div>
                 </div>
