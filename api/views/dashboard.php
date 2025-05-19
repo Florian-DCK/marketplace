@@ -66,6 +66,8 @@ if (!isset($_SESSION['operatoLevel']) && $_SESSION['operatorLevel'] !== "adminis
             'operatorLevel' => $userInfos['operator_level'] ?? '',
         ]
     ];
+
+    
     ?>
     <main class="flex h-full">
         <?php 
