@@ -86,38 +86,35 @@ function inscription($nom = null, $prenom = null, $mdp = null, $email = null, $t
         $error = $error . "0";
     }
 
-    // Vérification de l'avatar
-    $avatar_path = null;
-    if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
-        $upload_result = require __DIR__ . '/../../controllers/imageUploadControllers.php';
-        if ($upload_result === "format_error") {
-            $conn->close();
-            $error = $error . "1";
-        } elseif ($upload_result === "size_error") {
-            $conn->close();
-            $error = $error . "1";
-        } elseif ($upload_result === false) {
-            $conn->close();
+
+// Vérifications individuelles du mot de passe
+if (strlen($mdp) < 8) {
+    $error = $error . "1";
+} else {
+    $error = $error . "0";
+    
+    if (!preg_match('/[A-Z]/', $mdp)) {
+        $error = $error . "1";
+    } else {
+        $error = $error . "0";
+        
+        if (!preg_match('/[0-9]/', $mdp)) {
             $error = $error . "1";
         } else {
-            // S'assurer que $upload_result est une chaîne
-            if (is_array($upload_result)) {
-                $error = $error . "1"; // Considérer comme une erreur si c'est un tableau
-                $conn->close();
-                return $error;
-            }
-            $avatar_path = $upload_result; // Doit être une chaîne (URL)
             $error = $error . "0";
+            
+            if (!preg_match('/[!@#$%^&*(),.?":{}|<>]/', $mdp)) {
+                $error = $error . "1";
+            } else {
+                $error = $error . "0";
+            }
         }
-    } else {
-        $error = $error . "0"; // Pas d'avatar, valide
     }
+}
 
-    // Vérifier si toutes les validations sont passées
-    if (!preg_match('/^0+$/', $error)) {
-        $conn->close();
-        return $error;
-    }
+if (!preg_match('/^0+$/', $error)) {
+return $error;
+}
 
     // Hasher le mot de passe et insérer l'utilisateur
     $mdp_hash = password_hash($mdp, PASSWORD_DEFAULT);
