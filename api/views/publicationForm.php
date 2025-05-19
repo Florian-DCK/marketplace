@@ -17,8 +17,8 @@ $url = $_SERVER['REQUEST_URI'];
 </head>
 
 <?php
-    include __DIR__ . '/navbar.php';
     include __DIR__ . '/../models/database.php';
+    require_once __DIR__ . '/../models/images.php';
     $conn = new connectionDB();
     function getAllCategories($db) {
         try {
@@ -99,7 +99,7 @@ $url = $_SERVER['REQUEST_URI'];
                     ":image" => $imageId["id"],
                     "event" => $event
                 ]);
-            header("Location: index.php");
+            header("Location: /");
         }
     }
 
@@ -108,6 +108,7 @@ $url = $_SERVER['REQUEST_URI'];
         'messages' => $messages, 
     ];
 
+    include __DIR__ . '/navbar.php';
     echo $mustache->render('publicationForm', $data);
     
     $conn->close();
