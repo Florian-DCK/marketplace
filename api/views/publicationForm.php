@@ -49,6 +49,7 @@ $url = $_SERVER['REQUEST_URI'];
         
     $messages = [];
 
+
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST)) {
         $id = $_SESSION['id'];
         $title = $_POST['title'];
@@ -56,6 +57,7 @@ $url = $_SERVER['REQUEST_URI'];
         $price = $_POST['price'];
         $image = $_FILES['image'];
         $description = $_POST['description'];
+        $event = $_POST['event'];
 
         // Validations
         if (empty($title) || strlen($title) > 30 ){
@@ -82,19 +84,21 @@ $url = $_SERVER['REQUEST_URI'];
                 $messages['image'] = "Type de fichier non autorisé.";
             }
         }
+
         // Si aucune erreur, insère en BDD
         if (empty($messages)) {
             $imageId = image_upload($image);
 
-            $conn->query("INSERT INTO Product (id_category, id_user, title, description, price, image) 
-                VALUES (:id_category, :id_user, :title, :description, :price, :image)",
+            $conn->query("INSERT INTO Product (id_category, id_user, title, description, price, image, event) 
+                VALUES (:id_category, :id_user, :title, :description, :price, :image, :event)",
                 [
                     ":id_category" => $category,
                     ":id_user" => $id, 
                     ":title" => $title,
                     ":description" => $description,
                     ":price" => $price,
-                    ":image" => $imageId["id"]
+                    ":image" => $imageId["id"],
+                    "event" => $event
                 ]);
             header("Location: index.php");
         }
@@ -106,7 +110,7 @@ $url = $_SERVER['REQUEST_URI'];
     ];
 
     echo $mustache->render('publicationForm', $data);
-    var_dump($messages);
+    
     $conn->close();
     ?>
 
