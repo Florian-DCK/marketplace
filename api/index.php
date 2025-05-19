@@ -70,9 +70,9 @@ init_session();
                 'price' => $product['price'],
                 'is_available' => $product['is_available'],
                 'fast' => $product['event'] === 'Flash',
-                'sales' => $product['event'] === 'Soldes',
+                'sales' => $product['event'] === 'Sales',
                 'new' => $product['event'] === 'New',
-                'trending' => $product['event'] === 'Tendance',
+                'trending' => $product['event'] === 'Trending',
             ];
         }, $products)
     ];
