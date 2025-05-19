@@ -49,6 +49,7 @@ $url = $_SERVER['REQUEST_URI'];
         
     $messages = [];
 
+
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST)) {
         $id = $_SESSION['id'];
         $title = $_POST['title'];
@@ -83,6 +84,7 @@ $url = $_SERVER['REQUEST_URI'];
                 $messages['image'] = "Type de fichier non autorisé.";
             }
         }
+
         // Si aucune erreur, insère en BDD
         if (empty($messages)) {
             $imageId = image_upload($image);

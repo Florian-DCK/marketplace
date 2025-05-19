@@ -25,28 +25,7 @@ $url = $_SERVER['REQUEST_URI'];
             'partials_loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates/partials')
             ]);
 
-        $db = new connectionDB();
+            echo $mustache->render('product');
 
-        // Get the product ID from the URL
-        $product_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
-
-        if ($product_id > 0) {
-            // Fetch the product data along with its category from the database
-            $query =   "SELECT Product.*, Category.name AS category_name 
-                        FROM Product 
-                        JOIN Category ON Product.id_category = Category.id 
-                        WHERE Product.id = :id";
-            $product = $db->query($query, [':id' => $product_id]);
-
-            // Retrieve the image URL using the image_get function
-            if (!empty($product[0]['image'])) {
-                $product[0]['image'] = image_get($product[0]['image'])['link'];
-            }
-
-            // Render the Mustache template with the product data
-            echo $mustache->render('product', ['product' => $product[0]]);
-        } else {
-            echo "Product not found.";
-        }
     ?>
 
