@@ -1,10 +1,28 @@
 <?php
 
-    function addBasket($id, $basket_id, $product_id, $quantity ,$db) {
-        checkBasket($basket_id, $db);
-        try {
-                $db->query("INSERT INTO ProductBasket (id, basket_id, product_id, quantity) VALUES (:id, :basket_id, :product_id, :quantity)", [
-                    ':id' => $id,
+    function addBasket($basket_id, $product_id, $quantity, $db) {
+        // Vérifier si le produit est déjà dans le panier
+        $existing = $db->query("SELECT * FROM ProductBasket WHERE basket_id = :basket_id AND product_id = :product_id", [
+            ':basket_id' => $basket_id,
+            ':product_id' => $product_id
+        ]);
+        if ($existing && isset($existing[0]['quantity'])) {
+            // Si déjà présent, on met à jour la quantité
+            $newQuantity = $existing[0]['quantity'] + $quantity;
+            try {
+                $db->query("UPDATE ProductBasket SET quantity = :quantity WHERE basket_id = :basket_id AND product_id = :product_id", [
+                    ':quantity' => $newQuantity,
+                    ':basket_id' => $basket_id,
+                    ':product_id' => $product_id
+                ]);
+            } catch (PDOException $e) {
+                echo 'Erreur de requête : ' . $e->getMessage();
+                return null;
+            }
+        } else {
+            // Sinon, on insère
+            try {
+                $db->query("INSERT INTO ProductBasket (basket_id, product_id, quantity) VALUES (:basket_id, :product_id, :quantity)", [
                     ':basket_id' => $basket_id,
                     ':product_id' => $product_id,
                     ':quantity' => $quantity
@@ -13,6 +31,7 @@
                 echo 'Erreur de requête : ' . $e->getMessage();
                 return null;
             }
+        }
     }
 
     function getBasket($id, $basket_id, $db) {
