@@ -63,6 +63,7 @@ if (!isset($_SESSION['operatoLevel']) && $_SESSION['operatorLevel'] !== "adminis
             'birthDate' => $userInfos['birthDate'] ?? '',
             'creationDate' => $userInfos['creation_date'] ?? '',
             'lastModified' => $userInfos['last_modified'] ?? '',
+            'operatorLevel' => $userInfos['operator_level'] ?? '',
         ]
     ];
     ?>
