@@ -9,11 +9,15 @@
 
 <?php
     require_once __DIR__ . '/../config/session.php';
-
+    include_once __DIR__ . '/../views/navbar.php';
     init_session();
     
-    include_once __DIR__ . '/product.php';
     include_once __DIR__ . '/../models/crudBasket.php';
+
+    $mustache = new Mustache_Engine([
+        'loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates'),
+        'partials_loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates/partials')
+    ]);
 
     $user_id = $_SESSION['id'] ?? null;
     $quantity = 1;
@@ -41,6 +45,8 @@
             echo '<p style="color:red">Erreur : données manquantes.</p>';
         }
     }
+
+    echo $mustache->render('cart', []);
     
 ?>
 
