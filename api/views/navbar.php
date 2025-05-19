@@ -34,7 +34,9 @@ $data = [
 	'menuItems' => [
 		['url' => '/dashboard', 'label' => 'Your Profile', 'id' => 'user-menu-item-0'],
 		isset($_SESSION['operatorLevel']) && $_SESSION['operatorLevel'] === 'administrator' ? ['url' => '/dashboard/admin', 'label' => 'Admin', 'id' => 'user-menu-item-1'] : null,
-		['url' => '/signOut', 'label' => 'Sign Out', 'id' => 'user-menu-item-2'],
+        ['url' => '/publicationForm', 'label' => 'Post an item', 'id' => 'user-menu-item-2'],
+        ['url' => '/cart', 'label' => 'My Cart', 'id' => 'user-menu-item-3'],
+		['url' => '/signOut', 'label' => 'Sign Out', 'id' => 'user-menu-item-4'],
 	],
     'userName' =>$_SESSION ? $_SESSION['name'] : null ,
     'userProfileImage' => isset($_SESSION['avatar']) && $_SESSION['avatar'] ? image_get($_SESSION['avatar'])['link'] : null,
