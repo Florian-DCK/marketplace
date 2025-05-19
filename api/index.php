@@ -15,6 +15,8 @@ init_session();
     include __DIR__ . '/views/navbar.php'; 
     include __DIR__ . '/models/crudProducts.php';
     include __DIR__ . '/models/database.php';
+    
+
 
     $mustache = new Mustache_Engine([
 	'loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/templates'),
@@ -22,6 +24,12 @@ init_session();
     ]);
 
     $db = new connectionDB();
+
+    $user_id = $_SESSION['id'] ?? null;
+    if ($user_id) {
+        checkBasket($user_id, $db);
+    }
+
     $products = getProducts($db);
     foreach ($products as $key => $product) {
         if ($product['image'] ) {
@@ -80,28 +88,7 @@ init_session();
     
         <?php
         echo $mustache->render('productList', $data);
-        echo $mustache->render('messages', [
-            "Messages" => [
-                [
-                    'ours' => true,
-                    'message' => 'Hello, how can I help you?',
-                    'author'=> 'Support',
-                    'date' => '12:00',
-                ],
-                [
-                    'ours' => false,
-                    'message' => 'I have a question about my order.',
-                    'author'=> 'User',
-                    'date' => '12:05',
-                ],
-                [
-                    'ours' => true,
-                    'message' => 'Sure, what would you like to know?',
-                    'author'=> 'Support',
-                    'date' => '12:06',
-                ]
-            ]
-        ]);
+        include __DIR__ . '/views/messages.php';
         ?>
     </div>  
 </body>
