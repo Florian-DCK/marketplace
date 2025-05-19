@@ -28,12 +28,20 @@
         $quantity = $_POST['quantity'] ?? 1;
 
         if ($quantity && $product_id) {
-            addBasket($id, $basket_id, $product_id, $quantity ,$db);
+            // Récupérer ou créer le panier de l'utilisateur
+            $basket = checkBasket($user_id, $db);
+            if ($basket && isset($basket[0]['id'])) {
+                $basket_id = $basket[0]['id'];
+                // Ajout au panier (id auto-incrémenté, donc non passé)
+                addBasket($basket_id, $product_id, $quantity, $db);
+            } else {
+                echo '<p style="color:red">Erreur : impossible de récupérer le panier utilisateur.</p>';
+            }
+        } else {
+            echo '<p style="color:red">Erreur : données manquantes.</p>';
         }
     }
-
-    var_dump($product_id, $quantity);
-
+    
 ?>
 
 <!DOCTYPE html>
@@ -53,4 +61,5 @@
         'loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates'),
         'partials_loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates/partials')
     ]);
+
 ?>
