@@ -107,7 +107,6 @@ $url = $_SERVER['REQUEST_URI'];
     $data = [
         'categories' => $AllCategories,
         'messages' => $messages, 
-        'event' => $event
     ];
 
     echo $mustache->render('publicationForm', $data);
