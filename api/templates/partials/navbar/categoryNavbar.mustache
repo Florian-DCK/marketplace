@@ -1,8 +1,8 @@
 <div class="bg-[#EAEBED] w-full flex justify-center">
     <!-- Dropdown for small screens -->
-    <div class="relative w-full lg:hidden flex justify-center">
+    <div class="relative w-full lg:hidden flex ml-10">
         <button id="categoryDropdownBtn" class="p-2 bg-[#FFC107] text-[#303F9F] rounded mt-2 mb-2">Categories</button>
-        <ul id="categoryDropdownMenu" class="absolute left-1/2 -translate-x-1/2 mt-2 bg-white border rounded shadow-lg z-10 hidden w-48">
+        <ul id="categoryDropdownMenu" class="absolute left-24 top-10 -translate-x-1/2 mt-2 bg-white border rounded shadow-lg z-10 hidden w-48">
             {{#categories}}
                 <li><a href="/search?category={{name}}" class="block px-4 py-2 hover:bg-gray-200">{{name}}</a></li>
             {{/categories}}
