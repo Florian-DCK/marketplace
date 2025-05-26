@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../config/session.php';
+
 init_session();
 
 if (!isset($_SESSION['id'])) {
@@ -27,7 +28,7 @@ if (!isset($_SESSION['operatoLevel']) && $_SESSION['operatorLevel'] !== "adminis
     <?php 
     include __DIR__ . '/navbar.php'; 
     include __DIR__ . '/../models/database.php';
-
+    require_once __DIR__ . '/../controllers/crudUsersControllers.php';
     $url = $_SERVER['REQUEST_URI'];
     
     $mustache = new Mustache_Engine([
