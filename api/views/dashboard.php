@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../config/session.php';
 include __DIR__ . "/../models/users/crudUsersModel.php";
+require_once __DIR__ . "/../models/images.php";
 init_session();
 
 if (!isset($_SESSION['id'])) {
@@ -15,6 +16,7 @@ if (!isset($_SESSION['operatorLevel']) || $_SESSION['operatorLevel'] !== "admini
     header("Location: /dashboard");
     exit;
 }
+$db = new connectionDB();
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'] ?? '';
@@ -22,8 +24,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'] ?? '';
     $phone = $_POST['phone'] ?? '';
     $avatar = $_FILES['avatar'] ?? null;
-
-    $db = new connectionDB();
 
     if (!empty($_POST['username'])) {
         updateName($db, $_SESSION['id'], $_POST['username']);
@@ -39,9 +39,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     if (!empty($_FILES['avatar'])) {
         $avatar_id = image_upload($avatar)['id'];
-        updateAvatar($db, $_SESSION['id'], '$avatar_id');
+        updateAvatar($db, $_SESSION['id'], $avatar_id);
     }
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,7 +56,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body class="h-screen w-screen flex flex-col bg-[#EAEBED]">
     <?php 
     include __DIR__ . '/navbar.php'; 
-    include __DIR__ . '/../models/database.php';
+    require_once __DIR__ . '/../models/database.php';
    
     $url = $_SERVER['REQUEST_URI'];
     
@@ -69,7 +71,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Récupérer userEmail depuis GET au lieu de POST
     $userEmail = isset($_GET['userEmail']) ? $_GET['userEmail'] : '';
 
-    $db = new connectionDB();
 
     if (!$userEmail){
         $userInfos = $_SESSION ? getUserInfo($_SESSION['email'], $db) : null;
