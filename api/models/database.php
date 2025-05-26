@@ -63,7 +63,7 @@ require_once __DIR__ . '/../../vendor/autoload.php';
             }
 		}
 
-		function checkBasket($user_id, $db) {
+		/*function checkBasket($user_id, $db) {
         try {
             $basket = $db->query("SELECT * FROM Basket WHERE user_id = :user_id", [
                 ':user_id' => $user_id
@@ -85,6 +85,6 @@ require_once __DIR__ . '/../../vendor/autoload.php';
             echo 'Erreur de requête : ' . $e->getMessage();
             return null;
         }
-    }
+    }*/
 
 ?>

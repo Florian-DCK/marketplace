@@ -13,8 +13,8 @@ init_session();
 <body class="bg-[#EAEBED] flex flex-col">
     <?php 
     include __DIR__ . '/views/navbar.php'; 
-    include __DIR__ . '/models/crudProducts.php';
-    include __DIR__ . '/models/database.php';
+    include_once __DIR__ . '/models/crudProducts.php';
+    include_once __DIR__ . '/models/database.php';
     
 
 
@@ -28,7 +28,8 @@ init_session();
     $user_id = $_SESSION['id'] ?? null;
     if ($user_id) {
         checkBasket($user_id, $db);
-    }
+        $_SESSION['basket_id'] = $db->query("SELECT id FROM Basket WHERE user_id = :user_id", [':user_id' => $user_id])[0]['id'];
+    } 
 
     $products = getProducts($db);
     foreach ($products as $key => $product) {
