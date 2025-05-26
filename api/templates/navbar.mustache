@@ -64,6 +64,9 @@
 			</span>
 		</a>
 		{{> navbar/searchBar}}
+		{{#showCategoryNavbar}}
+			{{> navbar/categoryNavbar}}
+		{{/showCategoryNavbar}}
 		{{#showMenu}}
 			<div class="p-2 flex items-center space-x-3">
 				{{#isConnected}}
@@ -78,7 +81,13 @@
 			</div>
 		{{/showMenu}}
 	</div>
-	{{#showCategoryNavbar}}
-		{{> navbar/categoryNavbar}}
-	{{/showCategoryNavbar}}
+	<div class="bg-[#EAEBED] w-full flex justify-center">
+    <!-- Horizontal list for medium and up -->
+    <ul class="hidden lg:flex space-x-2 items-center w-[90%] justify-center shadow-[0_10px_10px_-10px_rgba(0,0,0,0.1)] px-2 sm:px-4 md:px-8">
+        {{#categories}}
+            <a href="/search?category={{name}}"><li class="p-2 hover:bg-gray-200 cursor-pointer whitespace-nowrap">{{name}}</li></a>
+        {{/categories}}
+    </ul>
+</div>
+	
 </div>
