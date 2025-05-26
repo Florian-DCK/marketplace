@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../config/session.php';
-
+include __DIR__ . "/../models/users/crudUsersModel.php";
 init_session();
 
 if (!isset($_SESSION['id'])) {
@@ -11,9 +11,36 @@ if (!isset($_SESSION['id'])) {
 $url = $_SERVER['REQUEST_URI'];
 
 // Vérifier si l'utilisateur est admin (ici, operator_level == 0 indique admin)
-if (!isset($_SESSION['operatoLevel']) && $_SESSION['operatorLevel'] !== "administrator" && str_contains($url, 'admin')) {
+if (!isset($_SESSION['operatorLevel']) || $_SESSION['operatorLevel'] !== "administrator" && str_contains($url, 'admin')) {
     header("Location: /dashboard");
     exit;
+}
+
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = $_POST['username'] ?? '';
+    $firstName = $_POST['firstName'] ?? '';
+    $email = $_POST['email'] ?? '';
+    $phone = $_POST['phone'] ?? '';
+    $avatar = $_FILES['avatar'] ?? null;
+
+    $db = new connectionDB();
+
+    if (!empty($_POST['username'])) {
+        updateName($db, $_SESSION['id'], $_POST['username']);
+    }
+    if (!empty($_POST['firstName'])) {
+        updateSurname($db, $_SESSION['id'], $_POST['firstName']);
+    }
+    if (!empty($_POST['email'])) {
+        updateEmail($db, $_POST['email'], $_SESSION['id']);
+    }
+    if (!empty($_POST['phone'])) {
+        updatePhone($db, $_POST['phone'], $_SESSION['id']);
+    }
+    if (!empty($_FILES['avatar'])) {
+        $avatar_id = image_upload($avatar)['id'];
+        updateAvatar($db, $_SESSION['id'], '$avatar_id');
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -28,7 +55,7 @@ if (!isset($_SESSION['operatoLevel']) && $_SESSION['operatorLevel'] !== "adminis
     <?php 
     include __DIR__ . '/navbar.php'; 
     include __DIR__ . '/../models/database.php';
-    require_once __DIR__ . '/../controllers/crudUsersControllers.php';
+   
     $url = $_SERVER['REQUEST_URI'];
     
     $mustache = new Mustache_Engine([

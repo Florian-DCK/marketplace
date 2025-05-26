@@ -5,18 +5,18 @@
                 <h1>Shopping Cart</h1>
                 <hr class="w-2/3 border-gray-300">
             </div>
+            {{#products}}
             <div class="text-center space-y-10 pt-10 flex flex-col items-center">
                 <div class="flex w-full justify-around">
                     <div>
-                        <img src="../api/public/product_test_01.jpg" alt="Product Image" class="h-50">
+                        <img src="{{product.image}}" alt="Product Image" class="h-50">
                     </div>
                     <div>
-                        <h2 class="font-bold text-lg">product_test_01</h2>
-                        <p class="">Price: $<span id="product-price">10.00</span></p>
-                        
+                        <h2 class="font-bold text-lg">{{product.title}}</h2>
+                        <p class="">Price: $<span id="{{product.id}}" data-price="{{product.price}}">{{product.price}}</span></p>
                     </div>
                     <div>
-                        <input type="number" name="quantity" value="1" min="1" class="border rounded-md w-1/3 p-2">
+                        <input type="number" name="quantity" value="{{quantity}}" min="1" class="border rounded-md w-1/3 p-2">
                     </div>
                     <div>
                         <img src="../api/public/svg/cancel.svg" alt="Cancel" class="h-10 cursor-pointer">
@@ -24,61 +24,24 @@
                 </div>
                 <hr class="w-2/3 border-gray-300">
             </div>
-            <div class="text-center space-y-10 pt-10 flex flex-col items-center">
-                <div class="flex w-full justify-around">
-                    <div>
-                        <img src="../api/public/product_test_02.jpg" alt="Product Image" class="h-50">
-                    </div>
-                    <div>
-                        <h2 class="font-bold text-lg">product_test_02</h2>
-                        <p class="">Price: $<span id="product-price">12.00</span></p>
-                        
-                    </div>
-                    <div>
-                        <input type="number" name="quantity" value="1" min="1" class="border rounded-md w-1/3 p-2">
-                    </div>
-                    <div>
-                        <img src="../api/public/svg/cancel.svg" alt="Cancel" class="h-10 cursor-pointer">
-                    </div>
-                </div>
-                <hr class="w-2/3 border-gray-300">
-            </div>
-            <div class="text-center space-y-10 pt-10 flex flex-col items-center">
-                <div class="flex w-full justify-around">
-                    <div>
-                        <img src="../api/public/product_test_03.jpg" alt="Product Image" class="h-50">
-                    </div>
-                    <div>
-                        <h2 class="font-bold text-lg">product_test_03</h2>
-                        <p class="">Price: $<span id="product-price">20.00</span></p>
-                        
-                    </div>
-                    <div>
-                        <input type="number" name="quantity" value="1" min="1" class="border rounded-md w-1/3 p-2">
-                    </div>
-                    <div>
-                        <img src="../api/public/svg/cancel.svg" alt="Cancel" class="h-10 cursor-pointer">
-                    </div>
-                </div>
-                <hr class="w-2/3 border-gray-300">
-            </div>
+            {{/products}}
             <div class="space-y-4 mt-10 p-4 flex flex-col mx-auto items-center w-2/3 bg-gray-100 rounded-md">
                 <h2 class="font-semibold text-lg">Order summary</h2>
                 <div class="flex w-full justify-between border-b-1 border-b-gray-300 space-y-4">
                     <p>Subtotal</p>
-                    <p class="">$42.00</p>
+                    <p class="subtotal">$42.00</p>
                 </div>
                 <div class="flex w-full justify-between border-b-1 border-b-gray-300 space-y-4">
                     <p>Shipping estimate</p>
-                    <p class="">$5.00</p>
+                    <p class="shipping">$5.00</p>
                 </div>
                 <div class="flex w-full justify-between border-b-1 border-b-gray-300 space-y-4">
                     <p>Tax estimate</p>
-                    <p class="">$3.00</p>
+                    <p class="tax">$3.00</p>
                 </div>
                 <div class="flex w-full justify-between border-b-1 border-b-gray-300 space-y-4 font-semibold">
                     <p>Order total</p>
-                    <p class="">$50.00</p>
+                    <p class="total">$50.00</p>
                 </div>
                 <button type="submit" class="bg-[#303F9F] text-[#FFC107] w-2/3 text-md py-2 mt-1 rounded-md cursor-pointer hover:bg-[#FFC107] hover:text-[#303F9F]">
                     <p class="text-center font-bold">Checkout</p>
@@ -86,6 +49,64 @@
             </div>
         </form>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Sélectionne tous les inputs de quantité
+            const quantityInputs = document.querySelectorAll('input[name="quantity"]');
+            // Sélectionne les éléments du résumé de commande
+            const subtotalElement = document.querySelector('.subtotal');
+            const shippingElement = document.querySelector('.shipping');
+            const taxElement = document.querySelector('.tax');
+            const totalElement = document.querySelector('.total');
+
+            // Fonction pour mettre à jour le prix total d'un produit
+            const updateProductTotal = (input) => {
+                const productRow = input.closest('.flex.w-full.justify-around');
+                const priceElement = productRow.querySelector('p > span');
+                const unitPrice = parseFloat(priceElement.dataset.price);
+                const quantity = parseInt(input.value);
+                const totalPrice = (unitPrice * quantity).toFixed(2);
+                priceElement.textContent = totalPrice;
+                return totalPrice;
+            };
+
+            // Fonction pour mettre à jour le résumé de commande
+            const updateOrderSummary = () => {
+                let subtotal = 0;
+                quantityInputs.forEach(input => {
+                    const productRow = input.closest('.flex.w-full.justify-around');
+                    const priceElement = productRow.querySelector('p > span');
+                    const unitPrice = parseFloat(priceElement.dataset.price);
+                    const quantity = parseInt(input.value);
+                    subtotal += unitPrice * quantity;
+                });
+
+                // Frais d'expédition et taxes fixes pour l'exemple
+                const shipping = 5.00;
+                const tax = 3.00;
+                const total = subtotal + shipping + tax;
+
+                // Met à jour l'affichage
+                subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
+                shippingElement.textContent = `$${shipping.toFixed(2)}`;
+                taxElement.textContent = `$${tax.toFixed(2)}`;
+                totalElement.textContent = `$${total.toFixed(2)}`;
+            };
+
+            // Ajoute un écouteur d'événement sur chaque input de quantité
+            quantityInputs.forEach(input => {
+                updateProductTotal(input);
+                input.addEventListener('input', () => {
+                    if (input.value < 1) input.value = 1;
+                    updateProductTotal(input);
+                    updateOrderSummary();
+                });
+            });
+
+            // Met à jour le résumé au chargement initial
+            updateOrderSummary();
+        });
+    </script>
 </main>
 
 <!--<div class="cart">

@@ -1,10 +1,10 @@
 
 <?php
+/*
 require_once __DIR__ . '/../config/session.php';
 init_session();
 
 include __DIR__ . "/../models/users/crudUsersModel.php";
-var_dump($_POST);
 
 $username = $_POST['username'] ?? '';
 $firstName = $_POST['firstName'] ?? '';
@@ -26,9 +26,12 @@ if (!empty($_POST['email'])) {
 if (!empty($_POST['phone'])) {
     updatePhone($db, $_POST['phone'], $_SESSION['id']);
 }
-if (!empty($_FILES['avatar']['tmp_name'])) {
-    $avatarPath = '/uploads/' . basename($_FILES['avatar']['name']);
-    move_uploaded_file($_FILES['avatar']['tmp_name'], __DIR__ . '/../../public' . $avatarPath);
-    updateAvatar($db, $_SESSION['id'], $avatarPath);
+if (!empty($_FILES['avatar'])) {
+    $avatar_id = image_upload($avatar)['id'];
+    updateAvatar($db, $_SESSION['id'], '$avatar_id');
 }
 
+
+
+var_dump($_FILES);
+*/
