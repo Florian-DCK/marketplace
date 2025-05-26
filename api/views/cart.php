@@ -13,6 +13,8 @@
     include_once __DIR__ . '/../models/crudProducts.php';
     include_once __DIR__ . '/../models/crudBasket.php';
     include_once __DIR__ . '/../models/database.php';
+    require_once __DIR__ . '/../models/images.php';
+
 
     $mustache = new Mustache_Engine([
         'loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates'),
