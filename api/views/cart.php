@@ -9,21 +9,15 @@
 
 <?php
     require_once __DIR__ . '/../config/session.php';
-    include_once __DIR__ . '/../views/navbar.php';
     init_session();
-    
-    require_once __DIR__ . '/../models/crudBasket.php';
 
-    $mustache = new Mustache_Engine([
-        'loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates'),
-        'partials_loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates/partials')
-    ]);
+    require_once __DIR__ . '/../models/crudBasket.php';
 
     $user_id = $_SESSION['id'] ?? null;
     $quantity = 1;
 
     if (!$user_id) {
-        echo '<p style="color:red">Erreur : utilisateur non connecté. Connectez-vous pour ajouter au panier.</p>';
+        header('Location: /login');
         exit;
     }
 
@@ -45,6 +39,13 @@
             echo '<p style="color:red">Erreur : données manquantes.</p>';
         }
     }
+
+    include_once __DIR__ . '/../views/navbar.php';
+
+    $mustache = new Mustache_Engine([
+        'loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates'),
+        'partials_loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates/partials')
+    ]);
 
     echo $mustache->render('cart', []);
     
