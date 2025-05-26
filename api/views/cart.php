@@ -15,6 +15,8 @@
     include_once __DIR__ . '/../models/database.php';
     require_once __DIR__ . '/../models/images.php';
 
+    include_once __DIR__ . '/../views/navbar.php';
+
 
     $mustache = new Mustache_Engine([
         'loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates'),
@@ -29,14 +31,14 @@
         header('Location: /login');
         exit;
     }
-
+    
+    $db = new connectionDB();
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $product_id = $_POST['product_id'] ?? null;
         $quantity = $_POST['quantity'] ?? 1;
 
 
         try {
-            $db = new connectionDB();
             addBasket($basket_id, $product_id, $quantity, $db);
         } catch (Exception $e) {
             echo '<p style="color:red">Erreur : ' . $e->getMessage() . '</p>';

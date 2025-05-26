@@ -10,35 +10,35 @@
         </div>
     </form> 
 
-    <form action="POST" aria-disabled="true" class="grid grid-cols-2 gap-4 [&_input:disabled]:bg-gray-200 [&_input:disabled]:text-gray-400">
+    <form action="POST"  class="grid grid-cols-2 gap-4 [&_input:disabled]:bg-gray-200 [&_input:disabled]:text-gray-400">
         <div class="form-group">
             <label for="lastName">Last name</label>
-            <input disabled type="text" id="last_name" value="{{user.lastName}}" class="border p-2 w-full rounded">
+            <input type="text" id="last_name" value="{{user.lastName}}" class="border p-2 w-full rounded">
         </div>
         
         <div class="form-group">
             <label for="firstName">First name</label>
-            <input disabled type="text" id="first_name" value="{{user.firstName}}" class="border p-2 w-full rounded">
+            <input type="text" id="first_name" value="{{user.firstName}}" class="border p-2 w-full rounded">
         </div>
         
         <div class="form-group">
             <label for="password">Password</label>
-            <input disabled type="password" id="password" value="{{user.password}}" class="border p-2 w-full rounded">
+            <input type="password" id="password" value="{{user.password}}" class="border p-2 w-full rounded">
         </div>
         
         <div class="form-group">
             <label for="email">Email</label>
-            <input disabled type="email" id="email" value="{{user.email}}" class="border p-2 w-full rounded">
+            <input type="email" id="email" value="{{user.email}}" class="border p-2 w-full rounded">
         </div>
         
         <div class="form-group">
             <label for="phone_number">Phone</label>
-            <input disabled type="tel" id="phone_number" value="{{user.phoneNumber}}" class="border p-2 w-full rounded">
+            <input type="tel" id="phone_number" value="{{user.phoneNumber}}" class="border p-2 w-full rounded">
         </div>
         
         <div class="form-group">
             <label for="avatar">Avatar</label>
-            <input disabled type="text" id="avatar" value="{{user.avatar}}" class="border p-2 w-full rounded">
+            <input type="text" id="avatar" value="{{user.avatar}}" class="border p-2 w-full rounded">
         </div>
         
         <div class="form-group">
@@ -58,7 +58,10 @@
         
         <div class="form-group">
             <label for="operatorLevel">Operator level</label>
-            <input disabled type="text" id="operatorLevel" value="{{user.operatorLevel}}" class="border p-2 w-full rounded">
+            <select id="operatorLevel" name="operatorLevel" class="border p-2 w-full rounded">
+                <option value="user" {{#isUser}}selected{{/isUser}}>User</option>
+                <option value="administrator" {{#isAdmin}}selected{{/isAdmin}}>Administrator</option>
+            </select>
         </div>
     </form>
 

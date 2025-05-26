@@ -5,7 +5,7 @@ require_once __DIR__ . '/../database.php';
 
 function connection($email = null, $password = null){
     $conn = new connectionDB();
-    // Remplacer la préparation/exécution par query()
+    
     $result = $conn->query("SELECT * FROM User WHERE email = :email", [':email' => $email]);
 
     if($result && count($result) > 0) {
