@@ -66,26 +66,21 @@ function updateEmail($conn, $email, $id) {
 function updatePhone($conn, $phone, $id) {
     try {
         $conn->db->beginTransaction();
-        $result = $conn->query("SELECT COUNT(*) as cnt FROM User WHERE phone = :phone", ['phone' => $phone]);
-        $count = $result[0]['cnt'];
-        if ($count == 0) {
-            header("Location: /../../../api/views/testdb/inscription.php?success=0");
-            exit;
-        }
-        $conn->query("UPDATE User SET phone = :phone WHERE id = :id", [
+
+        $conn->query("UPDATE User SET phone = :phone, last_modified = NOW() WHERE id = :id", [
             ":phone" => $phone,
             ":id" => $id
         ]);
-        $conn->query("UPDATE User SET last_modified = NOW() WHERE id = :id", [
-            ":id" => $id
-        ]);
+
         $conn->db->commit();
+
         $_SESSION['phone'] = $phone; // Mettre à jour le téléphone dans la session
     } catch (Exception $e) {
         $conn->db->rollBack();
         echo "Erreur : " . $e->getMessage();
     }
 }
+
 
 function updateAvatar($conn, $id, $avatar) {
     try {
