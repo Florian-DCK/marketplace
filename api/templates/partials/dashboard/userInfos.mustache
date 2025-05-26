@@ -1,6 +1,6 @@
 <main class="bg-white w-full h-full rounded-tl-xl p-5">
     <h1 class=" text-4xl font-bold">Hello {{user.lastName}} {{user.firstName}}!</h1>
-    <form method="POST" action="/dashboard" class="grid grid-cols-2 gap-4 [&_input:disabled]:bg-gray-200 [&_input:disabled]:text-gray-400" enctype="multipart/form-data">
+    <form method="POST" class="grid grid-cols-2 gap-4 [&_input:disabled]:bg-gray-200 [&_input:disabled]:text-gray-400" enctype="multipart/form-data">
         <div class="form-group">
             <label for="lastName">Last Name</label>
             <input type="text" id="last_name" name="username" value="{{user.lastName}}" class="border p-2 w-full rounded">
