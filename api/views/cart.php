@@ -9,7 +9,6 @@
 
 <?php
     require_once __DIR__ . '/../config/session.php';
-    include_once __DIR__ . '/../views/navbar.php';
     init_session();
     include_once __DIR__ . '/../models/crudProducts.php';
     include_once __DIR__ . '/../models/crudBasket.php';
@@ -25,7 +24,7 @@
     $quantity = 1;
 
     if (!$user_id) {
-        echo '<p style="color:red">Erreur : utilisateur non connecté. Connectez-vous pour ajouter au panier.</p>';
+        header('Location: /login');
         exit;
     }
 
