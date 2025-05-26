@@ -38,13 +38,7 @@ $url = $_SERVER['REQUEST_URI'];
         }
     };
     $AllCategories = getAllCategories($conn);
-        $mustache = new Mustache_Engine([
-            'loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates'),
-            'partials_loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates/partials')
-            ]);
-            $data = [
-                'categories' => $AllCategories,
-            ];
+
         
     $messages = [];
 
@@ -108,7 +102,14 @@ $url = $_SERVER['REQUEST_URI'];
         'messages' => $messages, 
     ];
 
-    include __DIR__ . '/navbar.php';
+    include __DIR__ . '/navbar.php';    
+    $mustache = new Mustache_Engine([
+        'loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates'),
+        'partials_loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates/partials')
+        ]);
+        $data = [
+            'categories' => $AllCategories,
+        ];
     echo $mustache->render('publicationForm', $data);
     
     $conn->close();
