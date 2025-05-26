@@ -60,18 +60,25 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (strlen($phone) > 50) {
         echo '<p style="color: red;">Phone number is too long.</p>';
     }
-    if (!empty($password) && $password !== $confirmPassword) {
+    if (!empty($password)) {
+    if ($password !== $confirmPassword) {
         echo '<p style="color: red;">Passwords do not match.</p>';
+    } else {
+        if (strlen($password) < 8) {
+            echo '<p style="color: red;">Password must be at least 8 characters long.</p>';
+        } elseif (!preg_match('/[A-Z]/', $password)) {
+            echo '<p style="color: red;">Password must contain at least one uppercase letter.</p>';
+        } elseif (!preg_match('/[0-9]/', $password)) {
+            echo '<p style="color: red;">Password must contain at least one number.</p>';
+        } elseif (!preg_match('/[!@#$%^&*(),.?":{}|<>]/', $password)) {
+            echo '<p style="color: red;">Password must contain at least one special character.</p>';
+        } else {
+            // Si tout est bon, mise à jour du mot de passe
+            updatePass($db, $_SESSION['id'], $password);
+        }
     }
-    if (strlen($password) < 8) {
-        echo '<p style="color: red;">Password must be at least 8 characters long.</p>';
-    } elseif (!preg_match('/[A-Z]/', $password)) {
-        echo '<p style="color: red;">Password must contain at least one uppercase letter.</p>';
-    } elseif (!preg_match('/[0-9]/', $password)) {
-        echo '<p style="color: red;">Password must contain at least one number.</p>';
-    } elseif (!preg_match('/[!@#$%^&*(),.?":{}|<>]/', $password)) {
-        echo '<p style="color: red;">Password must contain at least one special character.</p>';
-    }
+}
+
 }
 
 ?>
