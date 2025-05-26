@@ -1,10 +1,53 @@
-<div class="w-80 h-9 absolute left-1/2 transform -translate-x-1/2">
-    <form action="" class="flex size-full group">
+<div class="relative w-80 h-9">
+    <form action="" class="flex items-center h-full group">
+        <button type="button" id="expandSearchBtn" class="bg-white rounded-lg px-2 flex items-center justify-center h-9 w-9 transition-all duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+            </svg>
+        </button>
         <input
             type="text"
-            class="bg-white rounded-l-lg px-2 peer focus:outline-0"
+            id="searchInput"
+            class="bg-white rounded-l-lg px-2 ml-2 focus:outline-0 transition-all duration-300 w-0 opacity-0 group-focus-within:w-48 group-focus-within:opacity-100"
             placeholder="Search..."
+            style="width:0; opacity:0;"
         />
-        <button type="submit" class="bg-white rounded-r-lg border-l border-gray-200 px-2">Submit</button>
+        <button type="submit" id="submitSearchBtn" class="bg-white rounded-r-lg border-l border-gray-200 px-2 ml-1 transition-all duration-300 opacity-0 w-0 group-focus-within:w-auto group-focus-within:opacity-100">Submit</button>
     </form>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const expandBtn = document.getElementById('expandSearchBtn');
+    const searchInput = document.getElementById('searchInput');
+    const submitBtn = document.getElementById('submitSearchBtn');
+    const form = expandBtn.closest('form');
+
+    expandBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (searchInput.style.width === '12rem') {
+            searchInput.style.width = '0';
+            searchInput.style.opacity = '0';
+            submitBtn.style.width = '0';
+            submitBtn.style.opacity = '0';
+        } else {
+            searchInput.style.width = '12rem';
+            searchInput.style.opacity = '1';
+            submitBtn.style.width = 'auto';
+            submitBtn.style.opacity = '1';
+            searchInput.focus();
+        }
+    });
+    // Optional: collapse on blur
+    searchInput.addEventListener('blur', function() {
+        setTimeout(() => {
+            if (document.activeElement !== submitBtn) {
+                searchInput.style.width = '0';
+                searchInput.style.opacity = '0';
+                submitBtn.style.width = '0';
+                submitBtn.style.opacity = '0';
+            }
+        }, 200);
+    });
+});
+</script>
