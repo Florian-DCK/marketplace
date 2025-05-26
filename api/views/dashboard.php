@@ -24,6 +24,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'] ?? '';
     $phone = $_POST['phone'] ?? '';
     $avatar = $_FILES['avatar'] ?? null;
+    $password = $_POST['password'] ?? '';
+    $confirmPassword = $_POST['confirmPassword'] ?? '';
 
     if (!empty($_POST['username'])) {
         updateName($db, $_SESSION['id'], $_POST['username']);
@@ -37,12 +39,40 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($_POST['phone'])) {
         updatePhone($db, $_POST['phone'], $_SESSION['id']);
     }
-    if (!empty($_FILES['avatar'])) {
+    if (!empty($avatar['tmp_name']) && $avatar['error'] === UPLOAD_ERR_OK) {
         $avatar_id = image_upload($avatar)['id'];
         updateAvatar($db, $_SESSION['id'], $avatar_id);
     }
-}
+    if (!empty($password) && !empty($confirmPassword) && $password === $confirmPassword) {
+        updatePass($db, $_SESSION['id'], $password);
+    }
 
+    // erreurs
+    if (strlen($email) > 50) {
+        echo '<p style="color: red;">Email is too long.</p>';
+    }
+    if (strlen($username) > 50) {
+       echo '<p style="color: red;">Last name is too long.</p>';
+    } 
+    if (strlen($firstName) > 50) {
+        echo '<p style="color: red;">First name is too long.</p>';
+    }
+    if (strlen($phone) > 50) {
+        echo '<p style="color: red;">Phone number is too long.</p>';
+    }
+    if (!empty($password) && $password !== $confirmPassword) {
+        echo '<p style="color: red;">Passwords do not match.</p>';
+    }
+    if (strlen($password) < 8) {
+        echo '<p style="color: red;">Password must be at least 8 characters long.</p>';
+    } elseif (!preg_match('/[A-Z]/', $password)) {
+        echo '<p style="color: red;">Password must contain at least one uppercase letter.</p>';
+    } elseif (!preg_match('/[0-9]/', $password)) {
+        echo '<p style="color: red;">Password must contain at least one number.</p>';
+    } elseif (!preg_match('/[!@#$%^&*(),.?":{}|<>]/', $password)) {
+        echo '<p style="color: red;">Password must contain at least one special character.</p>';
+    }
+}
 
 ?>
 <!DOCTYPE html>

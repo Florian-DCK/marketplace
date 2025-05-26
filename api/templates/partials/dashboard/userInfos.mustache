@@ -27,6 +27,16 @@
         </div>
         
         <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" value="{{user.password}}" class="border p-2 w-full rounded">
+        </div>
+
+        <div class="form-group">
+            <label for="confirmPassword">Confirm password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" value="{{user.confirmPassword}}" class="border p-2 w-full rounded">
+        </div>
+
+        <div class="form-group">
             <label for="birthDate">Birth Date</label>
             <input disabled type="text" id="birthDate" value="{{user.birthDate}}" class="border p-2 w-full rounded">
         </div>
