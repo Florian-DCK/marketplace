@@ -24,6 +24,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'] ?? '';
     $phone = $_POST['phone'] ?? '';
     $avatar = $_FILES['avatar'] ?? null;
+    $password = $_POST['password'] ?? '';
+    $confirmPassword = $_POST['confirmPassword'] ?? '';
 
     if (!empty($_POST['username'])) {
         updateName($db, $_SESSION['id'], $_POST['username']);
@@ -37,13 +39,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($_POST['phone'])) {
         updatePhone($db, $_POST['phone'], $_SESSION['id']);
     }
-    if (!empty($_FILES['avatar'])) {
+    if (!empty($avatar['tmp_name']) && $avatar['error'] === UPLOAD_ERR_OK) {
         $avatar_id = image_upload($avatar)['id'];
         updateAvatar($db, $_SESSION['id'], $avatar_id);
     }
+    if (!empty($password) && !empty($confirmPassword) && $password === $confirmPassword) {
+        updatePass($db, $_SESSION['id'], $password);
+    }
 }
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
