@@ -19,8 +19,10 @@
                         <img src="{{product.image}}" alt="{{product.title}}" class="max-h-full object-cover rounded-lg">
                     </div>
                     <div class="border-4 border-double rounded-lg w-1/6 h-1/10 absolute bottom-75 right-2 flex justify-center items-center border-[#303F9F]">
-                        {{product.price}}
-                        <span class="me-3">$</span>
+                        <span class="text-sm md:text-xl lg:text-2xl">
+                            {{product.price}}
+                        </span>
+                        <span class="me-1 text-base md:text-lg lg:text-xl">$</span>
                     </div>
                     <div class="border-4 border-double rounded-lg w-2/3 h-1/4 px-5 border-[#303F9F]">
                         {{product.description}}

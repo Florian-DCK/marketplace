@@ -1,85 +1,49 @@
-<body>
-    <div class="flex justify-center items-center h-screen w-screen static">
-        <div class="absolute top-0 left-0">
-            <a href="/">
-                <span class="flex items-center">
-                    <div class="h-12 w-12 bg-[#5242AE] rounded-full m-3"
-                        id="avatar">
-                    </div>
-                    <h1 class="hidden font-bold sm:flex sm:text-3xl lg:text-5xl text-white">Hello World !</h1>
-                </span>
-            </a>
-        </div>
-        <div id="login-section" class="w-screen h-screen {{^ inscription}}flex{{/ inscription}} {{# inscription}}hidden{{/ inscription}} flex-col lg:flex-row"> <!-- Log in dominant -->
-            {{> signInUp/signIn}}
-            <div 
-                name="switch-to-signup" 
-                class="w-1/2 p-5 flex flex-col lg:text-xl xl:text-2xl mx-auto items-center my-auto whitespace-nowrap font-semibold tracking-tight text-3xl text-[#5242AE]">
-                <p class="mb-5 hidden lg:flex">Welcome !</p>
-                <p class="mb-5 hidden lg:flex">To create your account,</p>
-                <p class="mb-5 hidden lg:flex">Click below !</p>
-                <button 
-                    id="show-signup" 
-                    type="button" 
-                    class="cursor-pointer flex my-5 justify-center font-semibold text-xl text-white bg-[#5242AE] border rounded-full w-60 lg:w-40 py-3 hover:bg-white hover:text-[#5242AE] hover:duration-500 ease-in-out hover:scale-115 shadow-black shadow-md" style="box-shadow: -5px 5px 15px 0 rgba(0,0,0,0.5);">Create
-                </button> 
-            </div>
-        </div>
-        <div id="signup-section" class="w-full h-screen {{^ inscription}}hidden{{/ inscription}} {{# inscription}}flex{{/ inscription}} flex-col lg:flex-row"> <!-- Sign up dominant -->
-            <div name="switch-to-login" class="lg:w-1/2 pt-20 lg:h-full flex flex-col text-center items-center justify-center px-5 font-semibold tracking-tight text-3xl bg-gradient-to-br from-[#5242AE] to-[#8d54b1] text-white">
-                <p class="mb-5 hidden lg:flex">Welcome back !</p>
-                <p class="mb-5 hidden lg:flex">To proceed,</p>
-                <p class="mb-5 hidden lg:flex">Please log in !</p>
-                <button 
-                    id="show-login" 
-                    type="button" 
-                    class="mb-5 cursor-pointer flex justify-center font-semibold text-xl bg-white text-[#5242AE] rounded-full w-60 lg:w-40 py-3 hover:bg-[#5242AE] hover:text-white hover:duration-500 ease-in-out hover:scale-115 border shadow-lg shadow-fuchsia-950">Log in
-                </button>
-            </div>
-            {{> signInUp/signUp}}
-        </div>
+<body class="bg-gradient-to-br from-[#EAEBED] to-[#8d54b1] min-h-screen flex items-center justify-center">
+  <div class="w-full max-w-4xl mx-auto flex flex-col md:flex-row bg-white rounded-3xl shadow-2xl overflow-hidden">
+    <!-- Left: Logo and Welcome -->
+    <div class="hidden md:flex flex-col items-center justify-center bg-gradient-to-br from-[#5242AE] to-[#8d54b1] p-10 w-1/2">
+      <img src="../api/public/svg/avatar.svg" alt="Logo" class="h-24 w-24 rounded-full mb-6 shadow-lg bg-white p-2" />
+      <h1 class="text-4xl font-bold text-white mb-2">Hello World!</h1>
+      <p class="text-lg text-white opacity-80">Welcome to our marketplace</p>
     </div>
-    <script>
-
-        // Afficher le nom du fichier selectionné
-        let file = document.getElementById('fileInput');
-                let message = document.getElementById('avatarPlaceholder');
-
-                file.addEventListener("input", () => {
-                //si on selectionne une image
-                    if (file.files.length) {
-                        let fileName = file.files[0].name;
-                        message.innerHTML = `${fileName}`;
-                    }
-                //si on annule la selection
-                    else {
-                        message.innerHTML = "Click to upload avatar";
-                    }
-                });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const loginSection = document.getElementById('login-section');
-            const signupSection = document.getElementById('signup-section');
-            const showSignupBtn = document.getElementById('show-signup');
-            const showLoginBtn = document.getElementById('show-login');
-            const avatarBtn = document.getElementById('fileInput');
-            const avatarPlaceholder = document.getElementById('avatarPlaceholder');
-
-            // Afficher le formulaire d'inscription et masquer le formulaire de connexion
-            showSignupBtn.addEventListener('click', function() {
-                loginSection.classList.add('hidden');
-                signupSection.classList.remove('hidden');
-                signupSection.classList.add('flex');
-            });
-
-            // Afficher le formulaire de connexion et masquer le formulaire d'inscription
-            showLoginBtn.addEventListener('click', function() {
-                signupSection.classList.add('hidden');
-                loginSection.classList.remove('hidden');
-            });
-
-            
-        });
-    </script>
+    <!-- Right: Forms -->
+    <div class="flex-1 flex flex-col justify-center items-center p-8">
+      <!-- Toggle Buttons -->
+      <div class="flex mb-8 w-full max-w-xs mx-auto">
+        <button id="show-login" type="button" class="flex-1 py-2 rounded-l-full font-semibold text-lg transition-all duration-300
+          {{^inscription}}bg-[#5242AE] text-white{{/inscription}} {{#inscription}}bg-gray-100 text-[#5242AE]{{/inscription}}">
+          Sign In
+        </button>
+        <button id="show-signup" type="button" class="flex-1 py-2 rounded-r-full font-semibold text-lg transition-all duration-300
+          {{#inscription}}bg-[#5242AE] text-white{{/inscription}} {{^inscription}}bg-gray-100 text-[#5242AE]{{/inscription}}">
+          Sign Up
+        </button>
+      </div>
+      <!-- Sign In Form -->
+      <div id="login-section" class="{{^inscription}}block{{/inscription}} {{#inscription}}hidden{{/inscription}} w-full max-w-md">
+        {{> signInUp/signIn}}
+      </div>
+      <!-- Sign Up Form -->
+      <div id="signup-section" class="{{^inscription}}hidden{{/inscription}} {{#inscription}}block{{/inscription}} w-full max-w-md">
+        {{> signInUp/signUp}}
+      </div>
+    </div>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const loginSection = document.getElementById('login-section');
+      const signupSection = document.getElementById('signup-section');
+      const showSignupBtn = document.getElementById('show-signup');
+      const showLoginBtn = document.getElementById('show-login');
+      showSignupBtn.addEventListener('click', function() {
+        loginSection.classList.add('hidden');
+        signupSection.classList.remove('hidden');
+      });
+      showLoginBtn.addEventListener('click', function() {
+        signupSection.classList.add('hidden');
+        loginSection.classList.remove('hidden');
+      });
+    });
+  </script>
 </body>
 </html>
