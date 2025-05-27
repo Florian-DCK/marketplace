@@ -61,6 +61,17 @@ require_once __DIR__ . '/../../vendor/autoload.php';
             public function close () {
 				$this->db = null; 
             }
+
+			// Méthode pour récupérer tous les noms de catégories
+			public function getAllCategoryNames() {
+				$sql = "SELECT name FROM Category";
+				$rows = $this->query($sql);
+				$categories = [];
+				foreach ($rows as $row) {
+					$categories[] = ['name' => $row['name']];
+				}
+				return $categories;
+			}
 		}
 
 		
