@@ -19,7 +19,7 @@ if (!isset($_SESSION['operatorLevel']) || $_SESSION['operatorLevel'] !== "admini
 $db = new connectionDB();
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'] ?? '';
+    $lastName = $_POST['lastName'] ?? '';
     $firstName = $_POST['firstName'] ?? '';
     $email = $_POST['email'] ?? '';
     $phone = $_POST['phone'] ?? '';
@@ -27,8 +27,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
     $confirmPassword = $_POST['confirmPassword'] ?? '';
 
-    if (!empty($_POST['username'])) {
-        updateName($db, $_SESSION['id'], $_POST['username']);
+    if (!empty($_POST['lastName'])) {
+        updateName($db, $_SESSION['id'], $_POST['lastName']);
     }
     if (!empty($_POST['firstName'])) {
         updateSurname($db, $_SESSION['id'], $_POST['firstName']);
@@ -51,7 +51,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (strlen($email) > 50) {
         echo '<p style="color: red;">Email is too long.</p>';
     }
-    if (strlen($username) > 50) {
+    if (strlen($lastName) > 50) {
        echo '<p style="color: red;">Last name is too long.</p>';
     } 
     if (strlen($firstName) > 50) {
