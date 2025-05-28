@@ -103,6 +103,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
         $db -> query("DELETE FROM Category WHERE id = :id", [':id' => $deleteCategory]);
         header("Location: /dashboard");
     }
+
+    // ajouter une catégorie
+    if (isset($_POST['addCategory'])) {
+        $categoryName = $_POST['categoryName'] ?? '';
+        $db->query("INSERT INTO Category (name) VALUES (:name)", [':name' => $categoryName]);
+        header("Location: /dashboard");
+    }
 }
 
 
