@@ -3,34 +3,24 @@ require_once __DIR__ . '/../config/session.php';
 init_session();
 require __DIR__ . '/../../vendor/autoload.php';
 require_once __DIR__ . '/../models/images.php';
+include __DIR__ . '/../models/database.php';
 
 $mustache = new Mustache_Engine([
 	'loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates'),
 	'partials_loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates/partials')
 ]);
 
-$categories = [
-    "Food",
-    "Tech",
-    "Furnitures",
-    "Books",
-    "Sports",
-    "Crafts",
-    "Pets",
-    "Human slavery",
-    "Cars",
-    "Clothes",
-    "Beauty, healthcare and wellness",
-    "Kitchen and houses",
-];
+$db = new connectionDB();
+
+$categories = $db->getAllCategoryNames();
+
+
 $url = $_SERVER['REQUEST_URI'];
 $data = [
     'isConnected' =>$_SESSION ? isset($_SESSION['id']) : false ,
 	'showCategoryNavbar' => !str_contains($url, 'dashboard'),
 	'showMenu' => true,
-	'categories' => array_map(function($category) {
-		return ['name' => $category];
-	}, $categories),
+	'categories' => $categories,
 	'menuItems' => [
 		['url' => '/dashboard', 'label' => 'Your Profile', 'id' => 'user-menu-item-0'],
         ['url' => '/publicationForm', 'label' => 'Post an item', 'id' => 'user-menu-item-2'],
