@@ -1,7 +1,8 @@
 <?php
 require_once __DIR__ . '/../config/session.php';
-include __DIR__ . "/../models/users/crudUsersModel.php";
+include_once __DIR__ . "/../models/users/crudUsersModel.php";
 require_once __DIR__ . "/../models/images.php";
+require_once __DIR__ . '/../models/database.php';
 init_session();
 
 if (!isset($_SESSION['id'])) {
@@ -27,11 +28,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
     $confirmPassword = $_POST['confirmPassword'] ?? '';
 
-    if (!empty($_POST['username'])) {
-        updateName($db, $_SESSION['id'], $_POST['username']);
+    if (!empty($_POST['surname'])) {
+        updateSurname($db, $_SESSION['id'], $_POST['surname']);
     }
     if (!empty($_POST['firstName'])) {
-        updateSurname($db, $_SESSION['id'], $_POST['firstName']);
+        updateName($db, $_SESSION['id'], $_POST['firstName']);
     }
     if (!empty($_POST['email'])) {
         updateEmail($db, $_POST['email'], $_SESSION['id']);
@@ -51,7 +52,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (strlen($email) > 50) {
         echo '<p style="color: red;">Email is too long.</p>';
     }
-    if (strlen($username) > 50) {
+    if (strlen($lastName) > 50) {
        echo '<p style="color: red;">Last name is too long.</p>';
     } 
     if (strlen($firstName) > 50) {
@@ -92,8 +93,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body class="h-screen w-screen flex flex-col bg-[#EAEBED]">
     <?php 
-    include __DIR__ . '/navbar.php'; 
-    require_once __DIR__ . '/../models/database.php';
+    include_once __DIR__ . '/navbar.php'; 
+    
    
     $url = $_SERVER['REQUEST_URI'];
     
@@ -103,7 +104,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     ]);
 
     // Variables mockup pour les informations utilisateur
-    include __DIR__ . '/../models/users/getInfosModel.php';
+    include_once __DIR__ . '/../models/users/getInfosModel.php';
 
     // Récupérer userEmail depuis GET au lieu de POST
     $userEmail = isset($_GET['userEmail']) ? $_GET['userEmail'] : '';

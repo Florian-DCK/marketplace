@@ -1,6 +1,6 @@
 <?php
 // Inclure le fichier de connexion à la base de données
-require_once __DIR__ . '/../database.php';
+//require_once __DIR__ . '/../database.php';
 init_session();
 
 function updateName($conn, $id, $name) {
