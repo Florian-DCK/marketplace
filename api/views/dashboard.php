@@ -82,6 +82,31 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 }
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
+    // supprimer utilisateur
+    if (isset($_POST['deleteUser'])) {
+        $deleteUSer = $_POST['deleteUser'];
+        $db -> query("DELETE FROM User WHERE email = :email", [':email' => $deleteUSer]);
+        header("Location: /dashboard");
+    }
+
+    // supprimer un article
+    if (isset($_POST['deleteArticle'])) {
+        $deleteArticle = $_POST['deleteArticle'];
+        $db -> query("DELETE FROM Product WHERE id = :id", [':id' => $deleteArticle]);
+        header("Location: /dashboard");
+    }
+
+    // supprimer une catégorie
+    if (isset($_POST['deleteCategory'])) {
+        $deleteCategory = $_POST['deleteCategory'];
+        $db -> query("DELETE FROM Category WHERE id = :id", [':id' => $deleteCategory]);
+        header("Location: /dashboard");
+    }
+}
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
