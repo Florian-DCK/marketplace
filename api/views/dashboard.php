@@ -134,7 +134,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     
     ?>
-    <main class="flex h-full bg-gradient-to-br from-[#EAEBED] to-[#8d54b1] items-center justify-center px-4">
+    <main class="flex h-full bg-gradient-to-br bg-white items-center justify-center px-4">
         <div class="flex mx-auto w-full max-w-7xl rounded-3xl shadow-2xl overflow-hidden">
             <?php 
                 echo $mustache->render('partials/dashboard/sidebar', $data);
