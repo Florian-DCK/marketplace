@@ -16,7 +16,7 @@ if (!isset($_SESSION['operatorLevel']) || $_SESSION['operatorLevel'] !== "admini
     header("Location: /dashboard");
     exit;
 }
-$db = new connectionDB();
+//$db = new connectionDB();
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'] ?? '';
@@ -93,7 +93,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body class="h-screen w-screen flex flex-col bg-[#EAEBED]">
     <?php 
     include __DIR__ . '/navbar.php'; 
-    require_once __DIR__ . '/../models/database.php';
+    //require_once __DIR__ . '/../models/database.php';
    
     $url = $_SERVER['REQUEST_URI'];
     

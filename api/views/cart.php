@@ -10,9 +10,16 @@
 <?php
     require_once __DIR__ . '/../config/session.php';
     init_session();
+
+    $user_id = $_SESSION['id'] ?? null;
+    if (!$user_id) {
+        header('Location: /login');
+        exit;
+    }
+    
     include_once __DIR__ . '/../models/crudProducts.php';
     include_once __DIR__ . '/../models/crudBasket.php';
-    include_once __DIR__ . '/../models/database.php';
+    //include_once __DIR__ . '/../models/database.php';
     require_once __DIR__ . '/../models/images.php';
 
     include_once __DIR__ . '/../views/navbar.php';
@@ -23,14 +30,11 @@
         'partials_loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates/partials')
     ]);
 
-    $user_id = $_SESSION['id'] ?? null;
+    
     $basket_id = $_SESSION['basket_id'] ?? null;
     $quantity = 1;
 
-    if (!$user_id) {
-        header('Location: /login');
-        exit;
-    }
+    
     
     $db = new connectionDB();
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
