@@ -8,10 +8,14 @@
     {{/error}}
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-5xl">
         <div class="w-full">
-            <label for="firstName" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+            <label for="firstName" class="block text-sm font-medium text-gray-700 mb-1">First Name *</label>
             <div class="relative">
-                <input type="text" name="firstName" id="firstName" placeholder="First name" required
-                    class="p-3 pl-10 rounded-lg bg-[#EAEBED] w-full h-12 text-sm border border-transparent text-[#5242AE] focus:outline-none focus:border-[#8d54b1] shadow" />
+                <input  type="text" 
+                        name="firstName" 
+                        id="firstName" 
+                        placeholder="First name" 
+                        required
+                        class="p-3 pl-10 rounded-lg bg-[#EAEBED] w-full h-12 text-sm border border-transparent text-[#5242AE] focus:outline-none focus:border-[#8d54b1] shadow" />
                 <svg fill="none" stroke="#9F9F9F" viewBox="0 0 24 24"
                     class="absolute left-2 top-1/2 -translate-y-1/2 w-5 h-5 pointer-events-none">
                     <circle cx="12" cy="8" r="4"/>
@@ -20,10 +24,14 @@
             </div>
         </div>
         <div class="w-full">
-            <label for="lastName" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+            <label for="lastName" class="block text-sm font-medium text-gray-700 mb-1">Last Name *</label>
             <div class="relative">
-                <input type="text" name="lastName" id="lastName" placeholder="Last name" required
-                    class="p-3 pl-10 rounded-lg bg-[#EAEBED] w-full h-12 text-sm border border-transparent text-[#5242AE] focus:outline-none focus:border-[#8d54b1] shadow" />
+                <input  type="text" 
+                        name="lastName" 
+                        id="lastName" 
+                        placeholder="Last name" 
+                        required
+                        class="p-3 pl-10 rounded-lg bg-[#EAEBED] w-full h-12 text-sm border border-transparent text-[#5242AE] focus:outline-none focus:border-[#8d54b1] shadow" />
                 <svg fill="none" stroke="#9F9F9F" viewBox="0 0 24 24"
                     class="absolute left-2 top-1/2 -translate-y-1/2 w-5 h-5 pointer-events-none">
                     <circle cx="12" cy="8" r="4"/>
@@ -32,10 +40,13 @@
             </div>
         </div>
         <div class="w-full">
-            <label for="birthDate" class="block text-sm font-medium text-gray-700 mb-1">Birth Date</label>
+            <label for="birthDate" class="block text-sm font-medium text-gray-700 mb-1">Birthdate *</label>
             <div class="relative">
-                <input type="date" name="birthDate" id="birthDate" required
-                    class="p-3 pl-8 rounded-lg bg-[#EAEBED] w-full h-12 text-sm border border-transparent text-[#5242AE]/50 focus:outline-none focus:border-[#8d54b1] shadow" />
+                <input  type="date" 
+                        name="birthDate" 
+                        id="birthDate" 
+                        required
+                        class="p-3 pl-8 rounded-lg bg-[#EAEBED] w-full h-12 text-sm border border-transparent text-[#5242AE]/50 focus:outline-none focus:border-[#8d54b1] shadow" />
                 <svg fill="none" stroke="#9F9F9F" viewBox="0 0 24 24"
                     class="absolute left-2 top-1/2 -translate-y-1/2 w-5 h-5 pointer-events-none">
                     <rect x="3" y="4" width="18" height="18" rx="2"/>
@@ -46,7 +57,10 @@
         <div class="w-full">
             <label for="fileInput" class="block text-sm font-medium text-gray-700 mb-1">Avatar</label>
             <div class="relative">
-                <input type="file" name="image" id="fileInput" class="hidden" />
+                <input  type="file" 
+                        name="image" 
+                        id="fileInput" 
+                        class="hidden" />
                 <label for="fileInput" class="cursor-pointer flex items-center p-3 rounded-lg bg-[#EAEBED] border border-transparent text-[#5242AE] w-full h-12 text-sm shadow">
                     <svg width="20" height="20" fill="#9F9F9F" viewBox="0 0 32.951 32.951" class="w-5 h-5 mr-2">
                         <path d="M16.476 32.95a16.475 16.475 0 1 1 16.475-16.475A16.494 16.494 0 0 1 16.476 32.95Zm0-30.95a14.475 14.475 0 1 0 14.475 14.475A14.492 14.492 0 0 0 16.476 1.999Z"/>
@@ -59,8 +73,11 @@
         <div class="w-full">
             <label for="phoneNumber" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
             <div class="relative">
-                <input type="text" name="phoneNumber" id="phoneNumber" placeholder="Phone number"
-                    class="p-3 pl-10 rounded-lg bg-[#EAEBED] w-full h-12 text-sm border border-transparent text-[#5242AE] focus:outline-none focus:border-[#8d54b1] shadow" />
+                <input  type="text" 
+                        name="phoneNumber" 
+                        id="phoneNumber" 
+                        placeholder="Phone number"
+                        class="p-3 pl-10 rounded-lg bg-[#EAEBED] w-full h-12 text-sm border border-transparent text-[#5242AE] focus:outline-none focus:border-[#8d54b1] shadow" />
                 <svg width="20" height="20" fill="#9F9F9F" viewBox="0 0 32 32"
                     class="absolute left-2 top-1/2 -translate-y-1/2 w-5 h-5 pointer-events-none">
                     <path d="M24.834 20.665a5.833 5.833 0 0 0-3.457-1.6 4.037 4.037 0 0 0-2.867 1.6l-.177.181c-.232-.016-1.277-.265-4.092-3.057-2.851-2.83-3.076-3.86-3.088-4.069l.18-.18c1.6-1.583 2.605-3.054-.046-6.321A4.066 4.066 0 0 0 8.193 5.38c-1.465 0-2.514 1.112-3.357 2.006-.131.138-.259.274-.384.4-1.1 1.1-1.138 3.267-.117 5.942a24.691 24.691 0 0 0 5.711 8.288c4.73 4.694 9.28 6.359 11.739 6.359a3.477 3.477 0 0 0 2.531-.871c.126-.127.262-.257.4-.39.911-.873 2.044-1.96 1.976-3.477a4.151 4.151 0 0 0-1.858-2.972Zm-1.5 5.008c-.151.145-.3.287-.435.425a1.559 1.559 0 0 1-1.112.28c-2.243 0-6.308-1.787-10.33-5.779a22.687 22.687 0 0 1-5.252-7.58c-.84-2.2-.659-3.492-.332-3.821.137-.137.277-.286.42-.437.609-.646 1.3-1.378 1.9-1.378.539 0 1.135.6 1.54 1.1 1.722 2.124 1.336 2.506.191 3.643l-.236.236a1.848 1.848 0 0 0-.535 1.343c0 .867.422 2.277 3.679 5.51s4.661 3.637 5.526 3.638a1.852 1.852 0 0 0 1.346-.544l.236-.24c.626-.639 1-1 1.437-1a4.136 4.136 0 0 1 2.21 1.164c.491.392 1.082.971 1.107 1.5.027.609-.71 1.316-1.362 1.94Z"/>
@@ -68,10 +85,14 @@
             </div>
         </div>
         <div class="w-full">
-            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email *</label>
             <div class="relative">
-                <input type="email" name="email" id="email" placeholder="you@example.com" required
-                    class="p-3 pl-10 rounded-lg bg-[#EAEBED] w-full h-12 text-sm border border-transparent text-[#5242AE] focus:outline-none focus:border-[#8d54b1] shadow" />
+                <input  type="email" 
+                        name="email" 
+                        id="email" 
+                        placeholder="you@example.com" 
+                        required
+                        class="p-3 pl-10 rounded-lg bg-[#EAEBED] w-full h-12 text-sm border border-transparent text-[#5242AE] focus:outline-none focus:border-[#8d54b1] shadow" />
                 <svg width="20" height="20" fill="#9F9F9F" viewBox="0 0 40 40"
                     class="absolute left-2 top-1/2 -translate-y-1/2 w-5 h-5 pointer-events-none">
                 <path d="M34.285 10H5.714a.714.714 0 0 0-.714.714v18.571c0 .395.32.715.714.715h28.571c.396 0 .715-.32.715-.715V10.714a.713.713 0 0 0-.715-.714zM6.429 12.269l8.818 7.068-8.818 8.124V12.269zM20 21.318l-12.335-9.89h24.671L20 21.318zm-3.626-1.077 3.178 2.548.004.002.021.017c.013.009.025.019.038.026l.024.015a.463.463 0 0 0 .043.024c.007.002.013.006.019.01a.91.91 0 0 0 .07.027c.021.006.044.014.066.017.006.002.011.004.017.004a.363.363 0 0 0 .056.009c.005.002.012.002.017.002a.437.437 0 0 0 .143 0c.005 0 .011 0 .016-.002a.34.34 0 0 0 .074-.013c.022-.003.044-.011.066-.017.001-.002.002-.002.003-.002l.067-.025c.007-.004.013-.008.019-.010l.045-.024c.008-.005.016-.009.023-.015l.037-.026a.128.128 0 0 0 .022-.017l.004-.002 3.178-2.548 9.043 8.33H7.332l9.042-8.33zm8.38-.904 8.817-7.068v15.175l-8.817-8.107z"/>
@@ -79,10 +100,14 @@
             </div>
         </div>
         <div class="w-full">
-            <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password *</label>
             <div class="relative">
-                <input type="password" name="password" id="password" placeholder="Password" required
-                    class="p-3 pl-10 rounded-lg bg-[#EAEBED] w-full h-12 text-sm border border-transparent text-[#5242AE] focus:outline-none focus:border-[#8d54b1] shadow" />
+                <input  type="password" 
+                        name="password" 
+                        id="password" 
+                        placeholder="Password" 
+                        required
+                        class="p-3 pl-10 rounded-lg bg-[#EAEBED] w-full h-12 text-sm border border-transparent text-[#5242AE] focus:outline-none focus:border-[#8d54b1] shadow" />
                 <svg width="20" height="20" fill="#9F9F9F" viewBox="0 0 128 128"
                     class="absolute left-2 top-1/2 -translate-y-1/2 w-5 h-5 pointer-events-none">
                     <path d="M64 1C47.5 1 34 14.5 34 31v26H15v70h99V57H94V31C94 14.5 80.5 1 64 1zM42 31c0-12.1 9.9-22 22-22s22 9.9 22 22v26H42V31zm64 34v54H23V65h83z"/><path d="M60 81h8v22h-8z"/>
@@ -90,10 +115,14 @@
             </div>
         </div>
         <div class="w-full">
-            <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+            <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-1">Confirm Password *</label>
             <div class="relative">
-                <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm password" required
-                    class="p-3 pl-10 rounded-lg bg-[#EAEBED] w-full h-12 text-sm border border-transparent text-[#5242AE] focus:outline-none focus:border-[#8d54b1] shadow" />
+                <input  type="password" 
+                        name="confirmPassword" 
+                        id="confirmPassword" 
+                        placeholder="Confirm password" 
+                        required
+                        class="p-3 pl-10 rounded-lg bg-[#EAEBED] w-full h-12 text-sm border border-transparent text-[#5242AE] focus:outline-none focus:border-[#8d54b1] shadow" />
                 <svg width="20" height="20" fill="#9F9F9F" viewBox="0 0 72 72"
                     class="absolute left-2 top-1/2 -translate-y-1/2 w-5 h-5 pointer-events-none">
                     <path d="M24.014 70.462a9.718 9.718 0 0 1-6.917-2.859L2.175 53.877C.267 51.971-.751 49.513-.751 46.898s1.018-5.072 2.866-6.92a9.723 9.723 0 0 1 6.921-2.866c2.591 0 5.029 1 6.872 2.818l8.102 7.109L55.861 4.618c.057-.075.119-.146.186-.213 1.849-1.85 4.307-2.867 6.921-2.867s5.072 1.018 6.921 2.867c3.784 3.784 3.815 9.923.093 13.747L31.697 67.416a2.242 2.242 0 0 1-.165.188c-1.914 1.912-4.498 2.926-7.214 2.854-.102.002-.202.004-.304.004zM9.037 41.112a5.753 5.753 0 0 0-4.093 1.695C3.851 43.9 3.25 45.353 3.25 46.898s.602 3 1.694 4.093l14.922 13.726c1.148 1.146 2.6 1.914 4.148 1.914l.227.164h.151l.221-.164c1.51 0 2.929-.654 4.008-1.69l38.275-49.294c.051-.065.105-.148.165-.207 2.256-2.258 2.256-5.939 0-8.195a5.754 5.754 0 0 0-4.093-1.701 5.743 5.743 0 0 0-3.999 1.602L25.914 51.169a2 2 0 0 1-2.919.301l-9.771-8.573a1.967 1.967 0 0 1-.095-.089 5.746 5.746 0 0 0-4.092-1.696z"/>
@@ -103,6 +132,7 @@
         <button type="submit" name="ok" class="col-span-full w-full py-3 rounded-full bg-[#5242AE] text-white font-semibold text-lg hover:bg-[#8d54b1] transition-all shadow-lg mt-2">
             Sign Up
         </button>
+        <p class="text-xs text-nowrap opacity-50">* Required fields - max 50 chars</p>
     </div>
 </form>
 

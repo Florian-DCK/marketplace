@@ -16,7 +16,6 @@ if (!isset($_SESSION['operatorLevel']) || $_SESSION['operatorLevel'] !== "admini
     header("Location: /dashboard");
     exit;
 }
-//$db = new connectionDB();
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'] ?? '';
@@ -52,7 +51,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo '<p style="color: red;">Email is too long.</p>';
     }
     if (strlen($username) > 50) {
-       echo '<p style="color: red;">Last name is too long.</p>';
+        echo '<p style="color: red;">Last name is too long.</p>';
     } 
     if (strlen($firstName) > 50) {
         echo '<p style="color: red;">First name is too long.</p>';
@@ -94,7 +93,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php 
     include __DIR__ . '/navbar.php'; 
     //require_once __DIR__ . '/../models/database.php';
-   
+
     $url = $_SERVER['REQUEST_URI'];
     
     $mustache = new Mustache_Engine([
@@ -135,15 +134,17 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     
     ?>
-    <main class="flex h-full">
-        <?php 
-            echo $mustache->render('partials/dashboard/sidebar', $data);
-            if (str_contains($url, "admin")){
-                echo $mustache->render('partials/dashboard/userAdminInfo', $data);
-            } else {
-                echo $mustache->render('partials/dashboard/userInfos', $data);
-            }
-        ?>
+    <main class="flex h-full bg-gradient-to-br from-[#EAEBED] to-[#8d54b1] items-center justify-center px-4">
+        <div class="flex mx-auto w-full max-w-7xl rounded-3xl shadow-2xl overflow-hidden">
+            <?php 
+                echo $mustache->render('partials/dashboard/sidebar', $data);
+                if (str_contains($url, "admin")){
+                    echo $mustache->render('partials/dashboard/userAdminInfo', $data);
+                } else {
+                    echo $mustache->render('partials/dashboard/userInfos', $data);
+                }
+            ?>
+        </div>
     </main>
 </body>
 </html>
@@ -155,3 +156,4 @@ unset($userEmail);
 unset($userInfos);
 unset($data);
 ?>
+

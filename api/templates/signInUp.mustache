@@ -1,4 +1,4 @@
-<body class="bg-gradient-to-br from-[#EAEBED] to-[#8d54b1] min-h-screen flex items-center justify-center">
+<body class="bg-gradient-to-br from-[#EAEBED] to-[#8d54b1] min-h-screen flex items-center justify-center px-4">
   <div class="w-full max-w-7xl mx-auto flex flex-col md:flex-row bg-white rounded-3xl shadow-2xl overflow-hidden">
     <!-- Left: Logo and Welcome -->
     <div class="hidden md:flex flex-col items-center justify-center bg-gradient-to-br from-[#5242AE] to-[#8d54b1] p-10 w-1/2">
@@ -174,9 +174,9 @@ document.addEventListener('DOMContentLoaded', function() {
   signupSection.classList.remove('block', 'opacity-100', 'translate-x-0');
   signupSection.classList.add('hidden', 'opacity-0', 'translate-x-10');
   showLoginBtn.classList.add('bg-[#5242AE]', 'text-white');
-  showLoginBtn.classList.remove('bg-gray-100', 'text-[#5242AE]');
+  showLoginBtn.classList.remove('bg-gray-100', 'text-[#5242AE]', );
   showSignupBtn.classList.remove('bg-[#5242AE]', 'text-white');
-  showSignupBtn.classList.add('bg-gray-100', 'text-[#5242AE]');
+  showSignupBtn.classList.add('bg-gray-100', 'text-[#5242AE]', );
   toggleButtons.classList.add('opacity-100');
 
   showLoginBtn.addEventListener('click', function() { setActive(true); });
