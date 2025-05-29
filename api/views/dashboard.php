@@ -134,8 +134,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     
     ?>
-    <main class="flex h-full bg-gradient-to-br bg-white items-center justify-center px-4">
-        <div class="flex mx-auto w-full max-w-7xl rounded-3xl shadow-2xl overflow-hidden">
+    <main class="flex h-full bg-gradient-to-br bg-[#EAEBED] items-center justify-center px-4">
+        <div class="flex mx-auto w-full max-w-7xl rounded-3xl shadow-2xl overflow-hidden bg-white">
             <?php 
                 echo $mustache->render('partials/dashboard/sidebar', $data);
                 if (str_contains($url, "admin")){
