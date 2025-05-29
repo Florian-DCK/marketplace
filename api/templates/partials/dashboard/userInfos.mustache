@@ -1,31 +1,41 @@
 <main class="bg-white w-full h-full rounded-tl-xl p-5">
     <h1 class=" text-4xl font-bold">Hello {{user.lastName}} {{user.firstName}}!</h1>
-    <form action="POST" aria-disabled="true" class="grid grid-cols-2 gap-4 [&_input:disabled]:bg-gray-200 [&_input:disabled]:text-gray-400">
+    <form method="POST" class="grid grid-cols-2 gap-4 [&_input:disabled]:bg-gray-200 [&_input:disabled]:text-gray-400" enctype="multipart/form-data">
         <div class="form-group">
             <label for="lastName">Last Name</label>
-            <input disabled type="text" id="last_name" value="{{user.lastName}}" class="border p-2 w-full rounded">
+            <input type="text" id="last_name" name="surname" value="{{user.lastName}}" class="border p-2 w-full rounded">
         </div>
         
         <div class="form-group">
             <label for="firstName">First Name</label>
-            <input disabled type="text" id="first_name" value="{{user.firstName}}" class="border p-2 w-full rounded">
+            <input type="text" id="first_name" name="firstName" value="{{user.firstName}}" class="border p-2 w-full rounded">
         </div>
         
         <div class="form-group">
             <label for="email">Email</label>
-            <input disabled type="email" id="email" value="{{user.email}}" class="border p-2 w-full rounded">
+            <input type="email" id="email" name="email" value="{{user.email}}" class="border p-2 w-full rounded">
         </div>
         
         <div class="form-group">
             <label for="phone_number">Phone</label>
-            <input disabled type="tel" id="phone_number" value="{{user.phoneNumber}}" class="border p-2 w-full rounded">
+            <input type="tel" id="phone_number" name="phone" value="{{user.phoneNumber}}" class="border p-2 w-full rounded">
         </div>
         
         <div class="form-group">
             <label for="avatar">Avatar</label>
-            <input disabled type="text" id="avatar" value="{{user.avatar}}" class="border p-2 w-full rounded">
+            <input type="file" id="avatar" name="avatar" value="{{user.avatar}}" class="border p-2 w-full rounded">
         </div>
         
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" value="{{user.password}}" class="border p-2 w-full rounded">
+        </div>
+
+        <div class="form-group">
+            <label for="confirmPassword">Confirm password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" value="{{user.confirmPassword}}" class="border p-2 w-full rounded">
+        </div>
+
         <div class="form-group">
             <label for="birthDate">Birth Date</label>
             <input disabled type="text" id="birthDate" value="{{user.birthDate}}" class="border p-2 w-full rounded">
@@ -40,5 +50,7 @@
             <label for="lastModified">Last Modified</label>
             <input disabled type="text" id="lastModified" value="{{user.lastModified}}" class="border p-2 w-full rounded" disabled>
         </div>
+
+        <button name="update" type="submit" class="bg-blue-500 text-white p-2 rounded">Update</button>
     </form>
 </main>

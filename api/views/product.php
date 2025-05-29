@@ -31,14 +31,14 @@ $url = $_SERVER['REQUEST_URI'];
         $product_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
         if ($product_id > 0) {
-            // Fetch the product data along with its category from the database
-            $query =   "SELECT Product.*, Category.name AS category_name 
+            // Fetch the product data along with its category and seller from the database
+            $query =   "SELECT Product.*, Category.name AS category_name, User.name AS seller_name, User.phone AS seller_phone, User.email AS seller_email 
                         FROM Product 
-                        JOIN Category ON Product.id_category = Category.id 
+                        JOIN Category ON Product.id_category = Category.id  
+                        JOIN User ON Product.id_user = User.id
                         WHERE Product.id = :id";
             $product = $db->query($query, [':id' => $product_id]);
-
-            var_dump($product_id);
+            
             // Retrieve the image URL using the image_get function
             if (!empty($product[0]['image'])) {
                 $product[0]['image'] = image_get($product[0]['image'])['link'];
@@ -49,5 +49,3 @@ $url = $_SERVER['REQUEST_URI'];
         } else {
             echo "Product not found.";
         }
-    ?>
-

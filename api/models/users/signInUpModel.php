@@ -6,6 +6,7 @@ require_once __DIR__ . '/../../controllers/imageUploadControllers.php';
 
 function connection($email = null, $password = null){
     $conn = new connectionDB();
+    
     $result = $conn->query("SELECT * FROM User WHERE email = :email", [':email' => $email]);
 
     if($result && count($result) > 0) {
