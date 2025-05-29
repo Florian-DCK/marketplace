@@ -4,6 +4,8 @@ include __DIR__ . "/../models/users/crudUsersModel.php";
 require_once __DIR__ . "/../models/images.php";
 init_session();
 
+$db = new connectionDB();
+
 if (!isset($_SESSION['id'])) {
     header("Location: /");
     exit;

@@ -1,5 +1,7 @@
 <?php
 require_once __DIR__ . '/config/session.php';
+include __DIR__ . '/models/users/getInfosModel.php';
+require_once __DIR__ . "/models/images.php";
 init_session();
 ?>
 <!DOCTYPE html>
@@ -12,21 +14,32 @@ init_session();
 </head>
 <body class="bg-[#EAEBED] flex flex-col min-h-screen">
     <?php 
-    include __DIR__ . '/views/navbar.php'; 
+    include __DIR__ . '/views/navbar.php';
     include_once __DIR__ . '/models/crudProducts.php';
     include_once __DIR__ . '/models/database.php';
     
+    $db = new connectionDB();
 
+    $user_id = $_SESSION['id'] ?? null;
+
+    $user = null;
+    if ($user_id) {
+        $email = $_SESSION['email'] ?? null;
+        $user = getUserInfo($email, $db);
+    }
 
     $mustache = new Mustache_Engine([
 	'loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/templates'),
 	'partials_loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/templates/partials')
     ]);
 
-    $db = new connectionDB();
+    $userEmail = isset($_GET['userEmail']) ? $_GET['userEmail'] : '';
 
-    $user_id = $_SESSION['id'] ?? null;
-
+    if (!$userEmail){
+        $userInfos = $_SESSION ? getUserInfo($_SESSION['email'], $db) : null;
+    } else {
+        $userInfos = getUserInfo($userEmail, $db);
+    }
 
     $products = getProducts($db);
     foreach ($products as $key => $product) {
@@ -80,8 +93,15 @@ init_session();
                 'new' => $product['event'] === 'New',
                 'trending' => $product['event'] === 'Trending',
             ];
-        }, $products)
+        }, $products),
+        'user' => [
+            'avatar' => $userInfos['avatar'] ?? '',
+        ],
+        'userProfileImage' => isset($userInfos['avatar']) && $userInfos['avatar'] ? image_get($userInfos['avatar'])['link'] : '/api/public/defaultAvatar.jpg',
     ];
+
+    
+
     ?>
     <div class="flex flex-col w-full px-2 md:px-8 lg:px-24 xl:px-48">
         <?php
