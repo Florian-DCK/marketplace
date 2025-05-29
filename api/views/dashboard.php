@@ -19,7 +19,7 @@ if (!isset($_SESSION['operatorLevel']) || $_SESSION['operatorLevel'] !== "admini
 }
 $db = new connectionDB();
 
-if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['modifierUser'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['modifierUser']) && !isset($_POST['deleteUser']) && !isset($_POST['deleteArticle']) && !isset($_POST['deleteCategory']) && !isset($_POST['addCategory'])) {
     $lastName = $_POST['surname'] ?? '';
     $firstName = $_POST['firstName'] ?? '';
     $email = $_POST['email'] ?? '';
