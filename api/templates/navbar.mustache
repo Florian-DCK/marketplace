@@ -81,9 +81,13 @@
 	</div>
 	<div class="bg-[#EAEBED] max-w-full flex justify-center">
     <!-- Horizontal list for medium and up -->
-    <ul class="hidden lg:flex space-x-2 items-center w-[90%] justify-center shadow-[0_10px_10px_-10px_rgba(0,0,0,0.1)] px-2 sm:px-4 md:px-8">
+    <ul class="hidden lg:flex flex-wrap items-center w-[90%] justify-center shadow-[0_10px_10px_-10px_rgba(0,0,0,0.1)] px-2 sm:px-4 md:px-8 max-h-[96px] overflow-hidden">
         {{#categories}}
-            <a href="/search?category={{name}}"><li class="p-2 hover:bg-gray-200 cursor-pointer whitespace-pre-wrap">{{name}}</li></a>
+            <a href="/search?category={{name}}">
+                <li class="p-2 hover:bg-gray-200 cursor-pointer text-wrap whitespace-nowrap">
+                {{name}}
+                </li>
+            </a>
         {{/categories}}
     </ul>
 </div>
