@@ -10,47 +10,83 @@
             class="grid grid-cols-1 md:grid-cols-2 gap-6 [&_input:disabled]:bg-gray-200 [&_input:disabled]:text-gray-400">
                 <div>
                     <label for="last_name" class="block mb-1 font-semibold text-[#5242AE]">Last Name</label>
-                    <input type="text" id="last_name" name="username" value="{{user.lastName}}" class="border border-gray-300 p-2 w-full rounded-lg focus:ring-2 focus:ring-[#8d54b1] transition" />
+                    <input  type="text" 
+                            id="last_name" 
+                            name="username" 
+                            value="{{user.lastName}}" 
+                            class="border border-gray-300 p-2 w-full rounded-lg focus:ring-2 focus:ring-[#8d54b1] transition" />
                 </div>
                 <div>
                     <label for="first_name" class="block mb-1 font-semibold text-[#5242AE]">First Name</label>
-                    <input type="text" id="first_name" name="firstName" value="{{user.firstName}}" class="border border-gray-300 p-2 w-full rounded-lg focus:ring-2 focus:ring-[#8d54b1] transition" />
+                    <input  type="text" 
+                            id="first_name" 
+                            name="firstName" 
+                            value="{{user.firstName}}" 
+                            class="border border-gray-300 p-2 w-full rounded-lg focus:ring-2 focus:ring-[#8d54b1] transition" />
                 </div>
                 <div>
                     <label for="email" class="block mb-1 font-semibold text-[#5242AE]">Email</label>
-                    <input type="email" id="email" name="email" value="{{user.email}}" class="border border-gray-300 p-2 w-full rounded-lg focus:ring-2 focus:ring-[#8d54b1] transition" />
+                    <input  type="email" 
+                            id="email" 
+                            name="email" 
+                            value="{{user.email}}" 
+                            class="border border-gray-300 p-2 w-full rounded-lg focus:ring-2 focus:ring-[#8d54b1] transition" />
                 </div>
                 <div>
                     <label for="phone_number" class="block mb-1 font-semibold text-[#5242AE]">Phone</label>
-                    <input type="tel" id="phone_number" name="phone" value="{{user.phoneNumber}}" class="border border-gray-300 p-2 w-full rounded-lg focus:ring-2 focus:ring-[#8d54b1] transition" />
+                    <input  type="tel" 
+                            id="phone_number" 
+                            name="phone" 
+                            value="{{user.phoneNumber}}" 
+                            class="border border-gray-300 p-2 w-full rounded-lg focus:ring-2 focus:ring-[#8d54b1] transition" />
                 </div>
                 <div>
                     <label for="avatar" class="block mb-1 font-semibold text-[#5242AE]">Avatar</label>
-                    <input type="file" id="avatar" name="avatar" class="border border-gray-300 p-2 w-full rounded-lg focus:ring-2 focus:ring-[#8d54b1] transition" />
+                    <input  type="file" 
+                            id="avatar" 
+                            name="avatar" 
+                            class="border border-gray-300 p-2 w-full rounded-lg focus:ring-2 focus:ring-[#8d54b1] transition" />
                 </div>
                 <div>
                     <label for="password" class="block mb-1 font-semibold text-[#5242AE]">Password</label>
-                    <input type="password" id="password" name="password" value="{{user.password}}" class="border border-gray-300 p-2 w-full rounded-lg focus:ring-2 focus:ring-[#8d54b1] transition" />
+                    <input  type="password" 
+                            id="password" 
+                            name="password" 
+                            value="{{user.password}}" 
+                            class="border border-gray-300 p-2 w-full rounded-lg focus:ring-2 focus:ring-[#8d54b1] transition" />
                 </div>
                 <div>
                     <label for="confirmPassword" class="block mb-1 font-semibold text-[#5242AE]">Confirm password</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" value="{{user.confirmPassword}}" class="border border-gray-300 p-2 w-full rounded-lg focus:ring-2 focus:ring-[#8d54b1] transition" />
+                    <input  type="password" 
+                            id="confirmPassword" 
+                            name="confirmPassword" 
+                            value="{{user.confirmPassword}}" 
+                            class="border border-gray-300 p-2 w-full rounded-lg focus:ring-2 focus:ring-[#8d54b1] transition" />
                 </div>
                 <div>
                     <label for="birthDate" class="block mb-1 font-semibold text-[#5242AE]">Birth Date</label>
-                    <input disabled type="text" id="birthDate" value="{{user.birthDate}}" class="border border-gray-300 p-2 w-full rounded-lg bg-gray-100 text-gray-400" />
+                    <input disabled type="text" 
+                                    id="birthDate" 
+                                    value="{{user.birthDate}}" 
+                                    class="border border-gray-300 p-2 w-full rounded-lg bg-gray-100 text-gray-400" />
                 </div>
                 <div>
                     <label for="creationDate" class="block mb-1 font-semibold text-[#5242AE]">Creation Date</label>
-                    <input disabled type="text" id="creationDate" value="{{user.creationDate}}" class="border border-gray-300 p-2 w-full rounded-lg bg-gray-100 text-gray-400" />
+                    <input disabled type="text" 
+                                    id="creationDate" 
+                                    value="{{user.creationDate}}" 
+                                    class="border border-gray-300 p-2 w-full rounded-lg bg-gray-100 text-gray-400" />
                 </div>
                 <div>
                     <label for="lastModified" class="block mb-1 font-semibold text-[#5242AE]">Last Modified</label>
-                    <input disabled type="text" id="lastModified" value="{{user.lastModified}}" class="border border-gray-300 p-2 w-full rounded-lg bg-gray-100 text-gray-400" />
+                    <input disabled type="text" 
+                                    id="lastModified" 
+                                    value="{{user.lastModified}}" 
+                                    class="border border-gray-300 p-2 w-full rounded-lg bg-gray-100 text-gray-400" />
                 </div>
 
-                <div class="md:col-span-2 flex justify-end mt-4">
-                    <button name="update" type="submit" class="bg-[#5242AE] hover:bg-[#8d54b1] text-white px-6 py-2 rounded-full font-semibold shadow transition-all duration-200">
+                <div class="col-span-full flex justify-end mt-4">
+                    <button name="update" type="submit" class="w-full py-3 rounded-full bg-[#5242AE] text-white font-semibold text-lg hover:bg-[#8d54b1] transition-all shadow-lg mt-2">
                     Update
                     </button>
                 </div>
