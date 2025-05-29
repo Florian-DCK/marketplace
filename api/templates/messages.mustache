@@ -1,24 +1,117 @@
 <script src="//unpkg.com/alpinejs" defer></script>
-<main x-data="{ reduced: true }" 
+<main 
+    x-data="{
+        reduced: true,
+        selectedUserId: null,
+        otherUserId: null,
+        messages: [],
+        newMessage: '',
+        async loadMessages(userId, otherUserId) {
+            this.selectedUserId = userId;
+            this.otherUserId = otherUserId;
+            const res = await fetch('/api/messages?user_id=' + userId + '&other_user_id=' + otherUserId);
+            const data = await res.json();
+            this.messages = data.messages || [];
+            this.startAutoRefresh();
+            this.$nextTick(() => this.scrollToBottom()); // Scroll après chargement
+        },
+        async refreshMessages() {
+            if (!this.selectedUserId || !this.otherUserId) return;
+            const res = await fetch('/api/messages?user_id=' + this.selectedUserId + '&other_user_id=' + this.otherUserId);
+            const data = await res.json();
+            this.messages = data.messages || [];
+        },
+        startAutoRefresh() {
+            if (this.refreshInterval) clearInterval(this.refreshInterval);
+            this.refreshInterval = setInterval(() => this.refreshMessages(), 1000);
+        },
+        async sendMessage() {
+            if (!this.newMessage.trim()) return;
+            const content = this.newMessage;
+            const res = await fetch('/api/messages', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    user_id: this.selectedUserId,
+                    other_user_id: this.otherUserId,
+                    content
+                })
+            });
+            if (res.ok) {
+                this.messages.push({
+                    id: Date.now(),
+                    ours: true,
+                    content,
+                    date: new Date().toLocaleString()
+                });
+                this.newMessage = '';
+                this.$nextTick(() => this.scrollToBottom()); // Scroll après envoi
+            }
+        },
+        scrollToBottom() {
+            const container = this.$refs.messagesContainer;
+            if (container) {
+                container.scrollTop = container.scrollHeight;
+            }
+        },
+        preventPageScroll(event) {
+            event.stopPropagation();
+        }
+    }"
+    @select-conversation.window="loadMessages($event.detail.userId, $event.detail.otherUserId)"
     :class="reduced ? 'max-h-11' : 'max-h-1/2'"
     class="max-w-1/3 h-full w-full fixed bottom-0 right-0 border-gray-500 px-3 bg-[#eaebed] rounded-tl-3xl shadow-[0_0_15px_rgba(0,0,0,0.2)] transition-all duration-500"
-    >
+>
     <nav class="shadow-[0_10px_10px_-10px_rgba(0,0,0,0.1)] pb-3 flex justify-between pt-2 z-10">
         <h3>Messages</h3>
         <button type="button" @click="reduced = !reduced">
-            <svg :class="reduced ? 'rotate-180' : '' " class=" cursor-pointer transition-all duration-200" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-up-icon lucide-chevron-up"><path d="m18 15-6-6-6 6"/></svg>
+            <svg :class="reduced ? 'rotate-180' : '' " class="cursor-pointer transition-all duration-200" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-up-icon lucide-chevron-up"><path d="m18 15-6-6-6 6"/></svg>
         </button>
     </nav>
-    <div :class="reduced ? ' h-0 overflow-hidden' : ' h-[calc(100%-3rem)]'" 
-        class="transition-all duration-500 flex">
+    <div :class="reduced ? 'h-0 overflow-hidden' : 'h-[calc(100%-3rem)]'" class="transition-all duration-500 flex">
         {{> messages/sidebar}}
-        <div class="w-full h-full relative">
-            <div class="absolute inset-0 bottom-12 space-y-3 flex flex-col justify-end overflow-y-auto pb-4 px-2">
-                {{#Messages}}
-                    {{> messages/message}}
-                {{/Messages}}
+        <div class="w-full h-full relative overflow-y-auto z-50">
+            <div
+                x-ref="messagesContainer"
+                class="h-fit flex flex-col justify-end pb-14 px-2 space-y-5"
+            >
+                <template x-for="msg in messages" :key="msg.id">
+                    <div>
+                        <template x-if="msg.ours === true">
+                            <div class="flex justify-end items-center w-full relative">
+                                <p
+                                    class="text-xs text-gray-500 text-right mr-2 absolute -top-4 right-2"
+                                    x-text="msg.date"
+                                ></p>
+                                <div
+                                    class="py-2 max-w-[75%] text-white text-sm px-4 bg-[#303F9F] rounded-3xl shadow-[0_0_15px_rgba(0,0,0,0.2)]"
+                                    x-text="msg.content"
+                                ></div>
+                            </div>
+                        </template>
+                        <template x-if="msg.ours === false">
+                            <div class="flex justify-start items-center w-full relative">
+                                <p
+                                    class="text-xs text-gray-500 text-left ml-2 absolute -top-4 left-2"
+                                    x-text="msg.date"
+                                ></p>
+                                <div
+                                    class="py-2 max-w-[75%] text-white text-sm px-4 bg-[#FFC107] rounded-3xl shadow-[0_0_15px_rgba(0,0,0,0.2)]"
+                                    x-text="msg.content"
+                                ></div>
+                            </div>
+                        </template>
+                    </div>
+                </template>
             </div>
-            <input type="text" class="absolute bottom-0 w-full h-12 px-4 shadow-[0_-10px_10px_-10px_rgba(0,0,0,0.1)] bg-[#eaebed] focus:outline-none focus:border-gray-500 focus:ring-0" placeholder="Type a message...">
-        </div>
+        </div>            
+        <input 
+                :class="reduced ? 'hidden' : 'block'"
+                type="text" 
+                class="absolute z-50 bottom-0 w-full h-12 px-4 shadow-[0_-10px_10px_-10px_rgba(0,0,0,0.1)] bg-[#eaebed] focus:outline-none focus:border-gray-500 focus:ring-0" 
+                placeholder="Type a message..."
+                x-model="newMessage"
+                @keydown.enter="sendMessage()"
+        >
     </div>
 </main>
