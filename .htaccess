@@ -36,3 +36,5 @@ RewriteRule ^cart$ api/views/cart.php [L]
 # Routes pour les API
 # Routes pour les messages
 RewriteRule ^api/messages$ api/api/messages/api.php [L]
+# Routes pour les produits
+RewriteRule ^api/products$ api/api/products/api.php [L]

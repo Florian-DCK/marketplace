@@ -1,7 +1,35 @@
 <div class="bg-[#EAEBED] w-full flex justify-center">
-    <ul class="flex space-x-2 items-center w-[90%] justify-center shadow-[0_10px_10px_-10px_rgba(0,0,0,0.1)]">
-        {{#categories}}
-            <a href="/search?category={{name}}"><li class="p-2 hover:bg-gray-200 cursor-pointer"> {{name}} </li></a>
-        {{/categories}}
-    </ul>
+    <!-- Dropdown for categories on small/medium screens -->
+    <div class="lg:hidden flex justify-center w-full my-2">
+        <div class="relative">
+            <button type="button" id="categoriesDropdownBtn" class="bg-[#FFC107] text-[#303F9F] px-4 py-2 rounded-lg font-semibold">
+                Categories
+            </button>
+            <ul id="categoriesDropdownMenu" class="hidden absolute left-0 mt-2 bg-white border rounded shadow-lg z-20 w-48">
+                {{#categories}}
+                    <li>
+                        <a href="/search?category={{name}}" class="block px-4 py-2 hover:bg-gray-200">{{name}}</a>
+                    </li>
+                {{/categories}}
+            </ul>
+        </div>
+    </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const btn = document.getElementById('categoriesDropdownBtn');
+    const menu = document.getElementById('categoriesDropdownMenu');
+    if (btn && menu) {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            menu.classList.toggle('hidden');
+        });
+        document.addEventListener('click', function(e) {
+            if (!btn.contains(e.target) && !menu.contains(e.target)) {
+                menu.classList.add('hidden');
+            }
+        });
+    }
+});
+</script>

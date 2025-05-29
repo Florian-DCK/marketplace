@@ -34,11 +34,10 @@
         }
     }
 
-    function getBasket($id, $basket_id, $db) {
-        checkBasket($basket_id, $db);
+    function getBasket($basket_id, $db) {
         try {
-            $productBasket = $db->query("SELECT * FROM ProductBasket WHERE id = :id", [
-                ':id' => $id
+            $productBasket = $db->query("SELECT * FROM ProductBasket WHERE basket_id = :basket_id", [
+                ':basket_id' => $basket_id
             ]);
             if ($productBasket) {
                 return $productBasket; 
@@ -51,11 +50,10 @@
         }
     }
 
-    function clearBasket($id, $basket_id, $db) {
-        checkBasket($basket_id, $db);
+    function clearBasket($basket_id, $db) {
         try {
-            $db->query("DELETE * FROM productBasket WHERE id = :id", [
-                ':id' => $id
+            $db->query("DELETE * FROM productBasket WHERE basket_id = :basket_id", [
+                ':basket_id' => $basket_id
             ]);
         } catch (PDOException $e) {
             echo 'Erreur de requête : ' . $e->getMessage();
@@ -63,11 +61,11 @@
         }
     }
 
-    function deleteProduct($product_id,$basket_id ,$db) {
-        checkBasket($basket_id, $db);
+    function deleteProductFromBasket($product_id, $basket_id ,$db) {
         try {
-            $db->query("DELETE * FROM ProductBasket WHERE product_id = :product_id", [
-                ':product_id' => $product_id
+            $db->query("DELETE * FROM ProductBasket WHERE product_id = :product_id AND WHERE basket_id = :basket_id", [
+                ':product_id' => $product_id,
+                ':basket_id' => $basket_id
             ]);
         } catch (PDOException $e) {
             echo 'Erreur de requête : ' . $e->getMessage();
@@ -75,20 +73,20 @@
         }
     }
 
-    function updateBasket($id,$basket_id, $newQuantity, $db) {
-        checkBasket($basket_id, $db);
+    function updateBasket($product_id, $basket_id, $newQuantity, $db) {
         try {
-            $db->query("UPDATE ProductBasket SET quantity = :quantity WHERE id = :id", [
-                ':id' => $id,
+            $db->query("UPDATE ProductBasket SET quantity = :quantity 
+                        WHERE product_id = :product_id AND basket_id = :basket_id", [
+                ':product_id' => $product_id,
+                ':basket_id' => $basket_id,
                 ':quantity' => $newQuantity
             ]);
         } catch (PDOException $e) {
-            echo 'Erreur de requête : ' . $e->getMessage();
-            return null;
+            throw new Exception('Erreur de requête : ' . $e->getMessage());
         }
     }
 
-    function checkBasket($user_id, $db) {
+    /*function checkBasket($user_id, $db) {
         try {
             $basket = $db->query("SELECT * FROM Basket WHERE user_id = :user_id", [
                 ':user_id' => $user_id
@@ -110,6 +108,6 @@
             echo 'Erreur de requête : ' . $e->getMessage();
             return null;
         }
-    }
+    }*/
 
 ?>

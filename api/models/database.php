@@ -61,30 +61,20 @@ require_once __DIR__ . '/../../vendor/autoload.php';
             public function close () {
 				$this->db = null; 
             }
+
+			// Méthode pour récupérer tous les noms de catégories
+			public function getAllCategoryNames() {
+				$sql = "SELECT name FROM Category";
+				$rows = $this->query($sql);
+				$categories = [];
+				foreach ($rows as $row) {
+					$categories[] = ['name' => $row['name']];
+				}
+				return $categories;
+			}
 		}
 
-		function checkBasket($user_id, $db) {
-        try {
-            $basket = $db->query("SELECT * FROM Basket WHERE user_id = :user_id", [
-                ':user_id' => $user_id
-            ]);
-            if ($basket) {
-                return $basket; 
-            } else {
-                try {
-                    $db->query("INSERT INTO Basket (user_id) VALUES (:user_id)", [
-                        ':user_id' => $user_id
-                    ]);
-                }
-                catch (PDOException $e) {
-                    echo 'Erreur de requête : ' . $e->getMessage();
-                    return null;
-                }
-            }
-        } catch (PDOException $e) {
-            echo 'Erreur de requête : ' . $e->getMessage();
-            return null;
-        }
-    }
+		
+    
 
 ?>

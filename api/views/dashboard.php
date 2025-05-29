@@ -1,5 +1,8 @@
 <?php
 require_once __DIR__ . '/../config/session.php';
+include_once __DIR__ . "/../models/users/crudUsersModel.php";
+require_once __DIR__ . "/../models/images.php";
+require_once __DIR__ . '/../models/database.php';
 init_session();
 
 if (!isset($_SESSION['id'])) {
@@ -10,10 +13,109 @@ if (!isset($_SESSION['id'])) {
 $url = $_SERVER['REQUEST_URI'];
 
 // Vérifier si l'utilisateur est admin (ici, operator_level == 0 indique admin)
-if (!isset($_SESSION['operatoLevel']) && $_SESSION['operatorLevel'] !== "administrator" && str_contains($url, 'admin')) {
+if (!isset($_SESSION['operatorLevel']) || $_SESSION['operatorLevel'] !== "administrator" && str_contains($url, 'admin')) {
     header("Location: /dashboard");
     exit;
 }
+$db = new connectionDB();
+
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $lastName = $_POST['surname'] ?? '';
+    $firstName = $_POST['firstName'] ?? '';
+    $email = $_POST['email'] ?? '';
+    $phone = $_POST['phone'] ?? '';
+    $avatar = $_FILES['avatar'] ?? null;
+    $password = $_POST['password'] ?? '';
+    $confirmPassword = $_POST['confirmPassword'] ?? '';
+
+    if (!empty($_POST['surname'])) {
+        updateSurname($db, $_SESSION['id'], $_POST['surname']);
+    }
+    if (!empty($_POST['firstName'])) {
+        updateName($db, $_SESSION['id'], $_POST['firstName']);
+    }
+    if (!empty($_POST['email'])) {
+        updateEmail($db, $_POST['email'], $_SESSION['id']);
+    }
+    if (!empty($_POST['phone'])) {
+        updatePhone($db, $_POST['phone'], $_SESSION['id']);
+    }
+    if (!empty($avatar['tmp_name']) && $avatar['error'] === UPLOAD_ERR_OK) {
+        $avatar_id = image_upload($avatar)['id'];
+        updateAvatar($db, $_SESSION['id'], $avatar_id);
+    }
+    if (!empty($password) && !empty($confirmPassword) && $password === $confirmPassword) {
+        updatePass($db, $_SESSION['id'], $password);
+    }
+
+    // erreurs
+    if (strlen($email) > 50) {
+        echo '<p style="color: red;">Email is too long.</p>';
+    }
+    if (strlen($lastName) > 50) {
+       echo '<p style="color: red;">Last name is too long.</p>';
+    } 
+    if (strlen($firstName) > 50) {
+        echo '<p style="color: red;">First name is too long.</p>';
+    }
+    if (strlen($phone) > 50) {
+        echo '<p style="color: red;">Phone number is too long.</p>';
+    }
+    if (!empty($password)) {
+    if ($password !== $confirmPassword) {
+        echo '<p style="color: red;">Passwords do not match.</p>';
+    } else {
+        if (strlen($password) < 8) {
+            echo '<p style="color: red;">Password must be at least 8 characters long.</p>';
+        } elseif (!preg_match('/[A-Z]/', $password)) {
+            echo '<p style="color: red;">Password must contain at least one uppercase letter.</p>';
+        } elseif (!preg_match('/[0-9]/', $password)) {
+            echo '<p style="color: red;">Password must contain at least one number.</p>';
+        } elseif (!preg_match('/[!@#$%^&*(),.?":{}|<>]/', $password)) {
+            echo '<p style="color: red;">Password must contain at least one special character.</p>';
+        } else {
+            // Si tout est bon, mise à jour du mot de passe
+            updatePass($db, $_SESSION['id'], $password);
+        }
+    }
+}
+
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
+    // supprimer utilisateur
+    if (isset($_POST['deleteUser'])) {
+        $deleteUSer = $_POST['deleteUser'];
+        $db -> query("DELETE FROM User WHERE email = :email", [':email' => $deleteUSer]);
+        header("Location: /dashboard/admin");
+        exit;
+    }
+
+    // supprimer un article
+    if (isset($_POST['deleteArticle'])) {
+        $deleteArticle = $_POST['deleteArticle'];
+        $db -> query("DELETE FROM Product WHERE id = :id", [':id' => $deleteArticle]);
+        header("Location: /dashboard/admin");
+    }
+
+    // supprimer une catégorie
+    if (isset($_POST['deleteCategory'])) {
+        $deleteCategory = $_POST['deleteCategory'];
+        $db -> query("DELETE FROM Category WHERE id = :id", [':id' => $deleteCategory]);
+        header("Location: /dashboard/admin");
+    }
+
+    // ajouter une catégorie
+    if (isset($_POST['addCategory'])) {
+        $addCategory = $_POST['addCategory'] ?? '';
+        $db->query("INSERT INTO Category (name) VALUES (:name)", [':name' => $addCategory]);
+        header("Location: /dashboard/admin");
+        exit;
+    }
+}
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,9 +127,9 @@ if (!isset($_SESSION['operatoLevel']) && $_SESSION['operatorLevel'] !== "adminis
 </head>
 <body class="h-screen w-screen flex flex-col bg-[#EAEBED]">
     <?php 
-    include __DIR__ . '/navbar.php'; 
-    include __DIR__ . '/../models/database.php';
-
+    include_once __DIR__ . '/navbar.php'; 
+    
+   
     $url = $_SERVER['REQUEST_URI'];
     
     $mustache = new Mustache_Engine([
@@ -36,12 +138,11 @@ if (!isset($_SESSION['operatoLevel']) && $_SESSION['operatorLevel'] !== "adminis
     ]);
 
     // Variables mockup pour les informations utilisateur
-    include __DIR__ . '/../models/users/getInfosModel.php';
+    include_once __DIR__ . '/../models/users/getInfosModel.php';
 
     // Récupérer userEmail depuis GET au lieu de POST
     $userEmail = isset($_GET['userEmail']) ? $_GET['userEmail'] : '';
 
-    $db = new connectionDB();
 
     if (!$userEmail){
         $userInfos = $_SESSION ? getUserInfo($_SESSION['email'], $db) : null;
@@ -66,6 +167,8 @@ if (!isset($_SESSION['operatoLevel']) && $_SESSION['operatorLevel'] !== "adminis
             'operatorLevel' => $userInfos['operator_level'] ?? '',
         ]
     ];
+
+    
     ?>
     <main class="flex h-full">
         <?php 

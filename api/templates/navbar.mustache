@@ -2,7 +2,9 @@
 	<div class="flex items-center justify-between">
 		<a href="/">
 			<span class="flex items-center">
-				<h1 class=" ms-5 text-5xl font-bold flex items-center justify-center">Hello W<svg fill="#8d54b1" height="38px" width="40px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+				<h1 class=" ms-5 text-5xl font-bold flex items-center justify-center">
+					<p class="hidden md:flex text-nowrap">Hello W</p>
+					<svg fill="#8d54b1" height="38px" width="40px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
 	 viewBox="0 -22 331.38 345.38" xml:space="preserve">
 <g>
 	<path d="M331.376,165.427h-16.857c0.001,0.088,0.003,0.176,0.003,0.265c0,0.309-0.01,0.615-0.012,0.924
@@ -56,10 +58,15 @@
 	<path d="M314.221,142.235h16.857c0-78.262-63.67-141.933-141.933-141.933v16.857C258.112,17.159,314.221,73.268,314.221,142.235z"
 		/>
 </g>
-</svg>RLD !</h1>
+</svg>
+<p class="hidden md:flex text-nowrap">RLD !</p>
+</h1>
 			</span>
 		</a>
 		{{> navbar/searchBar}}
+		{{#showCategoryNavbar}}
+			{{> navbar/categoryNavbar}}
+		{{/showCategoryNavbar}}
 		{{#showMenu}}
 			<div class="p-2 flex items-center space-x-3">
 				{{#isConnected}}
@@ -74,7 +81,14 @@
 			</div>
 		{{/showMenu}}
 	</div>
-	{{#showCategoryNavbar}}
-		{{> navbar/categoryNavbar}}
-	{{/showCategoryNavbar}}
+	<div class="bg-[#EAEBED] max-w-full flex justify-center">
+    <!-- Horizontal list for medium and up -->
+    <ul class="hidden lg:flex space-x-2 items-center w-[90%] justify-center shadow-[0_10px_10px_-10px_rgba(0,0,0,0.1)] px-2 sm:px-4 md:px-8">
+        {{#categories}}
+            <a href="/search?category={{name}}"><li class="p-2 hover:bg-gray-200 cursor-pointer whitespace-pre-wrap">{{name}}</li></a>
+        {{/categories}}
+    </ul>
+</div>
+	
+	
 </div>

@@ -1,5 +1,29 @@
 <?php
 
+function checkBasket($user_id, $db) {
+        try {
+            $basket_id = $db->query("SELECT * FROM Basket WHERE user_id = :user_id", [
+                ':user_id' => $user_id
+            ]);
+            if ($basket_id) {
+                return $basket_id; 
+            } else {
+                try {
+                    $db->query("INSERT INTO Basket (user_id) VALUES (:user_id)", [
+                        ':user_id' => $user_id
+                    ]);
+                }
+                catch (PDOException $e) {
+                    echo 'Erreur de requête : ' . $e->getMessage();
+                    return null;
+                }
+            }
+        } catch (PDOException $e) {
+            echo 'Erreur de requête : ' . $e->getMessage();
+            return null;
+        }
+    }
+
     function getProduct($id, $db) {
         try {
             $products  = $db->query("SELECT * FROM Product WHERE id = :id", [':id' => $id]);
