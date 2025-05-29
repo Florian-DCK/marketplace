@@ -10,6 +10,13 @@
         </div>
     </form> 
 
+    <form method="POST">
+        <input type="hidden" name="deleteUser" value="{{user.email}}">
+        <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Delete user</button>
+    </form>
+
+
+
     <form action="POST"  class="grid grid-cols-2 gap-4 [&_input:disabled]:bg-gray-200 [&_input:disabled]:text-gray-400">
         <div class="form-group">
             <label for="lastName">Last name</label>
