@@ -54,12 +54,6 @@ function updateEmail($conn, $email, $id) {
         );
         $count = $result[0]['cnt'];
 
-        if ($count > 0) {
-            // Email déjà utilisé par un autre utilisateur, on bloque
-            header("Location: /../../../api/views/testdb/inscription.php?success=0");
-            exit;
-        }
-
         // Sinon, on peut mettre à jour l'email
         $conn->query("UPDATE User SET email = :email, last_modified = NOW() WHERE id = :id", [
             ":email" => $email,
@@ -129,6 +123,11 @@ function updatePass($conn, $id, $mdp) {
         $conn->db->rollBack();
         echo "Erreur : " . $e->getMessage();
     }
+}
+function getUserByEmail($db, $email) {
+    $sql = "SELECT * FROM User WHERE email = :email";
+    $user = $db->query($sql, [':email' => $email]);
+    return $user ? $user[0] : null;
 }
 
 
