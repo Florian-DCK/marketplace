@@ -19,7 +19,7 @@ if (!isset($_SESSION['operatorLevel']) || $_SESSION['operatorLevel'] !== "admini
 }
 $db = new connectionDB();
 
-if($_SERVER['REQUEST_METHOD'] === 'POST') {
+if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['modifierUser'])) {
     $lastName = $_POST['surname'] ?? '';
     $firstName = $_POST['firstName'] ?? '';
     $email = $_POST['email'] ?? '';
@@ -114,6 +114,96 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
     }
 }
 
+  // modifier user
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['modifierUser'])) {
+    $userEmail = $_POST['modifierUser'] ?? '';
+    $targetUser = getUserByEmail($db, $userEmail);
+    $targetUserId = $targetUser['id'] ?? null;
+
+    if (!$targetUserId) {
+        echo '<p style="color: red;">User not found.</p>';
+        exit;
+    }
+
+    $lastName = $_POST['surname'] ?? '';
+    $firstName = $_POST['firstName'] ?? '';
+    $email = $_POST['email'] ?? '';
+    $phone = $_POST['phone'] ?? '';
+    $avatar = $_FILES['avatar'] ?? null;
+    $password = $_POST['password'] ?? '';
+    $confirmPassword = $_POST['confirmPassword'] ?? '';
+    $operatorLevel = $_POST['operatorLevel'] ?? '';
+
+    // 🛡️ Validations d'abord
+    $hasError = false;
+    if (strlen($email) > 50) {
+        echo '<p style="color: red;">Email is too long.</p>';
+        $hasError = true;
+    }
+    if (strlen($lastName) > 50) {
+        echo '<p style="color: red;">Last name is too long.</p>';
+        $hasError = true;
+    }
+    if (strlen($firstName) > 50) {
+        echo '<p style="color: red;">First name is too long.</p>';
+        $hasError = true;
+    }
+    if (strlen($phone) > 50) {
+        echo '<p style="color: red;">Phone number is too long.</p>';
+        $hasError = true;
+    }
+
+    if (!empty($password)) {
+        if ($password !== $confirmPassword) {
+            echo '<p style="color: red;">Passwords do not match.</p>';
+            $hasError = true;
+        } elseif (strlen($password) < 8) {
+            echo '<p style="color: red;">Password must be at least 8 characters long.</p>';
+            $hasError = true;
+        } elseif (!preg_match('/[A-Z]/', $password)) {
+            echo '<p style="color: red;">Password must contain at least one uppercase letter.</p>';
+            $hasError = true;
+        } elseif (!preg_match('/[0-9]/', $password)) {
+            echo '<p style="color: red;">Password must contain at least one number.</p>';
+            $hasError = true;
+        } elseif (!preg_match('/[!@#$%^&*(),.?":{}|<>]/', $password)) {
+            echo '<p style="color: red;">Password must contain at least one special character.</p>';
+            $hasError = true;
+        }
+    }
+
+    if (!$hasError) {
+        if (!empty($lastName)) {
+            updateSurname($db, $targetUserId, $lastName);
+        }
+        if (!empty($firstName)) {
+            updateName($db, $targetUserId, $firstName);
+        }
+        if (!empty($email)) {
+            updateEmail($db, $email, $targetUserId);
+        }
+        if (!empty($phone)) {
+            updatePhone($db, $phone, $targetUserId);
+        }
+        if (!empty($avatar['tmp_name']) && $avatar['error'] === UPLOAD_ERR_OK) {
+            $avatar_id = image_upload($avatar)['id'];
+            updateAvatar($db, $targetUserId, $avatar_id);
+        }
+        if (!empty($password)) {
+            updatePass($db, $targetUserId, $password);
+        }
+
+        // 🎛️ Mettre à jour operatorLevel si souhaité
+        if (!empty($operatorLevel)) {
+            $db->query("UPDATE User SET operator_level = :level WHERE id = :id", [
+                ':level' => $operatorLevel,
+                ':id' => $targetUserId
+            ]);
+        }
+
+        echo '<p style="color: green;">User updated successfully.</p>';
+    }
+}
 
 
 ?>
