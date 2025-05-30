@@ -1,65 +1,83 @@
 <main class="bg-[#EAEBED] p-8">
     <div class="bg-[#EAEBED] h-full m-4 p-4">
-        <form enctype="multipart/form-data" method="POST" action="../api/views/cart.php" class="border border-gray-300 bg-white rounded-2xl flex">
-            <div class="py-8 flex flex-col rounded-2xl relative h-full w-6/10 mx-auto">
-                <div class="bg-[#FFC107] text-[#303F9F] rounded-t-xl p-2 text-2xl text-center font-bold">
-                    {{product.category_name}}
+        <div class="w-full max-w-2xl mx-auto bg-white rounded-3xl shadow-2xl p-8 my-8">
+            <h1 class="text-2xl md:text-3xl font-bold text-[#5242AE] mb-6 text-center">{{product.title}}</h1>
+            <div class="space-y-6">
+                <!-- Category & Event -->
+                <div class="flex flex-col md:flex-row gap-4">
+                    <div class="flex-1">
+                        <label class="block mb-1 font-semibold text-[#303F9F]">Category</label>
+                        <div class="w-full bg-[#FFC107] text-[#303F9F] rounded-lg p-3 text-center font-bold">
+                            {{product.category_name}}
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <label class="block mb-1 font-semibold text-[#303F9F]">Event</label>
+                        <div class="w-full border border-[#FFC107] rounded-lg p-3 bg-white text-[#303F9F] text-center font-bold">
+                            {{product.event}}
+                        </div>
+                    </div>
                 </div>
-                <div class="self-start w-full h-20 flex relative space-x-1">
-                    <div class="w-[calc(100%-40px)] text-lg text-center font-semibold px-2 py-2 mt-1 flex flex-col justify-center border-l border-r border-[#303F9F]">
-                    {{product.title}}
-                    </div>
-                    <div class="flex justify-center p-4 w-1/6 mt-1 border-r border-[#303F9F]">
-                        {{product.event}}
+
+                <!-- Image Preview -->
+                <div>
+                    <label class="block mb-1 font-semibold text-[#303F9F]">Product Image</label>
+                    <div class="flex justify-center group">
+                        <img 
+                            src="{{product.image}}" 
+                            alt="{{product.title}}" 
+                            class="h-72 max-w-full rounded-lg shadow border border-[#FFC107] transition-transform duration-300 group-hover:scale-150 z-20"
+                            style="cursor: zoom-in;"
+                        />
                     </div>
                 </div>
-                <div class=" border border-dashed border-[#303F9F] w-full self-start mt-1"></div>
-                <div class=" flex flex-col items-center justify-center w-full h-full space-y-2 p-10 mt-1 border-l border-r border-[#303F9F]">
-                    <div class="border-4 border-double rounded-lg w-2/3 h-3/4 flex flex-col relative border-[#303F9F]">
-                        <img src="{{product.image}}" alt="{{product.title}}" class="max-h-full object-cover rounded-lg">
+
+                <!-- Price & Description -->
+                <div class="flex flex-col md:flex-row gap-4">
+                    <div class="flex-1">
+                        <label class="block mb-1 font-semibold text-[#303F9F]">Price</label>
+                        <div class="flex items-center border border-[#FFC107] rounded-lg p-3 bg-white">
+                            <span class="text-lg font-bold text-[#303F9F]">{{product.price}}</span>
+                            <span class="ml-2 text-[#303F9F] font-bold">$</span>
+                        </div>
                     </div>
-                    <div class="border-4 border-double rounded-lg w-1/6 h-1/10 absolute bottom-75 right-2 flex justify-center items-center border-[#303F9F]">
-                        <span class="text-sm md:text-xl lg:text-2xl">
-                            {{product.price}}
-                        </span>
-                        <span class="me-1 text-base md:text-lg lg:text-xl">$</span>
+                    <div class="flex-1">
+                        <label class="block mb-1 font-semibold text-[#303F9F]">Description</label>
+                        <div class="w-full p-3 text-[#303F9F] border border-[#FFC107] rounded-lg bg-gray-50">
+                            {{product.description}}
+                        </div>
                     </div>
-                    <div class="border-4 border-double rounded-lg w-2/3 h-1/4 px-5 border-[#303F9F]">
-                        {{product.description}}
+                </div>
+
+                <!-- Seller Info -->
+                <div class="mt-8">
+                    <h2 class="text-xl font-bold text-[#5242AE] mb-4 text-center">Seller Info</h2>
+                    <div class="space-y-2 text-center">
+                        <div>
+                            <span class="font-semibold text-[#303F9F]">Name:</span>
+                            <span>{{product.seller_name}}</span>
+                        </div>
+                        <div>
+                            <span class="font-semibold text-[#303F9F]">Phone:</span>
+                            <span>{{product.seller_phone}}</span>
+                        </div>
+                        <div>
+                            <span class="font-semibold text-[#303F9F]">Email:</span>
+                            <span>{{product.seller_email}}</span>
+                        </div>
                     </div>
+                </div>
+
+                <!-- Add to Cart Button -->
+                <form enctype="multipart/form-data" method="POST" action="../api/views/cart.php">
                     <input type="hidden" name="product_id" value="{{product.id}}">
-                </div>
-                <button type="submit">
-                    <div class="bg-[#00c524] text-white w-full text-md py-2 mt-1 rounded-b-2xl cursor-pointer hover:">
-                        <a href="/cart"></a>
-                        <p class="text-center">Add to cart</p>
-                    </div>
-                </button>
+                    <button type="submit"
+                        class="w-full bg-[#00c524] text-white py-3 rounded-xl font-bold text-lg shadow hover:bg-[#00e03a] transition mt-6">
+                        Add to cart
+                    </button>
+                </form>
             </div>
-            <div class="py-8 flex flex-col rounded-2xl relative h-screen w-3/10 mx-auto text-center">
-                <div class="text-center font-bold text-4xl space-y-10 pt-4 flex flex-col items-center">
-                    <h1>Seller Infos</h1>
-                    <hr class="w-2/3 border-gray-300">
-                </div>
-                <div class="text-center space-y-10 pt-10 flex flex-col items-center">
-                <div class="flex flex-col w-full items-center space-y-10">
-                    <div>
-                        <h2 class="font-bold text-lg">Name : {{product.seller_name}}</h2>
-                        <hr class="w-2/3 border-gray-300">
-                    </div>
-                    <div>
-                        <h2 class="font-semibold text-lg">Phone number : {{product.seller_phone}}</h2>
-                        <hr class="w-2/3 border-gray-300">
-                    </div>
-                    <div>
-                        <h2 class="font-semibold text-lg">Email : {{product.seller_email}}</h2>
-                        <hr class="w-2/3 border-gray-300">
-                    </div>
-                </div>
-                <hr class="w-2/3 border-gray-300">
-            </div>
-            </div>
-        </form>
+        </div>
     </div>
 </main>
 
