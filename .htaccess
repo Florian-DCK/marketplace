@@ -38,3 +38,6 @@ RewriteRule ^cart$ api/views/cart.php [L]
 RewriteRule ^api/messages$ api/api/messages/api.php [L]
 # Routes pour les produits
 RewriteRule ^api/products$ api/api/products/api.php [L]
+
+# Rediriger /cart
+RewriteRule ^myItems$ api/views/myItems.php [L]

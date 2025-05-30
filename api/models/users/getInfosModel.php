@@ -43,5 +43,17 @@
             echo 'Erreur de requête : ' . $e->getMessage();
             return null;
         }
+    }
 
+    function getUserProducts($db, $user_id) {
+        try {
+            $products = $db->query(
+                "SELECT * FROM Product WHERE id_user = :id_user",
+                [':id_user' => $user_id]
+            );
+            return $products ?: [];
+        } catch (PDOException $e) {
+            echo 'Erreur de requête : ' . $e->getMessage();
+            return [];
+        }
     }
