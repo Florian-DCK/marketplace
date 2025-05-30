@@ -66,8 +66,6 @@
 
     $arrayUserCart = ["products" => $userCart];
 
-        var_dump($userCart);
-
     echo $mustache->render('cart', $arrayUserCart);
     
 ?>
