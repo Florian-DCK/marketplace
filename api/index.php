@@ -1,6 +1,16 @@
 <?php
 require_once __DIR__ . '/config/session.php';
+include_once __DIR__ . '/models/database.php';
 init_session();
+
+ // supprimer un article
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['deleteArticle'])) {
+        $db = new connectionDB();
+        $deleteArticle = $_POST['deleteArticle'];
+        $db -> query("DELETE FROM Product WHERE id = :id", [':id' => $deleteArticle]);
+        header("Location: /");
+        exit;
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,7 +63,7 @@ init_session();
 
 
     $data = [
-    'isAdmin' => $_SESSION['operatorLevel'] === "administrator",
+    'isAdmin' => $_SESSION['operatorLevel'] === "administrator" ?? 'false',
     'hotProducts' => array_map(function($product) {
         return [
             'id' => $product['id'],

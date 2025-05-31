@@ -99,13 +99,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
         exit;
     }
 
-    // supprimer un article
-    if (isset($_POST['deleteArticle'])) {
-        $deleteArticle = $_POST['deleteArticle'];
-        $db -> query("DELETE FROM Product WHERE id = :id", [':id' => $deleteArticle]);
-        header("Location: /dashboard/admin");
-    }
-
     // supprimer une catégorie
     if (isset($_POST['deleteCategory'])) {
         $deleteCategory = $_POST['deleteCategory'];
