@@ -49,3 +49,5 @@ $url = $_SERVER['REQUEST_URI'];
         } else {
             echo "Product not found.";
         }
+
+   

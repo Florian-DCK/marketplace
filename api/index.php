@@ -53,35 +53,37 @@ init_session();
 
 
     $data = [
-        'hotProducts' => array_map(function($product) {
-            return [
-                'id' => $product['id'],
-                'title' => $product['title'],
-                'description' => $product['description'],
-                'image' => $product['image'],
-                'price' => $product['price'],
-                'is_available' => $product['is_available'],
-                'fast' => $product['event'] === 'Flash',
-                'sales' => $product['event'] === 'Soldes',
-                'new' => $product['event'] === 'New',
-                'trending' => $product['event'] === 'Tendance',
-            ];
-        }, $hotProducts),
-        'products' => array_map(function($product) {
-            return [
-                'id' => $product['id'],
-                'title' => $product['title'],
-                'description' => $product['description'],
-                'image' => $product['image'],
-                'price' => $product['price'],
-                'is_available' => $product['is_available'],
-                'fast' => $product['event'] === 'Flash',
-                'sales' => $product['event'] === 'Sales',
-                'new' => $product['event'] === 'New',
-                'trending' => $product['event'] === 'Trending',
-            ];
+    'isAdmin' => $_SESSION['operatorLevel'] === "administrator",
+    'hotProducts' => array_map(function($product) {
+        return [
+            'id' => $product['id'],
+            'title' => $product['title'],
+            'description' => $product['description'],
+            'image' => $product['image'],
+            'price' => $product['price'],
+            'is_available' => $product['is_available'],
+            'fast' => $product['event'] === 'Flash',
+            'sales' => $product['event'] === 'Soldes',
+            'new' => $product['event'] === 'New',
+            'trending' => $product['event'] === 'Tendance',
+        ];
+    }, $hotProducts),
+    'products' => array_map(function($product) {
+        return [
+            'id' => $product['id'],
+            'title' => $product['title'],
+            'description' => $product['description'],
+            'image' => $product['image'],
+            'price' => $product['price'],
+            'is_available' => $product['is_available'],
+            'fast' => $product['event'] === 'Flash',
+            'sales' => $product['event'] === 'Sales',
+            'new' => $product['event'] === 'New',
+            'trending' => $product['event'] === 'Trending',
+        ];
         }, $products)
     ];
+
     ?>
     <div class="flex flex-col w-full px-2 md:px-8 lg:px-24 xl:px-48">
         <?php
