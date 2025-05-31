@@ -26,7 +26,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $categories[] = $row['name'];
 }
 */
-
+// modifier les infos de son compte
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['modifierUser']) && !isset($_POST['deleteUser']) && !isset($_POST['deleteArticle']) && !isset($_POST['deleteCategory']) && !isset($_POST['addCategory'])) {
     $lastName = $_POST['surname'] ?? '';
     $firstName = $_POST['firstName'] ?? '';
@@ -243,21 +243,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
     
 
     $data = [
-        'isAdmin' => str_contains($url, "admin"),
-        'user' => [
-            'lastName' => $userInfos['surname'] ?? '',
-            'firstName' => $userInfos['name'] ?? '',
-            'email' => $userInfos['email'] ?? '',
-            'phoneNumber' => $userInfos['phone'] ?? '',
-            'avatar' => $userInfos['avatar'] ?? '',
-            'birthDate' => $userInfos['birthDate'] ?? '',
-            'creationDate' => $userInfos['creation_date'] ?? '',
-            'lastModified' => $userInfos['last_modified'] ?? '',
-            'operatorLevel' => $userInfos['operator_level'] ?? '',
+    'isAdmin' => str_contains($url, "admin"), 
+    'user' => [
+        'lastName' => $userInfos['surname'] ?? '',
+        'firstName' => $userInfos['name'] ?? '',
+        'email' => $userInfos['email'] ?? '',
+        'phoneNumber' => $userInfos['phone'] ?? '',
+        'avatar' => $userInfos['avatar'] ?? '',
+        'birthDate' => $userInfos['birthDate'] ?? '',
+        'creationDate' => $userInfos['creation_date'] ?? '',
+        'lastModified' => $userInfos['last_modified'] ?? '',
+        'operatorLevel' => $userInfos['operator_level'] ?? '',
+        'isAdmin' => ($userInfos['operator_level'] ?? '') === 'administrator',
+        'isUser' => ($userInfos['operator_level'] ?? '') === 'user',
         ]
     ];
 
-    
     ?>
     <main class="flex h-full">
         <?php 

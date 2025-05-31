@@ -1,6 +1,6 @@
 <main class="bg-white w-full h-full rounded-tl-xl p-5">
 
-    <!-- 🔍 Formulaire de recherche d'utilisateur -->
+    <!-- Formulaire de recherche d'utilisateur -->
     <form action="/dashboard/admin" method="GET" class="grid grid-cols-2 gap-4">
         <div class="form-group">
             <label for="userEmail">User email:</label>
@@ -12,13 +12,13 @@
         </div>
     </form> 
 
-    <!-- ❌ Supprimer utilisateur -->
+    <!-- Supprimer utilisateur -->
     <form method="POST" class="mt-4">
         <input type="hidden" name="deleteUser" value="{{user.email}}">
         <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Delete user</button>
     </form>
 
-    <!-- ✅ Modifier utilisateur (tous les champs dans le même formulaire) -->
+    <!-- Modifier utilisateur -->
     <form method="POST" enctype="multipart/form-data" class="grid grid-cols-2 gap-4 mt-6">
         <input type="hidden" name="modifierUser" value="{{user.email}}">
 
@@ -75,8 +75,8 @@
         <div class="form-group">
             <label for="operatorLevel">Operator level</label>
             <select id="operatorLevel" name="operatorLevel" class="border p-2 w-full rounded">
-                <option value="user" {{#isUser}}selected{{/isUser}}>User</option>
-                <option value="administrator" {{#isAdmin}}selected{{/isAdmin}}>Administrator</option>
+               <option value="user" {{#user.isUser}}selected{{/user.isUser}}>User</option>
+                <option value="administrator" {{#user.isAdmin}}selected{{/user.isAdmin}}>Administrator</option>
             </select>
         </div>
 
