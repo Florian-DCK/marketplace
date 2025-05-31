@@ -60,10 +60,8 @@ init_session();
         $hotProducts = [];
     }
 
-
-
     $data = [
-    'isAdmin' => $_SESSION['operatorLevel'] === "administrator" ?? 'false',
+    'isAdmin' => ($_SESSION['operatorLevel'] ?? null) === "administrator",
     'hotProducts' => array_map(function($product) {
         return [
             'id' => $product['id'],
