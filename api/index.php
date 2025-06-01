@@ -109,7 +109,7 @@ init_session();
     ];
 
     
-
+   $data = [
     'isAdmin' => ($_SESSION['operatorLevel'] ?? null) === "administrator",
     'hotProducts' => array_map(function($product) {
         return [
@@ -120,9 +120,9 @@ init_session();
             'price' => $product['price'],
             'is_available' => $product['is_available'],
             'fast' => $product['event'] === 'Flash',
-            'sales' => $product['event'] === 'Soldes',
+            'sales' => $product['event'] === 'Sales',
             'new' => $product['event'] === 'New',
-            'trending' => $product['event'] === 'Tendance',
+            'trending' => $product['event'] === 'Trending',
         ];
     }, $hotProducts),
     'products' => array_map(function($product) {
@@ -137,7 +137,7 @@ init_session();
             'sales' => $product['event'] === 'Sales',
             'new' => $product['event'] === 'New',
             'trending' => $product['event'] === 'Trending',
-        ];
+            ];
         }, $products)
     ];
 
