@@ -17,14 +17,16 @@ if (!isset($_SESSION['operatorLevel']) || $_SESSION['operatorLevel'] !== "admini
     header("Location: /dashboard");
     exit;
 }
+
 $db = new connectionDB();
 
 $stmt = $db->query("SELECT name FROM Category");
 $categories = [];
 
 foreach ($stmt as $row) {
-    $categories[] = $row['name'];
+    $categories[] = ['categories' => $row['name']];
 }
+
 
 // modifier les infos de son compte
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['modifierUser']) && !isset($_POST['deleteUser']) && !isset($_POST['deleteArticle']) && !isset($_POST['deleteCategory']) && !isset($_POST['addCategory'])) {
@@ -256,7 +258,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
         'operatorLevel' => $userInfos['operator_level'] ?? '',
         'isAdmin' => ($userInfos['operator_level'] ?? '') === 'administrator',
         'isUser' => ($userInfos['operator_level'] ?? '') === 'user',
-        ]
+    ],
     ];
 
     ?>
