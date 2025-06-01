@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['modifierUser']) && !
         echo '<p style="color: red;">Email is too long.</p>';
     }
     if (strlen($lastName) > 50) {
-       echo '<p style="color: red;">Last name is too long.</p>';
+        echo '<p style="color: red;">Last name is too long.</p>';
     } 
     if (strlen($firstName) > 50) {
         echo '<p style="color: red;">First name is too long.</p>';
@@ -270,7 +270,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
             <?php 
                 echo $mustache->render('partials/dashboard/sidebar', $data);
                 if (str_contains($url, "admin")){
-                    echo $mustache->render('partials/dashboard/userAdminInfo', $data);
+                    if (str_contains($url, "categories")){
+                        echo $mustache->render('partials/dashboard/categories', $data);
+                    } else {
+                        echo $mustache->render('partials/dashboard/userAdminInfo', $data);
+                    }
                 } else {
                     echo $mustache->render('partials/dashboard/userInfos', $data);
                 }

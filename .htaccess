@@ -11,6 +11,7 @@ RewriteRule ^login$ api/views/signInUp.php [L]
 # Rediriger /dashboard et /dashboard/admin
 RewriteRule ^dashboard$ api/views/dashboard.php [L]
 RewriteRule ^dashboard/admin$ api/views/dashboard.php [L]
+RewriteRule ^dashboard/admin/categories$ api/views/dashboard.php [L]
 
 # Rediriger /signOut vers signOutControllers
 RewriteRule ^signOut$ api/controllers/signOutControllers.php  [L]
