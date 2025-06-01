@@ -272,6 +272,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
                 if (str_contains($url, "admin")){
                     if (str_contains($url, "categories")){
                         echo $mustache->render('partials/dashboard/categories', $data);
+                    } else if (str_contains($url, "items")){
+                        echo $mustache->render('partials/dashboard/items', $data);
                     } else {
                         echo $mustache->render('partials/dashboard/userAdminInfo', $data);
                     }

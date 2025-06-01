@@ -12,7 +12,7 @@ RewriteRule ^login$ api/views/signInUp.php [L]
 RewriteRule ^dashboard$ api/views/dashboard.php [L]
 RewriteRule ^dashboard/admin$ api/views/dashboard.php [L]
 RewriteRule ^dashboard/admin/categories$ api/views/dashboard.php [L]
-
+RewriteRule ^dashboard/admin/items$ api/views/dashboard.php [L]
 # Rediriger /signOut vers signOutControllers
 RewriteRule ^signOut$ api/controllers/signOutControllers.php  [L]
 
