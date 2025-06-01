@@ -11,7 +11,7 @@ $url = $_SERVER['REQUEST_URI'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marketplace - Publication Form</title>
+    <title>Marketplace - Product</title>
     <link rel="stylesheet" href="/global.css">
 </head>
 

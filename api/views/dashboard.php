@@ -5,6 +5,8 @@ require_once __DIR__ . "/../models/images.php";
 require_once __DIR__ . '/../models/database.php';
 init_session();
 
+$db = new connectionDB();
+
 if (!isset($_SESSION['id'])) {
     header("Location: /");
     exit;
@@ -17,7 +19,6 @@ if (!isset($_SESSION['operatorLevel']) || $_SESSION['operatorLevel'] !== "admini
     header("Location: /dashboard");
     exit;
 }
-$db = new connectionDB();
 
 if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['modifierUser'])) {
     $lastName = $_POST['surname'] ?? '';
@@ -260,15 +261,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
 
     
     ?>
-    <main class="flex h-full">
-        <?php 
-            echo $mustache->render('partials/dashboard/sidebar', $data);
-            if (str_contains($url, "admin")){
-                echo $mustache->render('partials/dashboard/userAdminInfo', $data);
-            } else {
-                echo $mustache->render('partials/dashboard/userInfos', $data);
-            }
-        ?>
+    <main class="flex h-full bg-gradient-to-br bg-[#EAEBED] items-center justify-center py-8">
+        <div class="flex mx-auto w-full max-w-7xl rounded-3xl shadow-2xl overflow-hidden bg-white">
+            <?php 
+                echo $mustache->render('partials/dashboard/sidebar', $data);
+                if (str_contains($url, "admin")){
+                    echo $mustache->render('partials/dashboard/userAdminInfo', $data);
+                } else {
+                    echo $mustache->render('partials/dashboard/userInfos', $data);
+                }
+            ?>
+        </div>
     </main>
 </body>
 </html>
@@ -280,3 +283,4 @@ unset($userEmail);
 unset($userInfos);
 unset($data);
 ?>
+
