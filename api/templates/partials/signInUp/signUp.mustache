@@ -9,6 +9,9 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-5xl">
         <div class="w-full">
             <label for="firstName" class="block text-sm font-medium text-gray-700 mb-1">First Name *</label>
+            {{#firstNameError}}
+                <p class="text-red-500 text-xs mb-1">{{.}}</p>
+            {{/firstNameError}}
             <div class="relative">
                 <input  type="text" 
                         name="firstName" 
@@ -25,6 +28,9 @@
         </div>
         <div class="w-full">
             <label for="lastName" class="block text-sm font-medium text-gray-700 mb-1">Last Name *</label>
+            {{#lastNameError}}
+                <p class="text-red-500 text-xs mb-1">{{.}}</p>
+            {{/lastNameError}}
             <div class="relative">
                 <input  type="text" 
                         name="lastName" 
@@ -86,6 +92,9 @@
         </div>
         <div class="w-full">
             <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email *</label>
+            {{#emailError}}
+                <p class="text-red-500 text-xs mb-1">{{.}}</p>
+            {{/emailError}}
             <div class="relative">
                 <input  type="email" 
                         name="email" 
@@ -101,6 +110,9 @@
         </div>
         <div class="w-full">
             <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password *</label>
+            {{#passwordError}}
+                <p class="text-red-500 text-xs mb-1">{{.}}</p>
+            {{/passwordError}}
             <div class="relative">
                 <input  type="password" 
                         name="password" 
@@ -113,9 +125,13 @@
                     <path d="M64 1C47.5 1 34 14.5 34 31v26H15v70h99V57H94V31C94 14.5 80.5 1 64 1zM42 31c0-12.1 9.9-22 22-22s22 9.9 22 22v26H42V31zm64 34v54H23V65h83z"/><path d="M60 81h8v22h-8z"/>
                 </svg>
             </div>
+            <p class="block text-xs text-gray-400">8 characters, 1 special character and 1 digit</p>
         </div>
         <div class="w-full">
             <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-1">Confirm Password *</label>
+            {{#confirmPasswordError}}
+                <p class="text-red-500 text-xs mb-1">{{.}}</p>
+            {{/confirmPasswordError}}
             <div class="relative">
                 <input  type="password" 
                         name="confirmPassword" 

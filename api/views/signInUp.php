@@ -60,12 +60,44 @@
         }
     }
     
-    
-
-    $data = [
-        "inscription" => isset($_GET['login']) ?? $_GET['login'],
-        "error" => $errorMessage,
+    $fieldErrors = [
+        'firstNameError' => null,
+        'lastNameError' => null,
+        'birthDateError' => null,
+        'avatarError' => null,
+        'phoneNumberError' => null,
+        'emailError' => null,
+        'passwordError' => null,
+        'confirmPasswordError' => null,
     ];
+
+    foreach ($errorCode as $key => $value) {
+        switch ($key) {
+            case 0:
+                if ($value == 1) $fieldErrors['emailError'] = "Your email exceeds 50 characters";
+                break;
+            case 1:
+                if ($value == 1) $fieldErrors['lastNameError'] = "Your last name exceeds 50 characters";
+                break;
+            case 2:
+                if ($value == 1) $fieldErrors['firstNameError'] = "Your first name exceeds 50 characters";
+                break;
+            case 3:
+                if ($value == 1) $fieldErrors['emailError'] = "Email already used";
+                break;
+            case 4:
+                if ($value == 1) $fieldErrors['passwordError'] = "Password must be at least 8 characters, include a digit and a special character";
+                break;
+            case 5:
+                if ($value == 1) $fieldErrors['confirmPasswordError'] = "Passwords do not match";
+                break;
+        }
+    }
+
+    $data = array_merge([
+        "inscription" => $_GET['login'] ?? null,
+        "error" => $errorMessage,
+    ], $fieldErrors);
 
     echo $mustache->render('signInUp', $data);
 
