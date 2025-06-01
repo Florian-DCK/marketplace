@@ -19,7 +19,7 @@ if (!isset($_SESSION['operatorLevel']) || $_SESSION['operatorLevel'] !== "admini
     header("Location: /dashboard");
     exit;
 }
-
+// récupérer toutes les catagories
 $stmt = $db->query("SELECT name FROM Category");
 $categories = [];
 
@@ -27,6 +27,13 @@ foreach ($stmt as $row) {
     $categories[] = ['categories' => $row['name']];
 }
 
+// delete une catégorie
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset ($_POST['deleteCategory'])) {
+    $deleteCategory = $_POST['deleteCategory'];
+    $db->query("DELETE FROM Category WHERE id = :id", [':id' => $deleteCategory]);
+    header("Location: /dashboard/admin");
+    exit;
+}
 
 // modifier les infos de son compte
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['modifierUser']) && !isset($_POST['deleteUser']) && !isset($_POST['deleteArticle']) && !isset($_POST['deleteCategory']) && !isset($_POST['addCategory'])) {
@@ -99,13 +106,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
         $db -> query("DELETE FROM User WHERE email = :email", [':email' => $deleteUSer]);
         header("Location: /dashboard/admin");
         exit;
-    }
-
-    // supprimer une catégorie
-    if (isset($_POST['deleteCategory'])) {
-        $deleteCategory = $_POST['deleteCategory'];
-        $db -> query("DELETE FROM Category WHERE id = :id", [':id' => $deleteCategory]);
-        header("Location: /dashboard/admin");
     }
 
     // ajouter une catégorie
