@@ -489,12 +489,6 @@
   .h-128 {
     height: calc(var(--spacing) * 128);
   }
-  .h-\[363px\] {
-    height: 363px;
-  }
-  .h-\[383px\] {
-    height: 383px;
-  }
   .h-\[calc\(100\%-3rem\)\] {
     height: calc(100% - 3rem);
   }
@@ -620,6 +614,9 @@
   }
   .max-w-full {
     max-width: 100%;
+  }
+  .max-w-md {
+    max-width: var(--container-md);
   }
   .flex-shrink {
     flex-shrink: 1;
@@ -1285,6 +1282,13 @@
         --tw-scale-y: 115%;
         --tw-scale-z: 115%;
         scale: var(--tw-scale-x) var(--tw-scale-y);
+      }
+    }
+  }
+  .hover\:bg-\[\#008f1a\] {
+    &:hover {
+      @media (hover: hover) {
+        background-color: #008f1a;
       }
     }
   }

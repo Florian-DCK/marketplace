@@ -1,3 +1,4 @@
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 <main class="bg-[#EAEBED] p-8">
     <div class="bg-[#EAEBED] h-full m-4 p-4">
         <form enctype="multipart/form-data" method="POST" action="../api/views/cart.php" class="border border-gray-300 bg-white rounded-2xl flex">
@@ -40,22 +41,92 @@
                     <hr class="w-2/3 border-gray-300">
                 </div>
                 <div class="text-center space-y-10 pt-10 flex flex-col items-center">
-                <div class="flex flex-col w-full items-center space-y-10">
-                    <div>
-                        <h2 class="font-bold text-lg">Name : {{product.seller_name}}</h2>
-                        <hr class="w-2/3 border-gray-300">
+                    <div class="flex flex-col w-full items-center space-y-10">
+                        <div>
+                            <h2 class="font-bold text-lg">Name : {{product.seller_name}}</h2>
+                            <hr class="w-2/3 border-gray-300">
+                        </div>
+                        <div>
+                            <h2 class="font-semibold text-lg">Phone number : {{product.seller_phone}}</h2>
+                            <hr class="w-2/3 border-gray-300">
+                        </div>
+                        <div>
+                            <h2 class="font-semibold text-lg">Email : {{product.seller_email}}</h2>
+                            <hr class="w-2/3 border-gray-300">
+                        </div>
                     </div>
-                    <div>
-                        <h2 class="font-semibold text-lg">Phone number : {{product.seller_phone}}</h2>
-                        <hr class="w-2/3 border-gray-300">
-                    </div>
-                    <div>
-                        <h2 class="font-semibold text-lg">Email : {{product.seller_email}}</h2>
-                        <hr class="w-2/3 border-gray-300">
-                    </div>
-                </div>
-                <hr class="w-2/3 border-gray-300">
+                    
+                    <div x-data="{ 
+    message: '', 
+    userId: '{{current_user.id}}',
+    sellerId: '{{product.id_user}}',
+    messageSent: false,
+    sendMessage() { 
+        if (this.message.trim() === '') {
+            console.log('Message cannot be empty');
+            return;
+        }
+        if (Number(this.userId) === Number(this.sellerId)) {
+            console.log(this.userId, this.sellerId);
+            console.log('You cannot send a message to yourself');
+            return;
+        }
+        fetch('/api/messages', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                content: this.message,
+                user_id: this.userId,
+                other_user_id: this.sellerId,
+            }),
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('Message sent successfully');
+                this.messageSent = true;
+            } else {
+                console.error('Failed to send message');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    } 
+}" class="w-full max-w-md mx-auto p-4 bg-white rounded-lg shadow-md">
+    <template x-if="!messageSent">
+        <div>
+            <h3 class="text-xl font-bold text-[#303F9F] mb-4">Send a message to the seller</h3>
+            <textarea 
+                x-model="message" 
+                placeholder="Write your message here..." 
+                class="w-full h-32 p-3 mb-4 border-2 border-[#303F9F] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFC107] resize-none"
+            ></textarea>
+            <button 
+                type="button" 
+                @click="sendMessage()" 
+                class="w-full bg-[#303F9F] text-white py-2 px-4 rounded-lg hover:bg-[#1A237E] transition-colors duration-200 font-semibold"
+            >
+                Send message
+            </button>
+        </div>
+    </template>
+    <template x-if="messageSent">
+        <div class="text-center py-4">
+            <div class="text-[#00c524] text-2xl mb-2">
+                <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
             </div>
+            <p class="text-lg font-semibold text-[#303F9F]">Message sent successfully!</p>
+            <p class="text-sm text-gray-600 mt-2">The seller will receive your message shortly.</p>
+        </div>
+    </template>
+</div>
+                    
+                    <hr class="w-2/3 border-gray-300">
+                </div>
             </div>
         </form>
     </div>
