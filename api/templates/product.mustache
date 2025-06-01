@@ -50,20 +50,32 @@
                     </div>
                 </div>
                 <div class="text-center space-y-10 pt-10 flex flex-col items-center">
-                    <div class="flex flex-col w-full items-center space-y-10">
+                <!-- Add to Cart Button -->
+                <form enctype="multipart/form-data" method="POST" action="../api/views/cart.php">
+                    <input type="hidden" name="product_id" value="{{product.id}}">
+                    <button type="submit"
+                        class="w-full px-5 bg-[#00c524] text-white py-3 rounded-xl font-bold text-lg shadow hover:bg-[#00e03a] transition ">
+                        Add to cart
+                    </button>
+                </form>
+                <!-- Seller Info -->
+                <div class="mt-3">
+                    <h2 class="text-xl font-bold text-[#5242AE] mb-4 text-center">Seller Info</h2>
+                    <div class="space-y-2 text-center">
                         <div>
-                            <h2 class="font-bold text-lg">Name : {{product.seller_name}}</h2>
-                            <hr class="w-2/3 border-gray-300">
+                            <span class="font-semibold text-[#303F9F]">Name:</span>
+                            <span>{{product.seller_name}}</span>
                         </div>
                         <div>
-                            <h2 class="font-semibold text-lg">Phone number : {{product.seller_phone}}</h2>
-                            <hr class="w-2/3 border-gray-300">
+                            <span class="font-semibold text-[#303F9F]">Phone:</span>
+                            <span>{{product.seller_phone}}</span>
                         </div>
                         <div>
-                            <h2 class="font-semibold text-lg">Email : {{product.seller_email}}</h2>
-                            <hr class="w-2/3 border-gray-300">
+                            <span class="font-semibold text-[#303F9F]">Email:</span>
+                            <span>{{product.seller_email}}</span>
                         </div>
                     </div>
+                </div>
                     
                     <div x-data="{ 
     message: '', 
