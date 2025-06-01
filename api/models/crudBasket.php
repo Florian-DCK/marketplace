@@ -86,6 +86,15 @@
         }
     }
 
+    function removeFromBasket($basket_id, $product_id, $db) {
+        $sql = "DELETE FROM ProductBasket WHERE basket_id = :basket_id AND product_id = :product_id";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([
+            ':basket_id' => $basket_id,
+            ':product_id' => $product_id
+        ]);
+    }
+
     /*function checkBasket($user_id, $db) {
         try {
             $basket = $db->query("SELECT * FROM Basket WHERE user_id = :user_id", [

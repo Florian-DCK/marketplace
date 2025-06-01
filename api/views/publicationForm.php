@@ -96,7 +96,8 @@ $url = $_SERVER['REQUEST_URI'];
                     ":image" => $imageId["id"],
                     "event" => $event
                 ]);
-            header("Location: /");
+            header("Location: /myItems");
+            exit();
         }
     }
 

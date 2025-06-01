@@ -2,11 +2,32 @@
     <ul class="flex flex-col gap-2 p-3">
         {{# conversations}}
         <button 
-            class="flex items-center gap-2 p-2 hover:bg-gray-100"
-            @click="$dispatch('select-conversation', { otherUserId: {{sender.id}}, userId: {{userId}} })"
+            class="flex items-center gap-2 p-2 hover:bg-gray-100 relative"
+            @click="
+                hasNewMessages = false;
+                $dispatch('select-conversation', { otherUserId: {{sender.id}}, userId: {{userId}} })
+            "
+            x-data="{ hasNewMessages: false }"
+            x-init="
+                async function checkNewMessages() {
+                    const res = await fetch('/api/messages?user_id={{userId}}&other_user_id={{sender.id}}');
+                    const data = await res.json();
+                    const lastMessage = data.messages[data.messages.length - 1];
+                    if (lastMessage && !lastMessage.ours) {
+                        this.hasNewMessages = true;
+                        $dispatch('new-message');
+                    }
+                }
+                checkNewMessages();
+                setInterval(checkNewMessages, 1000);
+            "
         >
             <img class="size-8 rounded-full transit bg-gray-500" src="{{sender.avatar}}" onerror="this.src='/api/public/defaultAvatar.jpg'" alt="{{sender.name}}">
             <p class="select-none">{{sender.name}}</p>
+            <div 
+                x-show="hasNewMessages" 
+                class="absolute right-2 top-1/2 -translate-y-1/2 w-2 h-2 bg-red-500 rounded-full"
+            ></div>
         </button>
         {{/ conversations}}
     </ul>

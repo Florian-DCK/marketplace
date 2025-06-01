@@ -11,14 +11,14 @@ $url = $_SERVER['REQUEST_URI'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marketplace - Publication Form</title>
+    <title>Marketplace - Product</title>
     <link rel="stylesheet" href="/global.css">
 </head>
 
 
     <?php
         include __DIR__ . '/navbar.php';
-        include __DIR__ . '/../models/database.php';
+        require_once __DIR__ . '/../models/database.php';
 
         $mustache = new Mustache_Engine([
             'loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/../templates'),
@@ -45,7 +45,11 @@ $url = $_SERVER['REQUEST_URI'];
             }
 
             // Render the Mustache template with the product data
-            echo $mustache->render('product', ['product' => $product[0]]);
+            echo $mustache->render('product', [
+                'product' => $product[0],
+                'current_user' => ['id' => $_SESSION['id']]
+            ]);
+            include_once __DIR__ . '/messages.php';
         } else {
             echo "Product not found.";
         }
