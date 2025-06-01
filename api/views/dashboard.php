@@ -206,10 +206,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['searchItem'])) {
     $searchItem = $_POST['searchItem'] ?? '';
     $stmt = $db->query("SELECT * FROM Product WHERE title LIKE :name", [':name' => '%' . $searchItem . '%']);
-
+    
     $items = [];
 } 
 
+// supprimer un article
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['deleteArticle'])) {
+    $db = new connectionDB();
+    $deleteArticle = $_POST['deleteArticle'];
+    $db -> query("DELETE FROM Product WHERE id = :id", [':id' => $deleteArticle]);
+    header("Location: /dashboard/admin/items");
+    exit;
+}
 
 ?>
 <!DOCTYPE html>
@@ -263,7 +271,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['searchItem'])) {
                 'title' => $row['title'],
                 'description' => $row['description'],
                 'price' => $row['price'],
-                'image' => $row['image'] ?? '',
+                'image' => image_get ($row['image'])['link'] ?? null,
             ];
         }
     }
