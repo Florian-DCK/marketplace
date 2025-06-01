@@ -20,17 +20,20 @@ if (!isset($_SESSION['operatorLevel']) || $_SESSION['operatorLevel'] !== "admini
     exit;
 }
 // récupérer toutes les catagories
-$stmt = $db->query("SELECT name FROM Category");
-$categories = [];
-
-foreach ($stmt as $row) {
-    $categories[] = ['categories' => $row['name']];
-}
+$stmt = $db->query("SELECT id, name FROM Category");
 
 // delete une catégorie
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset ($_POST['deleteCategory'])) {
     $deleteCategory = $_POST['deleteCategory'];
     $db->query("DELETE FROM Category WHERE id = :id", [':id' => $deleteCategory]);
+    header("Location: /dashboard/admin");
+    exit;
+}
+
+// ajouter une catégorie
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['addCategory'])) {
+    $addCategory = $_POST['addCategory'] ?? '';
+    $db->query("INSERT INTO Category (name) VALUES (:name)", [':name' => $addCategory]);
     header("Location: /dashboard/admin");
     exit;
 }
@@ -104,14 +107,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
     if (isset($_POST['deleteUser'])) {
         $deleteUSer = $_POST['deleteUser'];
         $db -> query("DELETE FROM User WHERE email = :email", [':email' => $deleteUSer]);
-        header("Location: /dashboard/admin");
-        exit;
-    }
-
-    // ajouter une catégorie
-    if (isset($_POST['addCategory'])) {
-        $addCategory = $_POST['addCategory'] ?? '';
-        $db->query("INSERT INTO Category (name) VALUES (:name)", [':name' => $addCategory]);
         header("Location: /dashboard/admin");
         exit;
     }
@@ -243,9 +238,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
 
     $db->close();
     
+    $categories = [];
+    foreach ($stmt as $row) {
+        $categories[] = [
+            'id' => $row['id'],
+            'name' => $row['name']
+        ];
+    }
 
     $data = [
-    'isAdmin' => str_contains($url, "admin"), 
+    'isAdmin' => str_contains($url, "admin"),
+    'categories' => $categories,
     'user' => [
         'lastName' => $userInfos['surname'] ?? '',
         'firstName' => $userInfos['name'] ?? '',
