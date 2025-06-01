@@ -10,12 +10,30 @@
         async loadMessages(userId, otherUserId) {
             this.selectedUserId = userId;
             this.otherUserId = otherUserId;
+            this.reduced = false;
+            
+            // Attendre que le conteneur soit visible
+            await this.$nextTick();
+            
             const res = await fetch('/api/messages?user_id=' + userId + '&other_user_id=' + otherUserId);
             const data = await res.json();
             this.messages = data.messages || [];
             this.hasNewMessages = false;
             this.startAutoRefresh();
-            this.$nextTick(() => this.scrollToBottom()); // Scroll après chargement
+            
+            // Forcer le scroll initial
+            this.$nextTick(() => {
+                const container = this.$refs.messagesContainer;
+                if (container) {
+                    // Forcer le scroll initial
+                    container.scrollTop = 999999;
+                    
+                    // S'assurer que le scroll est bien en bas après un court délai
+                    setTimeout(() => {
+                        container.scrollTop = container.scrollHeight;
+                    }, 50);
+                }
+            });
         },
         async refreshMessages() {
             if (!this.selectedUserId || !this.otherUserId) return;
@@ -26,6 +44,13 @@
             
             if (this.messages.length > oldMessagesCount) {
                 this.hasNewMessages = true;
+                // Scroll vers le bas quand de nouveaux messages arrivent
+                this.$nextTick(() => {
+                    const container = this.$refs.messagesContainer;
+                    if (container) {
+                        container.scrollTop = container.scrollHeight;
+                    }
+                });
             }
         },
         startAutoRefresh() {
@@ -81,39 +106,41 @@
     </nav>
     <div :class="reduced ? 'h-0 overflow-hidden' : 'h-[calc(100%-3rem)]'" class="transition-all duration-500 flex">
         {{> messages/sidebar}}
-        <div class="w-full h-full relative overflow-y-auto z-50">
+        <div class="w-full h-full relative z-50">
             <div
                 x-ref="messagesContainer"
-                class="flex flex-col justify-end pb-14 px-2 space-y-5"
+                class="absolute inset-0 overflow-y-auto"
             >
-                <template x-for="msg in messages" :key="msg.id">
-                    <div>
-                        <template x-if="msg.ours === true">
-                            <div class="flex justify-end items-center w-full relative">
-                                <p
-                                    class="text-xs text-gray-500 text-right mr-2 absolute -top-4 right-2"
-                                    x-text="msg.date"
-                                ></p>
-                                <div
-                                    class="py-2 max-w-[75%] text-white text-sm px-4 bg-[#303F9F] rounded-3xl shadow-[0_0_15px_rgba(0,0,0,0.2)]"
-                                    x-text="msg.content"
-                                ></div>
-                            </div>
-                        </template>
-                        <template x-if="msg.ours === false">
-                            <div class="flex justify-start items-center w-full relative">
-                                <p
-                                    class="text-xs text-gray-500 text-left ml-2 absolute -top-4 left-2"
-                                    x-text="msg.date"
-                                ></p>
-                                <div
-                                    class="py-2 max-w-[75%] text-white text-sm px-4 bg-[#FFC107] rounded-3xl shadow-[0_0_15px_rgba(0,0,0,0.2)]"
-                                    x-text="msg.content"
-                                ></div>
-                            </div>
-                        </template>
-                    </div>
-                </template>
+                <div class="flex flex-col min-h-full justify-end pb-14 px-2 space-y-5">
+                    <template x-for="msg in messages" :key="msg.id">
+                        <div>
+                            <template x-if="msg.ours === true">
+                                <div class="flex justify-end items-center w-full relative">
+                                    <p
+                                        class="text-xs text-gray-500 text-right mr-2 absolute -top-4 right-2"
+                                        x-text="msg.date"
+                                    ></p>
+                                    <div
+                                        class="py-2 max-w-[75%] text-white text-sm px-4 bg-[#303F9F] rounded-3xl shadow-[0_0_15px_rgba(0,0,0,0.2)]"
+                                        x-text="msg.content"
+                                    ></div>
+                                </div>
+                            </template>
+                            <template x-if="msg.ours === false">
+                                <div class="flex justify-start items-center w-full relative">
+                                    <p
+                                        class="text-xs text-gray-500 text-left ml-2 absolute -top-4 left-2"
+                                        x-text="msg.date"
+                                    ></p>
+                                    <div
+                                        class="py-2 max-w-[75%] text-white text-sm px-4 bg-[#FFC107] rounded-3xl shadow-[0_0_15px_rgba(0,0,0,0.2)]"
+                                        x-text="msg.content"
+                                    ></div>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+                </div>
             </div>
         </div>            
         <input 
