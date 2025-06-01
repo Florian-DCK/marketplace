@@ -20,7 +20,7 @@ if (!isset($_SESSION['operatorLevel']) || $_SESSION['operatorLevel'] !== "admini
     exit;
 }
 // récupérer toutes les catagories
-$stmt = $db->query("SELECT id, name FROM Category");
+$categoryStmt = $db->query("SELECT id, name FROM Category");
 
 // delete une catégorie
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset ($_POST['deleteCategory'])) {
@@ -185,6 +185,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
         if (!empty($avatar['tmp_name']) && $avatar['error'] === UPLOAD_ERR_OK) {
             $avatar_id = image_upload($avatar)['id'];
             updateAvatar($db, $targetUserId, $avatar_id);
+            $_SESSION['avatar'] = $avatar_id; 
         }
         if (!empty($password)) {
             updatePass($db, $targetUserId, $password);
@@ -200,6 +201,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
         echo '<p style="color: green;">User updated successfully.</p>';
     }
 }
+
+// rechercher un item
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['searchItem'])) {
+    $searchItem = $_POST['searchItem'] ?? '';
+    $stmt = $db->query("SELECT * FROM Product WHERE title LIKE :name", [':name' => '%' . $searchItem . '%']);
+
+    $items = [];
+} 
 
 
 ?>
@@ -239,16 +248,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
     $db->close();
     
     $categories = [];
-    foreach ($stmt as $row) {
+    foreach ($categoryStmt as $row) {
         $categories[] = [
             'id' => $row['id'],
             'name' => $row['name']
         ];
     }
 
+    $items = [];
+    if (isset($stmt)) {
+        foreach ($stmt as $row) {
+            $items[] = [
+                'id' => $row['id'],
+                'title' => $row['title'],
+                'description' => $row['description'],
+                'price' => $row['price'],
+                'image' => $row['image'] ?? '',
+            ];
+        }
+    }
     $data = [
     'isAdmin' => str_contains($url, "admin"),
     'categories' => $categories,
+    'items' => $items ,
     'user' => [
         'lastName' => $userInfos['surname'] ?? '',
         'firstName' => $userInfos['name'] ?? '',
