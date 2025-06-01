@@ -216,7 +216,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
     <title>Marketplace - Dahsboard</title>
     <link rel="stylesheet" href="/global.css">
 </head>
-<body class="h-screen w-screen flex flex-col bg-[#EAEBED]">
+<body class="w-full flex flex-col bg-[#EAEBED] overflow-x-hidden">
     <?php 
     include_once __DIR__ . '/navbar.php'; 
     
