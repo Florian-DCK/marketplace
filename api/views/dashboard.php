@@ -54,7 +54,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['modifierUser'])) {
         echo '<p style="color: red;">Email is too long.</p>';
     }
     if (strlen($lastName) > 50) {
-       echo '<p style="color: red;">Last name is too long.</p>';
+        echo '<p style="color: red;">Last name is too long.</p>';
     } 
     if (strlen($firstName) > 50) {
         echo '<p style="color: red;">First name is too long.</p>';
