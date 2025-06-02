@@ -1,9 +1,9 @@
 <?php
 require_once __DIR__ . '/config/session.php';
+init_session();
 include __DIR__ . '/models/users/getInfosModel.php';
 require_once __DIR__ . "/models/images.php";
 include_once __DIR__ . '/models/database.php';
-init_session();
 
 
 ?>
