@@ -1,7 +1,7 @@
 <?php
 
 use GrahamCampbell\ResultType\Success;
-session_start() ;
+
 require_once __DIR__ . '/../config/session.php';
 
 init_session();
@@ -84,12 +84,14 @@ $url = $_SERVER['REQUEST_URI'];
         // Si aucune erreur, insère en BDD
         if (empty($messages)) {
             $imageId = image_upload($image);
-
+            $idCategory = $category;
+            $idVendor = $id;  
+            
             $conn->query("INSERT INTO Product (id_category, id_user, title, description, price, image, event) 
                 VALUES (:id_category, :id_user, :title, :description, :price, :image, :event)",
                 [
                     ":id_category" => $idCategory,
-                    ":id_vendor" => $idVendor,
+                    ":id_user" => $idVendor,
                     ":title" => $title,
                     ":description" => $description,
                     ":price" => $price,
