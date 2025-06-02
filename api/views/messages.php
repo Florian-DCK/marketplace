@@ -31,6 +31,14 @@ if ($conversations !== null) {
         if (!isset($uniqueConversations[$key])) {
             $otherUser = getUserById($otherUserId, $db);
             if ($otherUser) {
+                if ($otherUser['avatar'] !== "NULL") {
+                    $imageData = image_get($otherUser['avatar']);
+                    if (is_array($imageData) && isset($imageData['link'])) {
+                        $otherUser['avatar'] = $imageData['link'];
+                    } else {
+                        $otherUser['avatar'] = null; // Ou une valeur par défaut
+                    }
+                }
                 $conversation['sender'] = $otherUser;
                 $uniqueConversations[$key] = $conversation;
             }

@@ -63,7 +63,6 @@ if (!function_exists('image_upload')) {
         
         $result = json_decode($response, true);    // Vérifier si le décodage JSON a réussi
         if (json_last_error() !== JSON_ERROR_NONE) {
-            echo "json decode raté";
             return false;
         }
         
