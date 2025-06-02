@@ -114,6 +114,15 @@ if (!$userEmail) {
     $userInfos = getUserInfo($userEmail, $db);
 }
 
+// Ajout de la pagination
+$page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
+$productsPerPage = 12;
+$totalProducts = count($products);
+$totalPages = ceil($totalProducts / $productsPerPage);
+
+// Filtrer les produits pour la page actuelle
+$startIndex = ($page - 1) * $productsPerPage;
+$paginatedProducts = array_slice($products, $startIndex, $productsPerPage);
 ?>
 
 <!DOCTYPE html>
@@ -144,7 +153,7 @@ if (!$userEmail) {
             die("Erreur lors de l'initialisation de Mustache : " . $e->getMessage());
         }
 
-        $data = [
+    $data = [
     'isAdmin' => ($_SESSION['operatorLevel'] ?? null) === "administrator",
     'hotProducts' => array_map(function($product) {
         return [
@@ -173,7 +182,7 @@ if (!$userEmail) {
             'new' => $product['event'] === 'New',
             'trending' => $product['event'] === 'Trending',
         ];
-    }, $products),
+    }, $paginatedProducts),
     'user' => [
         'avatar' => $userInfos['avatar'] ?? '',
     ],
@@ -181,7 +190,15 @@ if (!$userEmail) {
     'search' => htmlspecialchars($search),
     'hasSearch' => !empty($search),
     'noResults' => empty($products) && !empty($search),
-    'searchError' => $searchError
+    'searchError' => $searchError,
+    'pagination' => [
+        'currentPage' => $page,
+        'totalPages' => $totalPages,
+        'hasPrevious' => $page > 1,
+        'hasNext' => $page < $totalPages,
+        'previousPage' => $page > 1 ? $page - 1 : null,
+        'nextPage' => $page < $totalPages ? $page + 1 : null
+    ]
 ];
 
         echo $mustache->render('productList', $data);

@@ -31,4 +31,16 @@
             {{> card}}
         {{/products}}
     </div>
+
+    <nav class="pagination flex justify-center items-center mt-6">
+        {{#pagination.hasPrevious}}
+            <a href="?page={{pagination.previousPage}}" class="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded">Précédent</a>
+        {{/pagination.hasPrevious}}
+
+        <span class="px-4 py-2">Page {{pagination.currentPage}} sur {{pagination.totalPages}}</span>
+
+        {{#pagination.hasNext}}
+            <a href="?page={{pagination.nextPage}}" class="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded">Suivant</a>
+        {{/pagination.hasNext}}
+    </nav>
 </main>
