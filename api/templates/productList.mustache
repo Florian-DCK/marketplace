@@ -1,15 +1,34 @@
 <main class="mx-auto">
-    <div>
-        {{# hotProducts}}
-            <h2 class="flex text-4xl mb-4 mt-10 uppercase font-bold w-fit "><img src="/api/public/svg/flame.svg" class="size-12 [filter:invert(44%)_sepia(96%)_saturate(3938%)_hue-rotate(360deg)_brightness(102%)_contrast(104%)]" />Les produits tendances !</h2>
+    {{#hasSearch}}
+        <h2 class="flex text-4xl mb-4 mt-10 uppercase font-bold w-fit">Résultats pour "{{search}}"</h2>
+    {{/hasSearch}}
+
+    {{#noResults}}
+        <p class="text-gray-500 mb-4 text-lg">Aucun produit trouvé pour "{{search}}".</p>
+    {{/noResults}}
+
+    {{#searchError}}
+        <p class="text-red-500 mb-4 text-lg">{{searchError}}</p>
+    {{/searchError}}
+
+    {{#hotProducts}}
+        <h2 class="flex text-4xl mb-4 mt-10 uppercase font-bold w-fit">
+            <img src="/api/public/svg/flame.svg" class="size-12 [filter:invert(44%)_sepia(96%)_saturate(3938%)_hue-rotate(360deg)_brightness(102%)_contrast(104%)]" />
+            Les produits tendances !
+        </h2>
+        <div class="my-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6 mx-auto">
+            {{#hotProducts}}
+                {{> card}}
+            {{/hotProducts}}
+        </div>
+    {{/hotProducts}}
+
+    <h2 class="flex text-4xl mb-4 mt-10 uppercase font-bold w-fit">
+        {{#hasSearch}}Résultats de la recherche{{else}}All catalogue{{/hasSearch}}
+    </h2>
+    <div class="my-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6 mx-auto">
+        {{#products}}
             {{> card}}
-        {{/ hotProducts}}
-    </div>
-    <h2 class="flex text-4xl mb-4 mt-10 uppercase font-bold w-fit ">All catalogue</h2>
-    <div class="my-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6  mx-auto">
-        {{# products}}
-            {{> card}}
-        {{/ products}}
-        
+        {{/products}}
     </div>
 </main>

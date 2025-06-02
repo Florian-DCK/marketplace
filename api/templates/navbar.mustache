@@ -1,10 +1,10 @@
-<div class="relative h-max w-screen bg-violet-500 px-5 py-2">
+<div class="relative h-max w-screen bg-[#EAEBED] px-5 py-2">
 	<div class="flex items-center justify-between">
 		<a href="/">
 			<span class="flex items-center">
 				<h1 class="text-5xl font-bold flex items-center justify-center">
 					<p class="hidden md:flex text-nowrap">Hello W</p>
-					<svg fill="white" height="38px" width="40px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 -22 331.38 345.38" xml:space="preserve"><g>
+					<svg fill="#5242AE" height="38px" width="40px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 -22 331.38 345.38" xml:space="preserve"><g>
 					<path d="M331.376,165.427h-16.857c0.001,0.088,0.003,0.176,0.003,0.265c0,0.309-0.01,0.615-0.012,0.924
 					c-2.429,2.544-11.397,9.025-42.54,15.01c-1.196,0.23-2.43,0.449-3.656,0.67c0.338-5.483,0.512-11.022,0.512-16.604
 					c0-0.088-0.002-0.176-0.002-0.265h-15.228c0.001,0.088,0.003,0.176,0.003,0.265c0,6.428-0.266,12.782-0.737,19.055
@@ -71,7 +71,7 @@
 					{{> navbar/profiles}}
 				{{/isConnected}}
 				{{^isConnected}}
-					<a href="/login"><button class="w-full py-1 px-2 rounded-full text-[#5242AE] bg-white font-semibold hover:bg-[#EAEBED] transition-all shadow-lg mt-2">Connection</button></a>
+					<a href="/login"><button class="w-full py-1 px-2 rounded-full border-2 border-[#EAEBED] text-[#EAEBED] bg-[#5242AE] font-semibold hover:bg-[#EAEBED] hover:text-[#5242AE] hover:border-[#5242AE] hover:border-2 transition-all shadow-lg mt-2">Connection</button></a>
 				{{/isConnected}}
 				{{#isConnected}}
 					{{> menu}}
@@ -79,12 +79,12 @@
 			</div>
 		{{/showMenu}}
 	</div>
-	<div class="bg-violet-500 max-w-full flex justify-center">
+	<div class="bg-[#EAEBED] max-w-full flex justify-center">
     <!-- Horizontal list for medium and up -->
     <ul class="hidden lg:flex flex-wrap items-center w-[90%] justify-center shadow-[0_10px_10px_-10px_rgba(0,0,0,0.1)] px-2 sm:px-4 md:px-8 max-h-[96px] overflow-hidden">
         {{#categories}}
             <a href="/search?category={{name}}">
-                <li class="p-2 hover:bg-gray-200 rounded-2xl cursor-pointer text-wrap whitespace-nowrap">
+                <li class="p-2 hover:bg-[#5242AE] hover:text-white rounded-2xl cursor-pointer text-wrap whitespace-nowrap">
                 {{name}}
                 </li>
             </a>
