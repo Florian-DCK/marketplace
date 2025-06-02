@@ -15,7 +15,7 @@ init_session();
     <title>Marketplace</title>
     <link rel="stylesheet" href="/global.css">
 </head>
-<body class="bg-[#EAEBED] flex flex-col min-h-screen">
+<body class="bg-[#EAEBED] flex flex-col min-h-full">
     <?php 
     include __DIR__ . '/views/navbar.php';
     include_once __DIR__ . '/models/crudProducts.php';
