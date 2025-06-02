@@ -26,7 +26,7 @@ $categoryStmt = $db->query("SELECT id, name FROM Category");
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset ($_POST['deleteCategory'])) {
     $deleteCategory = $_POST['deleteCategory'];
     $db->query("DELETE FROM Category WHERE id = :id", [':id' => $deleteCategory]);
-    header("Location: /dashboard/admin");
+    header("Location: /dashboard/admin/categories");
     exit;
 }
 
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset ($_POST['deleteCategory'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['addCategory'])) {
     $addCategory = $_POST['addCategory'] ?? '';
     $db->query("INSERT INTO Category (name) VALUES (:name)", [':name' => $addCategory]);
-    header("Location: /dashboard/admin");
+    header("Location: /dashboard/admin/categories");
     exit;
 }
 
