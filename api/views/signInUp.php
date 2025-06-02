@@ -121,8 +121,10 @@
                 errorElement.style.color = 'red';
                 errorElement.style.position = 'absolute';
                 errorElement.style.left = '0px';
-                errorElement.style.top = '-20px';
-                errorElement.style.display = 'block';
+                errorElement.style.bottom = '-20px';
+                errorElement.style.fontSize = '12px';
+                errorElement.style.whiteSpace = 'nowrap';
+                errorElement.style.maxWidth = '100%';
                 errorElement.textContent = message;
                 input.parentNode.style.position = 'relative';
                 input.parentNode.appendChild(errorElement);

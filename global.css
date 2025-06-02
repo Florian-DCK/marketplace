@@ -850,6 +850,10 @@
     --tw-border-style: dashed;
     border-style: dashed;
   }
+  .border-none {
+    --tw-border-style: none;
+    border-style: none;
+  }
   .border-\[\#303F9F\] {
     border-color: #303F9F;
   }
@@ -921,6 +925,9 @@
   }
   .bg-red-500 {
     background-color: var(--color-red-500);
+  }
+  .bg-transparent {
+    background-color: transparent;
   }
   .bg-violet-500 {
     background-color: var(--color-violet-500);
