@@ -9,8 +9,8 @@ require_once __DIR__ . '/../models/database.php';
 require_once __DIR__ . '/../models/crudProducts.php';
 
 // Récupérer les valeurs du formulaire
-$email = isset($_POST['email']) ? $_POST['email'] : '';
-$password = isset($_POST['password']) ? $_POST['password'] : '';
+$email = isset($_POST['emailLogIn']) ? $_POST['emailLogIn'] : '';
+$password = isset($_POST['passwordLogIn']) ? $_POST['passwordLogIn'] : '';
 
 // Appeler la fonction pour récupérer les informations de l'utilisateur
 $db = new connectionDB();

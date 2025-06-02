@@ -138,7 +138,7 @@
             // Fonction pour nettoyer les erreurs
             function clearErrors() {
                 document.querySelectorAll('.error-message').forEach(el => el.remove());
-                document.querySelectorAll('input').forEach(el => el.style.border = 'none')
+                document.querySelectorAll('input').forEach(el => el.style.border = '1px solid transparent');
             }
             
             inscriptionForm.addEventListener('submit', function(e) {
@@ -148,8 +148,8 @@
                 clearErrors();
                 
                 // Récupération des champs
-                const password = document.getElementById('password').value;
-                const confirmPassword = document.getElementById('confirmPassword').value;
+                const password = document.getElementById('passwordRegister').value;
+                const confirmPassword = document.getElementById('confirmPasswordRegister').value;
                 const email = document.getElementById('email').value;
                 const lastName = document.getElementById('lastName').value;
                 const firstName = document.getElementById('firstName').value;
@@ -159,11 +159,12 @@
                 
                 // Vérification du mot de passe
                 if (password !== confirmPassword) {
-                    isValid = showError('confirmPassword', "Passwords don't match") && isValid;
+                    console.log('Password value:', password, 'Confirm Password Value:', confirmPassword); // Affiche directement la valeur
+                    isValid = showError('confirmPasswordRegister', "Passwords don't match") && isValid;
                 }
 
                 if (password.length < 8 ||!/[A-Z]/.test(password)||!/[0-9]/.test(password)||!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
-                    isValid = showError('password', "Must be at least 8 characters, have a special character and a digit") && isValid;
+                    isValid = showError('passwordRegister', "Must be at least 8 characters, have a special character and a digit") && isValid;
                 }
                 
                 // Vérification de l'email avec regex simple
