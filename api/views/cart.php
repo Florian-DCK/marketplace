@@ -50,17 +50,19 @@
     }
 
     $userCart = getBasket($basket_id, $db);
-    foreach ($userCart as $key => $item) {
-        $product = getProduct($item['product_id'], $db);
-        if ($product) {
-            $userCart[$key]['product'] = $product[0];
-            if ($product[0]['image']) {
-                $userCart[$key]['product']['image'] = image_get($product[0]['image'])['link'];
+    if ($userCart !== null) {
+        foreach ($userCart as $key => $item) {
+            $product = getProduct($item['product_id'], $db);
+            if ($product) {
+                $userCart[$key]['product'] = $product[0];
+                if ($product[0]['image']) {
+                    $userCart[$key]['product']['image'] = image_get($product[0]['image'])['link'];
+                } else {
+                    $userCart[$key]['product']['image'] = null;
+                }
             } else {
-                $userCart[$key]['product']['image'] = null;
+                unset($userCart[$key]);
             }
-        } else {
-            unset($userCart[$key]);
         }
     }
 
