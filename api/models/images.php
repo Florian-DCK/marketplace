@@ -114,12 +114,13 @@ if (!function_exists('image_get')) {
             return false;
         }
         
+        // Modifier la partie retour de la fonction image_get()
         if (isset($result['data'])) {
             $result = $result['data'];
             return [
-                'id' => $result['id'], 
+                'id' => $result['id'] ?? null, 
                 'deletehash' => $result['deletehash'] ?? '', 
-                'link' => $result['link']];
+                'link' => $result['link'] ?? null];
         }
         
         return false;
