@@ -15,7 +15,7 @@ function updateName($conn, $id, $name) {
             ":id" => $id
         ]);
         $conn->db->commit();
-        if (isset($_SESSION['id]']) == $id) {
+        if (isset($_SESSION['id']) == $id) {
             $_SESSION['name'] = $name; // Mettre à jour le nom dans la session
         }
     } catch (Exception $e) {
@@ -35,7 +35,7 @@ function updateSurname($conn, $id, $surname) {
             ":id" => $id
         ]);
         $conn->db->commit();
-       if (isset($_SESSION['id]']) == $id) {
+       if (isset($_SESSION['id']) == $id) {
             $_SESSION['surname'] = $surname; // Mettre à jour le nom dans la session
         }
     } catch (Exception $e) {
@@ -66,7 +66,7 @@ function updateEmail($conn, $email, $id) {
 
         $conn->db->commit();
 
-        if (isset($_SESSION['id]']) == $id) {
+        if (isset($_SESSION['id']) == $id) {
             $_SESSION['email'] = $email; // Mettre à jour le nom dans la session
         }
     } catch (Exception $e) {
@@ -87,7 +87,7 @@ function updatePhone($conn, $phone, $id) {
 
         $conn->db->commit();
 
-        if (isset($_SESSION['id]']) == $id) {
+        if (isset($_SESSION['id']) == $id) {
             $_SESSION['phone'] = $phone; // Mettre à jour le nom dans la session
         }
     } catch (Exception $e) {
@@ -108,7 +108,7 @@ function updateAvatar($conn, $id, $avatar) {
             ":id" => $id
         ]);
         $conn->db->commit();
-        if (isset($_SESSION['id]']) == $id) {
+        if (isset($_SESSION['id']) == $id) {
             $_SESSION['avatar'] = $avatar; // Mettre à jour le nom dans la session
         }
     } catch (Exception $e) {
