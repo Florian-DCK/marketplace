@@ -7,8 +7,7 @@ if(isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
     $file_type = mime_content_type($_FILES['image']['tmp_name']);
     
     if(!in_array($file_type, $allowed_types)) {
-        echo "Erreur : Seuls les formats PNG et JPEG sont acceptés";
-        return false;
+        return "format_error";
     }
     
     // Vérification des dimensions
@@ -18,17 +17,31 @@ if(isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
     $max_size = 500;
     
     if($width > $max_size || $height > $max_size) {
-        echo "Erreur : L'image ne doit pas dépasser 500x500 pixels";
-        return false;
+        return "size_error";
     }
     
     // Si toutes les vérifications passent, on procède à l'upload
     $result = image_upload($_FILES['image']);
-    if ($result) {
-        return $result;
+    // Débogage temporaire pour voir ce que retourne image_upload
+    var_dump($result); // À supprimer après inspection
+    if($result) {
+        // Si $result est un tableau, essayer différentes clés possibles
+        if (is_array($result)) {
+            if (isset($result['url'])) {
+                return $result['url'];
+            } elseif (isset($result['path'])) {
+                return $result['path'];
+            } elseif (isset($result['filename'])) {
+                return $result['filename'];
+            } else {
+                // Si aucune clé connue, retourner la première valeur ou une erreur
+                return reset($result) ?: false;
+            }
+        }
+        return $result; // Retourner directement si c'est une chaîne
     } else {
         echo "Erreur lors de l'upload";
         return false;
     }
 }
-
+?>

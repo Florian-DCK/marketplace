@@ -2,7 +2,17 @@
 require_once __DIR__ . '/config/session.php';
 include __DIR__ . '/models/users/getInfosModel.php';
 require_once __DIR__ . "/models/images.php";
+include_once __DIR__ . '/models/database.php';
 init_session();
+
+ // supprimer un article
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['deleteArticle'])) {
+        $db = new connectionDB();
+        $deleteArticle = $_POST['deleteArticle'];
+        $db -> query("DELETE FROM Product WHERE id = :id", [':id' => $deleteArticle]);
+        header("Location: /");
+        exit;
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,8 +73,6 @@ init_session();
         $hotProducts = [];
     }
 
-
-
     $data = [
         'hotProducts' => array_map(function($product) {
             return [
@@ -101,6 +109,37 @@ init_session();
     ];
 
     
+   $data = [
+    'isAdmin' => ($_SESSION['operatorLevel'] ?? null) === "administrator",
+    'hotProducts' => array_map(function($product) {
+        return [
+            'id' => $product['id'],
+            'title' => $product['title'],
+            'description' => $product['description'],
+            'image' => $product['image'],
+            'price' => $product['price'],
+            'is_available' => $product['is_available'],
+            'fast' => $product['event'] === 'Flash',
+            'sales' => $product['event'] === 'Sales',
+            'new' => $product['event'] === 'New',
+            'trending' => $product['event'] === 'Trending',
+        ];
+    }, $hotProducts),
+    'products' => array_map(function($product) {
+        return [
+            'id' => $product['id'],
+            'title' => $product['title'],
+            'description' => $product['description'],
+            'image' => $product['image'],
+            'price' => $product['price'],
+            'is_available' => $product['is_available'],
+            'fast' => $product['event'] === 'Flash',
+            'sales' => $product['event'] === 'Sales',
+            'new' => $product['event'] === 'New',
+            'trending' => $product['event'] === 'Trending',
+            ];
+        }, $products)
+    ];
 
     ?>
     <div class="flex flex-col w-full px-2 md:px-8 lg:px-24 xl:px-48">

@@ -15,7 +15,9 @@ function updateName($conn, $id, $name) {
             ":id" => $id
         ]);
         $conn->db->commit();
-        $_SESSION['name'] = $name; // Mettre à jour le nom dans la session
+        if (isset($_SESSION['id]']) == $id) {
+            $_SESSION['name'] = $name; // Mettre à jour le nom dans la session
+        }
     } catch (Exception $e) {
         $conn->db->rollBack();
         echo "Erreur : " . $e->getMessage();
@@ -33,7 +35,9 @@ function updateSurname($conn, $id, $surname) {
             ":id" => $id
         ]);
         $conn->db->commit();
-        $_SESSION['surname'] = $surname; // Mettre à jour le prénom dans la session
+       if (isset($_SESSION['id]']) == $id) {
+            $_SESSION['surname'] = $surname; // Mettre à jour le nom dans la session
+        }
     } catch (Exception $e) {
         $conn->db->rollBack();
         echo "Erreur : " . $e->getMessage();
@@ -62,7 +66,9 @@ function updateEmail($conn, $email, $id) {
 
         $conn->db->commit();
 
-        $_SESSION['email'] = $email; // Mise à jour de la session
+        if (isset($_SESSION['id]']) == $id) {
+            $_SESSION['email'] = $email; // Mettre à jour le nom dans la session
+        }
     } catch (Exception $e) {
         $conn->db->rollBack();
         echo "Erreur : " . $e->getMessage();
@@ -81,7 +87,9 @@ function updatePhone($conn, $phone, $id) {
 
         $conn->db->commit();
 
-        $_SESSION['phone'] = $phone; // Mettre à jour le téléphone dans la session
+        if (isset($_SESSION['id]']) == $id) {
+            $_SESSION['phone'] = $phone; // Mettre à jour le nom dans la session
+        }
     } catch (Exception $e) {
         $conn->db->rollBack();
         echo "Erreur : " . $e->getMessage();
@@ -100,7 +108,9 @@ function updateAvatar($conn, $id, $avatar) {
             ":id" => $id
         ]);
         $conn->db->commit();
-        $_SESSION['avatar'] = $avatar; // Mettre à jour l'avatar dans la session
+        if (isset($_SESSION['id]']) == $id) {
+            $_SESSION['avatar'] = $avatar; // Mettre à jour le nom dans la session
+        }
     } catch (Exception $e) {
         $conn->db->rollBack();
         echo "Erreur : " . $e->getMessage();

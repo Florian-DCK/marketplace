@@ -19,8 +19,27 @@ if (!isset($_SESSION['operatorLevel']) || $_SESSION['operatorLevel'] !== "admini
     header("Location: /dashboard");
     exit;
 }
+// récupérer toutes les catagories
+$categoryStmt = $db->query("SELECT id, name FROM Category");
 
-if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['modifierUser'])) {
+// delete une catégorie
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset ($_POST['deleteCategory'])) {
+    $deleteCategory = $_POST['deleteCategory'];
+    $db->query("DELETE FROM Category WHERE id = :id", [':id' => $deleteCategory]);
+    header("Location: /dashboard/admin");
+    exit;
+}
+
+// ajouter une catégorie
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['addCategory'])) {
+    $addCategory = $_POST['addCategory'] ?? '';
+    $db->query("INSERT INTO Category (name) VALUES (:name)", [':name' => $addCategory]);
+    header("Location: /dashboard/admin");
+    exit;
+}
+
+// modifier les infos de son compte
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['modifierUser']) && !isset($_POST['deleteUser']) && !isset($_POST['deleteArticle']) && !isset($_POST['deleteCategory']) && !isset($_POST['addCategory'])) {
     $lastName = $_POST['surname'] ?? '';
     $firstName = $_POST['firstName'] ?? '';
     $email = $_POST['email'] ?? '';
@@ -91,28 +110,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
         header("Location: /dashboard/admin");
         exit;
     }
-
-    // supprimer un article
-    if (isset($_POST['deleteArticle'])) {
-        $deleteArticle = $_POST['deleteArticle'];
-        $db -> query("DELETE FROM Product WHERE id = :id", [':id' => $deleteArticle]);
-        header("Location: /dashboard/admin");
-    }
-
-    // supprimer une catégorie
-    if (isset($_POST['deleteCategory'])) {
-        $deleteCategory = $_POST['deleteCategory'];
-        $db -> query("DELETE FROM Category WHERE id = :id", [':id' => $deleteCategory]);
-        header("Location: /dashboard/admin");
-    }
-
-    // ajouter une catégorie
-    if (isset($_POST['addCategory'])) {
-        $addCategory = $_POST['addCategory'] ?? '';
-        $db->query("INSERT INTO Category (name) VALUES (:name)", [':name' => $addCategory]);
-        header("Location: /dashboard/admin");
-        exit;
-    }
 }
 
   // modifier user
@@ -135,7 +132,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
     $confirmPassword = $_POST['confirmPassword'] ?? '';
     $operatorLevel = $_POST['operatorLevel'] ?? '';
 
-    // 🛡️ Validations d'abord
     $hasError = false;
     if (strlen($email) > 50) {
         echo '<p style="color: red;">Email is too long.</p>';
@@ -189,12 +185,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
         if (!empty($avatar['tmp_name']) && $avatar['error'] === UPLOAD_ERR_OK) {
             $avatar_id = image_upload($avatar)['id'];
             updateAvatar($db, $targetUserId, $avatar_id);
+            $_SESSION['avatar'] = $avatar_id; 
         }
         if (!empty($password)) {
             updatePass($db, $targetUserId, $password);
         }
 
-        // 🎛️ Mettre à jour operatorLevel si souhaité
         if (!empty($operatorLevel)) {
             $db->query("UPDATE User SET operator_level = :level WHERE id = :id", [
                 ':level' => $operatorLevel,
@@ -206,6 +202,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
     }
 }
 
+// rechercher un item
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['searchItem'])) {
+    $searchItem = $_POST['searchItem'] ?? '';
+    $stmt = $db->query("SELECT * FROM Product WHERE title LIKE :name", [':name' => '%' . $searchItem . '%']);
+    
+    $items = [];
+} 
+
+// supprimer un article
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['deleteArticle'])) {
+    $db = new connectionDB();
+    $deleteArticle = $_POST['deleteArticle'];
+    $db -> query("DELETE FROM Product WHERE id = :id", [':id' => $deleteArticle]);
+    header("Location: /dashboard/admin/items");
+    exit;
+}
 
 ?>
 <!DOCTYPE html>
@@ -243,23 +255,45 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
 
     $db->close();
     
+    $categories = [];
+    foreach ($categoryStmt as $row) {
+        $categories[] = [
+            'id' => $row['id'],
+            'name' => $row['name']
+        ];
+    }
 
+    $items = [];
+    if (isset($stmt)) {
+        foreach ($stmt as $row) {
+            $items[] = [
+                'id' => $row['id'],
+                'title' => $row['title'],
+                'description' => $row['description'],
+                'price' => $row['price'],
+                'image' => image_get ($row['image'])['link'] ?? null,
+            ];
+        }
+    }
     $data = [
-        'isAdmin' => str_contains($url, "admin"),
-        'user' => [
-            'lastName' => $userInfos['surname'] ?? '',
-            'firstName' => $userInfos['name'] ?? '',
-            'email' => $userInfos['email'] ?? '',
-            'phoneNumber' => $userInfos['phone'] ?? '',
-            'avatar' => $userInfos['avatar'] ?? '',
-            'birthDate' => $userInfos['birthDate'] ?? '',
-            'creationDate' => $userInfos['creation_date'] ?? '',
-            'lastModified' => $userInfos['last_modified'] ?? '',
-            'operatorLevel' => $userInfos['operator_level'] ?? '',
-        ]
+    'isAdmin' => str_contains($url, "admin"),
+    'categories' => $categories,
+    'items' => $items ,
+    'user' => [
+        'lastName' => $userInfos['surname'] ?? '',
+        'firstName' => $userInfos['name'] ?? '',
+        'email' => $userInfos['email'] ?? '',
+        'phoneNumber' => $userInfos['phone'] ?? '',
+        'avatar' => $userInfos['avatar'] ?? '',
+        'birthDate' => $userInfos['birthDate'] ?? '',
+        'creationDate' => $userInfos['creation_date'] ?? '',
+        'lastModified' => $userInfos['last_modified'] ?? '',
+        'operatorLevel' => $userInfos['operator_level'] ?? '',
+        'isAdmin' => ($userInfos['operator_level'] ?? '') === 'administrator',
+        'isUser' => ($userInfos['operator_level'] ?? '') === 'user',
+    ],
     ];
 
-    
     ?>
     <main class="flex h-full bg-gradient-to-br bg-[#EAEBED] items-center justify-center py-8">
         <div class="flex mx-auto w-full max-w-7xl rounded-3xl shadow-2xl overflow-hidden bg-white">

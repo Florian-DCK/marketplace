@@ -4,8 +4,7 @@
             <h1 class="text-3xl md:text-4xl font-bold text-[#5242AE]">
                 Admin User Info
             </h1>
-        </div>
-
+<main class="bg-white w-full h-full rounded-tl-xl p-5">
         <!-- Search Form -->
         <div class="w-full">
         <h2 class="text-xl font-bold text-[#5242AE] mb-4 bg-[#EAEBED] rounded-t-xl px-4 py-2">🔍 Search User</h2>
@@ -24,17 +23,16 @@
             </div>
             
         </form>
-        <form method="POST" class="mt-4">
-            <input type="hidden" name="deleteUser" value="{{user.email}}">
-            <button type="submit" class="w-full bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700 cursor-pointer">Delete user</button>
-        </form>
-        </div>
 
-        <!-- ✅ Modifier utilisateur (tous les champs dans le même formulaire) -->
-        <div class="w-full">
-        <h2 class="text-xl font-bold text-[#5242AE] mb-4 bg-[#EAEBED] rounded-t-xl px-4 py-2">✏️ Edit User</h2>
-        <form method="POST" enctype="multipart/form-data" class="grid grid-cols-2 gap-4 mt-6">
-            <input type="hidden" name="modifierUser" value="{{user.email}}">
+    <!-- Supprimer utilisateur -->
+    <form method="POST" class="mt-4">
+        <input type="hidden" name="deleteUser" value="{{user.email}}">
+        <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Delete user</button>
+    </form>
+
+    <!-- Modifier utilisateur -->
+    <form method="POST" enctype="multipart/form-data" class="grid grid-cols-2 gap-4 mt-6">
+        <input type="hidden" name="modifierUser" value="{{user.email}}">
 
             <div class="form-group">
                 <label for="last_name" class="block mb-1 font-semibold text-[#5242AE]">Last name</label>
@@ -86,13 +84,13 @@
                 <input disabled type="text" id="lastModified" value="{{user.lastModified}}" class="border border-gray-300 p-2 w-full rounded-lg focus:ring-2 focus:ring-[#8d54b1]"">
             </div>
 
-            <div class="form-group">
-                <label for="operatorLevel" class="block mb-1 font-semibold text-[#5242AE]">Operator level</label>
-                <select id="operatorLevel" name="operatorLevel" class="border border-gray-300 p-2 w-full rounded-lg focus:ring-2 focus:ring-[#8d54b1]"">
-                    <option value="user" {{#isUser}}selected{{/isUser}}>User</option>
-                    <option value="administrator" {{#isAdmin}}selected{{/isAdmin}}>Administrator</option>
-                </select>
-            </div>
+        <div class="form-group">
+            <label for="operatorLevel">Operator level</label>
+            <select id="operatorLevel" name="operatorLevel" class="border p-2 w-full rounded">
+               <option value="user" {{#user.isUser}}selected{{/user.isUser}}>User</option>
+                <option value="administrator" {{#user.isAdmin}}selected{{/user.isAdmin}}>Administrator</option>
+            </select>
+        </div>
 
             <div class="form-group col-span-2">
                 <button type="submit" class="w-full bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">Modify user</button>
@@ -100,3 +98,4 @@
         </form>
         </div>
     </form>
+</main>
