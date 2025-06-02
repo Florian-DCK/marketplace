@@ -14,7 +14,6 @@ $db = new connectionDB();
 
 $categories = $db->getAllCategoryNames();
 
-
 $url = $_SERVER['REQUEST_URI'];
 $data = [
     'isConnected' =>$_SESSION ? isset($_SESSION['id']) : false ,
