@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['deleteArticle'])) {
             // Render the Mustache template with the product data
             echo $mustache->render('product', [
                 'product' => $product[0],
-                'current_user' => ['id' => $_SESSION['id']],
+                'current_user' => ['id' =>isset ($_SESSION['id']) ? $_SESSION['id'] : null],
                 'canDelete' => (isset($_SESSION['id']) && $_SESSION['id'] == $product[0]['id_user']) || (isset($_SESSION['operatorLevel']) && $_SESSION['operatorLevel'] === 'administrator'),
             ]);
             include_once __DIR__ . '/messages.php';
