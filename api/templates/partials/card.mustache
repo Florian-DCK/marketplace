@@ -8,9 +8,9 @@
             </div>
             <div class="bg-[#303F9F] border border-[#FFC107] border-dashed w-[calc(100%-40px)] self-start"></div>
             <div class="bg-[#303F9F] flex flex-col items-center justify-center w-full h-full rounded-b-2xl rounded-tr-lg relative overflow-hidden shadow-lg shadow-blue-950">
-                <img src="{{image}}" alt="{{name}}" class=" mt-2 w-36 bg-white h-5/6 object-cover rounded-lg drop-shadow-lg transition-all duration-500 js-group-hover-img absolute top-0">
-                <p class="text-white {{# fast}}bg-[#FFC107]{{/ fast}} {{# trending}}bg-[#F64F01]{{/ trending}} {{# sales}}bg-[#2f36ff]{{/ sales}} {{# new}}bg-[#22b60f]{{/ new}} ps-4 pe-2 absolute bottom-6 right-0 rounded-s-md js-group-hover-price transition-all duration-500">{{price}}$</p>
-                <p class="absolute opacity-0 transition-opacity duration-500 px-2 text-sm js-group-hover-desc bottom-6 text-center text-[#FFC107]">
+                <img src="{{image}}" alt="{{name}}" class="mt-2 w-36 bg-white h-5/6 object-cover rounded-lg drop-shadow-lg transition-all duration-500 absolute top-0 group-hover:h-24">
+                <p class="text-white {{# fast}}bg-[#FFC107]{{/ fast}} {{# trending}}bg-[#F64F01]{{/ trending}} {{# sales}}bg-[#2f36ff]{{/ sales}} {{# new}}bg-[#22b60f]{{/ new}} ps-4 pe-2 absolute bottom-6 right-0 rounded-s-md transition-all duration-500 transform group-hover:-translate-y-30">{{price}}$</p>
+                <p class="absolute opacity-0 transition-opacity duration-500 px-2 text-sm bottom-6 text-center text-[#FFC107] group-hover:opacity-100">
                     {{description}}
                 </p>
             </div>
