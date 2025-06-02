@@ -42,3 +42,6 @@ RewriteRule ^api/products$ api/api/products/api.php [L]
 
 # Rediriger /cart
 RewriteRule ^myItems$ api/views/myItems.php [L]
+
+# Rediriger /search
+RewriteRule ^search$ api/views/search.php [L]

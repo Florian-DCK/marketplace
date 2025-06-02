@@ -1,5 +1,5 @@
 <div class="relative w-80 h-9">
-    <form action="" class="flex items-center h-full group">
+    <form action="/search" method="GET" class="flex items-center h-full group">
         <button type="button" id="expandSearchBtn" class="bg-white rounded-lg px-2 flex items-center justify-center h-9 w-9 transition-all duration-300">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
@@ -8,6 +8,7 @@
         <input
             type="text"
             id="searchInput"
+            name="query"
             class="bg-white rounded-l-lg px-2 ml-2 focus:outline-0 transition-all duration-300 w-0 opacity-0 group-focus-within:w-48 group-focus-within:opacity-100"
             placeholder="Search..."
             style="width:0; opacity:0;"
@@ -38,7 +39,6 @@ document.addEventListener('DOMContentLoaded', function() {
             searchInput.focus();
         }
     });
-    // Optional: collapse on blur
     searchInput.addEventListener('blur', function() {
         setTimeout(() => {
             if (document.activeElement !== submitBtn) {
