@@ -7,6 +7,8 @@ init_session();
 
 $db = new connectionDB();
 
+$errorMessages = []; 
+
 if (!isset($_SESSION['id'])) {
     header("Location: /");
     exit;
@@ -69,36 +71,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['modifierUser']) && !
     }
 
     // erreurs
+    $errorMessages = [];
+
     if (strlen($email) > 50) {
-        echo '<p style="color: red;">Email is too long.</p>';
+        $errorMessages['email'] = "Email is too long.";
     }
     if (strlen($lastName) > 50) {
-        echo '<p style="color: red;">Last name is too long.</p>';
+        $errorMessages['lastName'] = "Last name is too long.";
     } 
     if (strlen($firstName) > 50) {
-        echo '<p style="color: red;">First name is too long.</p>';
+        $errorMessages['firstName'] = "First name is too long.";
     }
     if (strlen($phone) > 50) {
-        echo '<p style="color: red;">Phone number is too long.</p>';
+        $errorMessages['phone'] = "Phone number is too long.";
     }
     if (!empty($password)) {
-    if ($password !== $confirmPassword) {
-        echo '<p style="color: red;">Passwords do not match.</p>';
-    } else {
-        if (strlen($password) < 8) {
-            echo '<p style="color: red;">Password must be at least 8 characters long.</p>';
+        if ($password !== $confirmPassword) {
+            $errorMessages['password'] = "Passwords do not match.";
+        } elseif (strlen($password) < 8) {
+            $errorMessages['password'] = "Password must be at least 8 characters long.";
         } elseif (!preg_match('/[A-Z]/', $password)) {
-            echo '<p style="color: red;">Password must contain at least one uppercase letter.</p>';
+            $errorMessages['password'] = "Password must contain at least one uppercase letter.";
         } elseif (!preg_match('/[0-9]/', $password)) {
-            echo '<p style="color: red;">Password must contain at least one number.</p>';
+            $errorMessages['password'] = "Password must contain at least one number.";
         } elseif (!preg_match('/[!@#$%^&*(),.?":{}|<>]/', $password)) {
-            echo '<p style="color: red;">Password must contain at least one special character.</p>';
+            $errorMessages['password'] = "Password must contain at least one special character.";
         } else {
             // Si tout est bon, mise à jour du mot de passe
             updatePass($db, $_SESSION['id'], $password);
         }
     }
-}
 
 }
 
@@ -133,38 +135,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
     $operatorLevel = $_POST['operatorLevel'] ?? '';
 
     $hasError = false;
+    $errorMessages = [];
     if (strlen($email) > 50) {
-        echo '<p style="color: red;">Email is too long.</p>';
+        $errorMessages[] = "Email is too long.";
         $hasError = true;
     }
     if (strlen($lastName) > 50) {
-        echo '<p style="color: red;">Last name is too long.</p>';
+        $errorMessages[] = "Last name is too long.";
         $hasError = true;
     }
     if (strlen($firstName) > 50) {
-        echo '<p style="color: red;">First name is too long.</p>';
+        $errorMessages[] = "First name is too long.";
         $hasError = true;
     }
     if (strlen($phone) > 50) {
-        echo '<p style="color: red;">Phone number is too long.</p>';
+        $errorMessages[] = "Phone number is too long.";
         $hasError = true;
     }
 
     if (!empty($password)) {
         if ($password !== $confirmPassword) {
-            echo '<p style="color: red;">Passwords do not match.</p>';
+            $errorMessages[] = "Passwords do not match.";
             $hasError = true;
         } elseif (strlen($password) < 8) {
-            echo '<p style="color: red;">Password must be at least 8 characters long.</p>';
+            $errorMessages[] = "Password must be at least 8 characters long.";
             $hasError = true;
         } elseif (!preg_match('/[A-Z]/', $password)) {
-            echo '<p style="color: red;">Password must contain at least one uppercase letter.</p>';
+            $errorMessages[] = "Password must contain at least one uppercase letter.";
             $hasError = true;
         } elseif (!preg_match('/[0-9]/', $password)) {
-            echo '<p style="color: red;">Password must contain at least one number.</p>';
+            $errorMessages[] = "Password must contain at least one number.";
             $hasError = true;
         } elseif (!preg_match('/[!@#$%^&*(),.?":{}|<>]/', $password)) {
-            echo '<p style="color: red;">Password must contain at least one special character.</p>';
+            $errorMessages[] = "Password must contain at least one special character.";
             $hasError = true;
         }
     }
@@ -198,7 +201,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
             ]);
         }
 
-        echo '<p style="color: green;">User updated successfully.</p>';
+        $successMessage = "User updated successfully.";
     }
 }
 
@@ -232,7 +235,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['deleteArticle'])) {
     <?php 
     include_once __DIR__ . '/navbar.php'; 
     
-   
     $url = $_SERVER['REQUEST_URI'];
     
     $mustache = new Mustache_Engine([
@@ -292,6 +294,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['deleteArticle'])) {
         'isAdmin' => ($userInfos['operator_level'] ?? '') === 'administrator',
         'isUser' => ($userInfos['operator_level'] ?? '') === 'user',
     ],
+    'successMessage' => $successMessage ?? null,
+    'errorMessages' => $errorMessages,
     ];
 
     ?>
