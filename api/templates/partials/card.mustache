@@ -18,13 +18,6 @@
         </a>
     </div>
     
-    {{#isAdmin}}
-        <form method="POST">
-            <input type="hidden" name="deleteArticle" value="{{id}}">
-            <button type="submit" class="bg-red-500 mt-5 rounded-full px-2 py-1 text-white hover:bg-blue-700 z-10 cursor-pointer">Delete</button>
-        </form>
-    {{/isAdmin}}
-    
 </div>
 
 <script>
