@@ -122,7 +122,7 @@ init_session();
         'nextPage' => $page < $totalPages ? $page + 1 : null
     ];
     ?>
-    <div class="flex flex-col w-full px-2 md:px-8 lg:px-24 xl:px-48">
+    <div class="flex flex-col w-full bg:-[#EAEBED]">
         <?php
         echo $mustache->render('productList', $data);
         include __DIR__ . '/views/messages.php';
