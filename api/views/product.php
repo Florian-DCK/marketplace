@@ -47,7 +47,7 @@ $url = $_SERVER['REQUEST_URI'];
             // Render the Mustache template with the product data
             echo $mustache->render('product', [
                 'product' => $product[0],
-                'current_user' => ['id' =>isset ($_SESSION['id'])]
+                'current_user' => ['id' =>isset ($_SESSION['id']) ? $_SESSION['id'] : null]
             ]);
             include_once __DIR__ . '/messages.php';
         } else {
