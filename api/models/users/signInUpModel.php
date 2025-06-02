@@ -128,7 +128,7 @@ return $error;
                 ":surname" => $prenom,
                 ":email" => $email,
                 ":phone" => $telephone,
-                ":avatar" => $avatar_path,
+                ":avatar" => $avatar,
                 ":birthDate" => $birthDate,
                 ":creation_date" => $creation_date,
                 ":last_modified" => $last_modified,

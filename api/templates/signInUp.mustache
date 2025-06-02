@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
       section.classList.remove('hidden');
       section.classList.add('block');
     }
-    const height = toggleButtons.offsetHeight + section.offsetHeight;
+    const height = section.offsetHeight + toggleButtons.offsetHeight + parseInt(window.getComputedStyle(toggleButtons).marginBottom);
     const computedStyle = window.getComputedStyle(formContainer);
     const paddingTop = parseFloat(computedStyle.paddingTop) || 0;
     const paddingBottom = parseFloat(computedStyle.paddingBottom) || 0;
@@ -143,8 +143,15 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => {
       // 3. Hide old section, show new section (still transparent)
       hideSection.classList.add('hidden');
+      // Désactiver les entrées du formulaire caché
+      const hiddenFormInputs = hideSection.querySelectorAll('input, button[type="submit"]');
+      hiddenFormInputs.forEach(input => input.disabled = true);
+      
       showSection.classList.remove('hidden');
       showSection.classList.add('block', 'opacity-0', 'translate-x-10');
+      // Réactiver les entrées du formulaire affiché
+      const shownFormInputs = showSection.querySelectorAll('input, button[type="submit"]');
+      shownFormInputs.forEach(input => input.disabled = false);
 
       // 4. Animate container height to new section
       const newHeight = getSectionHeight(showSection);
@@ -176,6 +183,15 @@ document.addEventListener('DOMContentLoaded', function() {
   loginSection.classList.add('block', 'opacity-100', 'translate-x-0');
   signupSection.classList.remove('block', 'opacity-100', 'translate-x-0');
   signupSection.classList.add('hidden', 'opacity-0', 'translate-x-10');
+  
+  // Désactiver TOUS les champs du formulaire d'inscription
+  const signupForm = signupSection.querySelector('form');
+  if (signupForm) {
+    signupForm.querySelectorAll('input, button[type="submit"]').forEach(input => {
+      input.disabled = true;
+    });
+  }
+
   showLoginBtn.classList.add('bg-[#5242AE]', 'text-white');
   showLoginBtn.classList.remove('bg-gray-100', 'text-[#5242AE]', );
   showSignupBtn.classList.remove('bg-[#5242AE]', 'text-white');

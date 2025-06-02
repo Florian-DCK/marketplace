@@ -7,8 +7,8 @@ include __DIR__ . "/showErrorControllers.php";
 // Récupération des données envoyées via POST
 $nom = $_POST['lastName'];
 $prenom = $_POST['firstName'];
-$mdp = $_POST['password'];
-$mdpConfirm = $_POST['confirmPassword'];
+$mdp = $_POST['passwordRegister'];
+$mdpConfirm = $_POST['confirmPasswordRegister'];
 $email = $_POST['email']; 
 $telephone = $_POST['phoneNumber'];
 $avatar = $_FILES['image'] ? $_FILES['image'] : null; 
@@ -25,8 +25,6 @@ if ($mdp !== $mdpConfirm) {
     exit;
 }
 
-
-// Upload de l'avatar
 $avatar_id = image_upload($avatar)['id'];
 
 $result;
