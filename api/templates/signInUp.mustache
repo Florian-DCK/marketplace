@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
       section.classList.remove('hidden');
       section.classList.add('block');
     }
-    const height = toggleButtons.offsetHeight + section.offsetHeight;
+    const height = section.offsetHeight + toggleButtons.offsetHeight + parseInt(window.getComputedStyle(toggleButtons).marginBottom);
     const computedStyle = window.getComputedStyle(formContainer);
     const paddingTop = parseFloat(computedStyle.paddingTop) || 0;
     const paddingBottom = parseFloat(computedStyle.paddingBottom) || 0;
