@@ -125,7 +125,7 @@ if (!$userEmail) {
     <link rel="stylesheet" href="/global.css">
 </head>
 <body class="bg-[#EAEBED] flex flex-col min-h-screen">
-    <div class="flex flex-col w-full px-2 md:px-8 lg:px-24 xl:px-48">
+    <div class="flex flex-col w-full">
         <?php
         include __DIR__ . '/../views/navbar.php';
         // Vérification des dossiers de templates
