@@ -19,11 +19,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['deleteArticle'])) {
 $db = new connectionDB();
 
 // Gestion de la recherche
+$category = isset($_GET['category']) ? trim($_GET['category']) : '';
 $search = isset($_GET['query']) ? trim($_GET['query']) : '';
 $products = [];
 $searchError = null;
 
-if (!empty($search)) {
+if (!empty($category)) {
+    $sql = "
+        SELECT DISTINCT p.id, p.id_category, p.id_user, p.title, p.description, p.image, p.price, p.is_available, p.event
+        FROM Product p
+        LEFT JOIN Category c ON p.id_category = c.id
+        WHERE c.name = :category
+    ";
+    try {
+        $products = $db->query($sql, [':category' => $category]);
+    } catch (Exception $e) {
+        $searchError = "Erreur lors de la recherche par catégorie : " . $e->getMessage();
+        $products = [];
+    }
+} elseif (!empty($search)) {
     $sql = "
         SELECT DISTINCT p.id, p.id_category, p.id_user, p.title, p.description, p.image, p.price, p.is_available, p.event
         FROM Product p
@@ -100,6 +114,15 @@ if (!$userEmail) {
     $userInfos = getUserInfo($userEmail, $db);
 }
 
+// Ajout de la pagination
+$page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
+$productsPerPage = 12;
+$totalProducts = count($products);
+$totalPages = ceil($totalProducts / $productsPerPage);
+
+// Filtrer les produits pour la page actuelle
+$startIndex = ($page - 1) * $productsPerPage;
+$paginatedProducts = array_slice($products, $startIndex, $productsPerPage);
 ?>
 
 <!DOCTYPE html>
@@ -130,7 +153,7 @@ if (!$userEmail) {
             die("Erreur lors de l'initialisation de Mustache : " . $e->getMessage());
         }
 
-        $data = [
+    $data = [
     'isAdmin' => ($_SESSION['operatorLevel'] ?? null) === "administrator",
     'hotProducts' => array_map(function($product) {
         return [
@@ -159,7 +182,7 @@ if (!$userEmail) {
             'new' => $product['event'] === 'New',
             'trending' => $product['event'] === 'Trending',
         ];
-    }, $products),
+    }, $paginatedProducts),
     'user' => [
         'avatar' => $userInfos['avatar'] ?? '',
     ],
@@ -167,7 +190,15 @@ if (!$userEmail) {
     'search' => htmlspecialchars($search),
     'hasSearch' => !empty($search),
     'noResults' => empty($products) && !empty($search),
-    'searchError' => $searchError
+    'searchError' => $searchError,
+    'pagination' => [
+        'currentPage' => $page,
+        'totalPages' => $totalPages,
+        'hasPrevious' => $page > 1,
+        'hasNext' => $page < $totalPages,
+        'previousPage' => $page > 1 ? $page - 1 : null,
+        'nextPage' => $page < $totalPages ? $page + 1 : null
+    ]
 ];
 
         echo $mustache->render('productList', $data);

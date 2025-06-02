@@ -66,7 +66,18 @@ init_session();
         $hotProducts = [];
     }
 
+    // Ajout de la pagination
+    $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
+    $productsPerPage = 12;
+    $totalProducts = count($products);
+    $totalPages = ceil($totalProducts / $productsPerPage);
+
+    // Filtrer les produits pour la page actuelle
+    $startIndex = ($page - 1) * $productsPerPage;
+    $products = array_slice($products, $startIndex, $productsPerPage);
+
     $data = [
+        'isAdmin' => ($_SESSION['operatorLevel'] ?? null) === "administrator",
         'hotProducts' => array_map(function($product) {
             return [
                 'id' => $product['id'],
@@ -101,39 +112,15 @@ init_session();
         'userProfileImage' => isset($userInfos['avatar']) && $userInfos['avatar'] ? image_get($userInfos['avatar'])['link'] : '/api/public/defaultAvatar.jpg',
     ];
 
-    
-   $data = [
-    'isAdmin' => ($_SESSION['operatorLevel'] ?? null) === "administrator",
-    'hotProducts' => array_map(function($product) {
-        return [
-            'id' => $product['id'],
-            'title' => $product['title'],
-            'description' => $product['description'],
-            'image' => $product['image'],
-            'price' => $product['price'],
-            'is_available' => $product['is_available'],
-            'fast' => $product['event'] === 'Flash',
-            'sales' => $product['event'] === 'Sales',
-            'new' => $product['event'] === 'New',
-            'trending' => $product['event'] === 'Trending',
-        ];
-    }, $hotProducts),
-    'products' => array_map(function($product) {
-        return [
-            'id' => $product['id'],
-            'title' => $product['title'],
-            'description' => $product['description'],
-            'image' => $product['image'],
-            'price' => $product['price'],
-            'is_available' => $product['is_available'],
-            'fast' => $product['event'] === 'Flash',
-            'sales' => $product['event'] === 'Sales',
-            'new' => $product['event'] === 'New',
-            'trending' => $product['event'] === 'Trending',
-            ];
-        }, $products)
+    // Ajouter les données de pagination au tableau $data
+    $data['pagination'] = [
+        'currentPage' => $page,
+        'totalPages' => $totalPages,
+        'hasPrevious' => $page > 1,
+        'hasNext' => $page < $totalPages,
+        'previousPage' => $page > 1 ? $page - 1 : null,
+        'nextPage' => $page < $totalPages ? $page + 1 : null
     ];
-
     ?>
     <div class="flex flex-col w-full px-2 md:px-8 lg:px-24 xl:px-48">
         <?php
