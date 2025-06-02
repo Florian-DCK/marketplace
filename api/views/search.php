@@ -19,11 +19,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['deleteArticle'])) {
 $db = new connectionDB();
 
 // Gestion de la recherche
+$category = isset($_GET['category']) ? trim($_GET['category']) : '';
 $search = isset($_GET['query']) ? trim($_GET['query']) : '';
 $products = [];
 $searchError = null;
 
-if (!empty($search)) {
+if (!empty($category)) {
+    $sql = "
+        SELECT DISTINCT p.id, p.id_category, p.id_user, p.title, p.description, p.image, p.price, p.is_available, p.event
+        FROM Product p
+        LEFT JOIN Category c ON p.id_category = c.id
+        WHERE c.name = :category
+    ";
+    try {
+        $products = $db->query($sql, [':category' => $category]);
+    } catch (Exception $e) {
+        $searchError = "Erreur lors de la recherche par catégorie : " . $e->getMessage();
+        $products = [];
+    }
+} elseif (!empty($search)) {
     $sql = "
         SELECT DISTINCT p.id, p.id_category, p.id_user, p.title, p.description, p.image, p.price, p.is_available, p.event
         FROM Product p
