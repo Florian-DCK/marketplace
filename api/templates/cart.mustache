@@ -1,13 +1,14 @@
 <main class="bg-[#EAEBED] p-8 min-h-screen">
     <div class="w-full max-w-2xl mx-auto bg-white rounded-3xl shadow-2xl p-8 my-8">
         <h1 class="text-2xl md:text-3xl font-bold text-[#5242AE] mb-6 text-center">My shopping Cart</h1>
-        <form method="POST" action="" class="space-y-8">
+        <form method="" action="" class="space-y-8">
             {{#products}}
             <div class="cart-product-row flex flex-col md:flex-row items-center gap-4 border border-[#FFC107] rounded-lg p-4 shadow mb-4 bg-[#FFF8E1]" data-product-id="{{product.id}}">
                 <img src="{{product.image}}" alt="Product Image" class="h-24 w-auto rounded-lg shadow border border-[#FFC107]" />
                 <div class="flex-1 text-left">
                     <h2 class="font-bold text-lg text-[#303F9F]">{{product.title}}</h2>
                     <p class="text-[#303F9F]">Price: <span class="font-bold">${{product.price}}</span></p>
+                    <p class="text-[#303F9F] item-subtotal">Subtotal: <span class="font-bold">${{item_subtotal}}</span></p>
                 </div>
                 <div>
                     <input  type="number" 
@@ -15,7 +16,8 @@
                             value="{{quantity}}" 
                             min="1" 
                             class="border border-[#FFC107] rounded-lg w-20 p-2 text-center text-[#303F9F]"
-                            data-product-id="{{product.id}}">
+                            data-product-id="{{product.id}}"
+                            data-price="{{product.price}}">
                 </div>
                 <button type="button" class="cart-cancel-btn ml-2">
                     <img src="../api/public/svg/cancel.svg" alt="Cancel" class="h-8 cursor-pointer hover:scale-110 transition" />
@@ -61,7 +63,14 @@
                     const unitPrice = parseFloat(priceElement.textContent.replace('$', ''));
                     const quantityInput = row.querySelector('input[name="quantity"]');
                     const quantity = parseInt(quantityInput.value);
-                    subtotal += unitPrice * quantity;
+                    const itemSubtotal = unitPrice * quantity;
+                    subtotal += itemSubtotal;
+                    
+                    // Mettre à jour le sous-total de l'article
+                    const itemSubtotalElement = row.querySelector('.item-subtotal > span');
+                    if (itemSubtotalElement) {
+                        itemSubtotalElement.textContent = `$${itemSubtotal.toFixed(2)}`;
+                    }
                 });
 
                 const shipping = 5.00;
@@ -78,6 +87,25 @@
                 input.addEventListener('change', () => {
                     if (input.value < 1) input.value = 1;
                     updateOrderSummary();
+                    
+                    // Ajouter la logique pour mettre à jour la quantité via l'API
+                    const productId = input.getAttribute('data-product-id');
+                    const quantity = parseInt(input.value);
+                    
+                    fetch('api/products', {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ product_id: productId, quantity: quantity })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.success) {
+                            alert('Erreur lors de la mise à jour de la quantité.');
+                        }
+                    })
+                    .catch(() => {
+                        alert('Erreur de communication avec le serveur.');
+                    });
                 });
             });
 
@@ -113,16 +141,3 @@
     </script>
 </main>
 
-<!--<div class="cart">
-        <h1>Your Shopping Cart</h1>
-        {{#items}}
-        <div class="cart-item">
-            <h2>{{name}}</h2>
-            <p>Price: ${{price}}</p>
-            <p>Quantity: {{quantity}}</p>
-        </div>
-        {{/items}}
-        <div class="cart-total">
-        <h2>Total: ${{total}}</h2>
-        </div>
-    </div>-->
